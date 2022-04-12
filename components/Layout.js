@@ -9,10 +9,15 @@ export default function Layout ({ children }) {
       <Meta/>
       <div className='h-screen w-full flex flex-col divide-y-2 divide-black'>
         <Navbar />
-        <div className='flex-1 flex divide-x-2 divide-black'>
+        <div
+          className='flex divide-x-2 divide-black'
+          style={{ height: 'calc(100vh - 6.5rem)' }}
+        >
           <Sidebar />
-          <main className='flex-1'>
-            { children }
+          <main className='flex-1 overflow-y-auto'>
+            <div className='container mx-auto py-4'>
+              { children }
+            </div>
           </main>
         </div>
         <Footer />
