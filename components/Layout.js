@@ -7,11 +7,11 @@ export default function Layout ({ children }) {
   return (
     <>
       <Meta/>
-      <div className='h-screen w-full flex flex-col'>
+      <div className='h-screen w-full flex flex-col divide-y-2 divide-black'>
         <Navbar />
-        <div className='flex-1 flex'>
+        <div className='flex-1 flex divide-x-2 divide-black'>
           <Sidebar />
-          <main className='flex-1 bg-blue-200'>
+          <main className='flex-1'>
             { children }
           </main>
         </div>
