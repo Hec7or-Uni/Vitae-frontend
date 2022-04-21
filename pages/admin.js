@@ -14,6 +14,47 @@ import {
 } from 'chart.js'
 import { Line, Pie } from 'react-chartjs-2'
 
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker
+} from 'react-simple-maps'
+
+const geoUrl =
+  'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json'
+
+export const MapChart = () => {
+  return (
+    <ComposableMap projection="geoEqualEarth" height={1} width={1000} className="h-full w-full select-none">
+      <Geographies geography={geoUrl}>
+        {({ geographies }) =>
+          geographies.map(geo => (
+            <Geography
+              key={geo.rsmKey}
+              geography={geo}
+              fill="#DDD"
+              stroke="#FFF"
+            />
+          ))
+        }
+      </Geographies>
+      {[
+        [-74.006, 40.7128],
+        [-3.7035825, 40.4167047],
+        [-0.8809428, 41.6521342],
+        [2.320041, 48.8588897]
+      ].map(i => {
+        return (
+          <Marker key={i[0]} coordinates={i}>
+            <circle r={2.5} fill="#000" />
+          </Marker>
+        )
+      })}
+    </ComposableMap>
+  )
+}
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -28,6 +69,30 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    y: {
+      min: 0,
+      max: 100,
+      ticks: {
+        stepSize: 25
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      position: 'top'
+    },
+    title: {
+      display: false,
+      text: 'Chart.js Line Chart'
+    }
+  }
+}
+
+export const options2 = {
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top'
@@ -94,9 +159,9 @@ export const data3 = {
 
 export default function Storage () {
   return (
-    <div className='max-w-5xl grid grid-cols-3 gap-4 overflow-y-auto'>
-      <div className='col-span-2'>
-        <img src='./map.png'/>
+    <div className='max-w-5xl grid grid-cols-3 gap-4 h-full'>
+      <div className='col-span-2 h-80 flex items-center justify-center'>
+        <MapChart />
       </div>
       <div className='col-span-1 grid grid-rows-3 grid-flow-col gap-4'>
         <div className='row-span-1 flex items-center gap-6 px-4 py-1.5'>
@@ -121,14 +186,14 @@ export default function Storage () {
           </div>
         </div>
       </div>
-      <div className='py-8 px-2 col-span-1'>
+      <div className='py-6 px-2 col-span-1 h-64 w-full'>
         <Line options={options} data={data1} />
       </div>
-      <div className='py-8 px-2 col-span-1'>
+      <div className='py-6 px-2 col-span-1 h-64 w-full'>
         <Line options={options} data={data2} />
       </div>
-      <div className='py-8 px-2 col-span-1'>
-        <Pie data={data3} />
+      <div className='py-6 px-2 col-span-1 h-64 w-full' >
+        <Pie options={options2} data={data3}/>
       </div>
     </div>
   )
