@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { FiArrowLeft } from 'react-icons/fi'
 import Partner from '../components/Partner'
+import Layout2 from '../components/Layout2'
 
 export default function About () {
   const router = useRouter()
@@ -66,4 +67,8 @@ export default function About () {
       </div>
     </div>
   )
+}
+
+About.getLayout = function getLayout (page) {
+  return <Layout2>{page}</Layout2>
 }

@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FiCheck } from 'react-icons/fi'
 import Testimonial from '../components/Testimonial'
+import Navbar2 from '../components/Navbar2'
+import Footer2 from '../components/Footer2'
 
 export default function Index () {
   return (
@@ -13,16 +15,17 @@ export default function Index () {
           layout='fill'
           className='z-0'
         />
-        <div className='z-50 flex flex-col items-center'>
-          <h1>
+        <div className='max-w-prose z-50 flex flex-col gap-8 items-center'>
+          <h1 className='text-center text-4xl font-bold capitalize'>
             Rutrum vitae morbi quam nulla vel massa eu id massa.
           </h1>
           <Link href={'/'}>
-            <a>
-              Contact
+            <a className='px-4 py-1.5 bg-white rounded-lg text-lg'>
+              Join Now
             </a>
           </Link>
         </div>
+        <Navbar2 />
       </div>
       <div className='py-20 my-28 h-full container flex justify-center gap-16 mx-auto'>
         <div className='basis-1/4 flex relative'>
@@ -59,13 +62,13 @@ export default function Index () {
         <Testimonial />
       </div>
       <section className='py-20 my-28 flex items-center justify-center bg-gray-200'>
-        <div className='container flex justify-around'>
-          <p>
-            Dolor quam sodales nunc, tortor semper aliquam maecenas.
+        <div className='container flex items-center justify-around'>
+          <p className='max-w-prose text-lg'>
+            Dolor quam sodales nunc, tortor semper aliquam maecenas.tortor semper aliquam maecenas.
           </p>
           <Link href={'/'}>
-            <a>
-              Contact
+            <a className='px-4 py-1.5 bg-white rounded-lg text-lg'>
+              Join Now
             </a>
           </Link>
         </div>
@@ -79,6 +82,7 @@ export default function Index () {
           </p>
         </div>
       </div>
+      <Footer2 />
     </>
   )
 }

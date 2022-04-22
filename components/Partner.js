@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Partner ({ img, title, description, email }) {
   return (
     <div className='flex items-center gap-10'>
-      <div className='w-44 h-44 relative bg-gray-200'>
+      <div className='w-44 h-44 relative rounded-lg bg-gray-200'>
         <Image
           src={img}
           alt="Picture of the author"
