@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import { useScreen } from '../context/ScreenContext'
 
 export default function SButton ({ id, link, icon, text, active, handler }) {
+  const { leftSidebar } = useScreen()
+
   return (
     <Link href={link}>
       <a
@@ -12,7 +15,9 @@ export default function SButton ({ id, link, icon, text, active, handler }) {
         <span className="px-5">
           {icon}
         </span>
-        <span className="text-sm px-4 w-24 capitalize text-center ">{text}</span>
+        {!leftSidebar && (
+            <span className="text-sm px-4 w-24 capitalize text-center">{text}</span>
+        )}
       </a>
     </Link>
   )

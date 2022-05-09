@@ -37,6 +37,11 @@ export const options = {
       ticks: {
         stepSize: 25
       }
+    },
+    x: {
+      grid: {
+        display: false
+      }
     }
   },
   plugins: {
@@ -141,18 +146,19 @@ export default function Home () {
             </div>
           </div>
         </div>
-        <div className='divide-y-2 divide-black flex flex-col justify-center p-4 w-1/3 bg-gray-100'>
+        <div className='divide-y-2 divide-black flex flex-col  p-4 w-1/3 bg-gray-100'>
           <h3 className='text-lg font-medium mb-3'>Shopping List</h3>
           <ul className='max-h-96 overflow-y-auto pt-1.5'>
             {[
-              { id: 1, text: 'apples' },
-              { id: 2, text: 'sugar' },
-              { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }, { id: 1, text: 'apples' }
+              { id: 1, text: 'apples', quantity: 1 },
+              { id: 2, text: 'sugar', quantity: 1 },
+              { id: 3, text: 'apples', quantity: 1 }
             ].map(items => {
               return (
-                <li key={items.id}>
-                  {items.text}
-                </li>
+                <label key={items.id} htmlFor={items.text} className="flex items-center gap-2">
+                  <input type="checkbox" value={items.text}/>
+                  <span>{items.text} x{items.quantity}</span>
+                </label>
               )
             })}
           </ul>
