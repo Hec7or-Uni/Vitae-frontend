@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import React from 'react'
+import Schedule from '../components/Schedule'
 import {
   Chart as ChartJS,
   ArcElement,
@@ -131,7 +132,7 @@ export const data3 = {
 
 export default function Home () {
   return (
-    <div className='max-w-5xl flex gap-4 h-full'>
+    <div className='max-w-5xl flex flex-col gap-4 h-full'>
       <div className='w-full flex'>
         <div className='w-2/3'>
           <div className='w-full h-60 flex items-center justify-center'>
@@ -164,6 +165,7 @@ export default function Home () {
           </ul>
         </div>
       </div>
+      <Schedule />
     </div>
   )
 }

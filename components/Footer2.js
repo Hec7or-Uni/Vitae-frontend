@@ -5,7 +5,7 @@ export default function Footer2 () {
     <div className='h-10 w-full flex items-center border-t-2 border-black'>
       <div className='container mx-auto flex justify-between '>
         <div>
-          <p>
+          <p className='select-none'>
             ©2022 vitop.co. All Rights Reserved.
           </p>
         </div>
