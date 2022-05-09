@@ -10,7 +10,8 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 } from 'chart.js'
 import { Line, Pie } from 'react-chartjs-2'
 
@@ -62,7 +63,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 )
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -86,6 +88,9 @@ export const options = {
     title: {
       display: false,
       text: 'Chart.js Line Chart'
+    },
+    filler: {
+      propagate: true
     }
   }
 }
@@ -114,7 +119,9 @@ export const data1 = {
       label: 'Dataset 1',
       data: weekdays.map(() => Math.floor(Math.random() * 100)),
       borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)'
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      tension: 0.25,
+      fill: 'origin'
     }
   ]
 }
@@ -125,7 +132,9 @@ export const data2 = {
       label: 'Dataset 1',
       data: months.map(() => Math.floor(Math.random() * 100)),
       borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)'
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      tension: 0.25,
+      fill: 'origin'
     }
   ]
 }
@@ -157,7 +166,7 @@ export const data3 = {
   ]
 }
 
-export default function Storage () {
+export default function Admin () {
   return (
     <div className='max-w-5xl grid grid-cols-3 gap-4 h-full'>
       <div className='col-span-2 h-80 flex items-center justify-center'>
@@ -199,6 +208,6 @@ export default function Storage () {
   )
 }
 
-Storage.getLayout = function getLayout (page) {
+Admin.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
 }
