@@ -10,12 +10,12 @@ export default function Footer2 () {
           </p>
         </div>
         <div className='flex gap-4'>
-          <Link href="/tos">
+          <Link href='/tos'>
             <a>
               Terms of Service
             </a>
           </Link>
-          <Link href="/privacypolicy">
+          <Link href='/privacypolicy'>
             <a>
               Privacy Policy
             </a>

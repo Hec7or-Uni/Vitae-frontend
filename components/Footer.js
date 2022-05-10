@@ -5,6 +5,7 @@ import {
 } from 'react-icons/fi'
 import Tippy from '@tippyjs/react'
 import { useScreen } from '../context/ScreenContext'
+import Link from 'next/link'
 
 export default function Footer () {
   const {
@@ -14,12 +15,12 @@ export default function Footer () {
     handleSl
   } = useScreen()
   return (
-    <div className='h-10 w-full flex items-center'>
-      <div className='flex gap-x-4 px-2'>
-      <Tippy
+    <div className='h-10 w-full flex items-center justify-between px-2'>
+      <div className='flex gap-x-4'>
+        <Tippy
           arrow={false}
           content={
-            <span className="tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md">
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md'>
               Collapse sidebar
             </span>
           }
@@ -34,7 +35,7 @@ export default function Footer () {
         <Tippy
           arrow={false}
           content={
-            <span className="tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md">
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md'>
               Turn on Zen mode
             </span>
           }
@@ -42,13 +43,25 @@ export default function Footer () {
           <button onClick={handleMode}>
             {mzLayout
               ? (
-              <FiMinimize className="text-lg cursor-pointer stroke-1 hover:stroke-2" />
+              <FiMinimize className='text-lg cursor-pointer stroke-1 hover:stroke-2' />
                 )
               : (
-              <FiMaximize className="text-lg cursor-pointer stroke-1 hover:stroke-2" />
+              <FiMaximize className='text-lg cursor-pointer stroke-1 hover:stroke-2' />
                 )}
           </button>
         </Tippy>
+      </div>
+      <div className='flex gap-4'>
+        <Link href='/tos'>
+          <a>
+            Terms of Service
+          </a>
+        </Link>
+        <Link href='/privacypolicy'>
+          <a>
+            Privacy Policy
+          </a>
+        </Link>
       </div>
     </div>
   )
