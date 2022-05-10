@@ -1,5 +1,5 @@
 import SButton from './sButton'
-import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings } from 'react-icons/fi'
+import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings, FiActivity } from 'react-icons/fi'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
@@ -39,8 +39,8 @@ export default function Sidebar () {
     links = [{
       id: 1,
       link: '/admin',
-      icon: <FiHeart className="text-xl stroke-1" />,
-      text: 'admin'
+      icon: <FiActivity className="text-xl stroke-1" />,
+      text: 'home'
     }]
   }
 

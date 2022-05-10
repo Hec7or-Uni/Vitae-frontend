@@ -23,10 +23,10 @@ export default function Settings () {
           <label htmlFor='gender' className='flex-1 flex flex-col gap-1'>
             <span>Gender</span>
             <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-gray-100 text-black'>
-            <option value=''></option>
-            <option value='male'>male</option>
-            <option value='female'>female</option>
-          </select>
+              <option value=''></option>
+              <option value='male'>male</option>
+              <option value='female'>female</option>
+            </select>
           </label>
         </div>
         <div className='flex gap-4'>
