@@ -3,6 +3,7 @@ import Schedule from '../components/Schedule'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 import { useState } from 'react'
 import cuid from 'cuid'
+import { getSession } from 'next-auth/react'
 
 export default function Planning () {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '', mealType: '' }])
@@ -155,4 +156,21 @@ export default function Planning () {
 
 Planning.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps ({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { }
+  }
 }

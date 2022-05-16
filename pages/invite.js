@@ -38,7 +38,7 @@ export default function Invite () {
       if (!e.target.checkbox.checked) {
         reject(new Error('error'))
       } else {
-        fetch('/api/user', {
+        fetch('http://localhost:4000/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(query)

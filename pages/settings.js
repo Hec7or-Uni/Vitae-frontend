@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
+import { getSession } from 'next-auth/react'
 
 export default function Settings () {
   return (
@@ -90,4 +91,21 @@ export default function Settings () {
 
 Settings.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps ({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { }
+  }
 }

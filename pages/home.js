@@ -14,6 +14,7 @@ import {
   Filler
 } from 'chart.js'
 import { Line, Pie } from 'react-chartjs-2'
+import { getSession } from 'next-auth/react'
 
 ChartJS.register(
   CategoryScale,
@@ -172,4 +173,21 @@ export default function Home () {
 
 Home.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps ({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { }
+  }
 }

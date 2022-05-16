@@ -1,7 +1,8 @@
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
-export default function Login ({ csrfToken }) {
+export default function Login () {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5 dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
       <div className="w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
@@ -9,10 +10,10 @@ export default function Login ({ csrfToken }) {
           <span className="text-xl font-medium text-gray-900">Login</span>
         </div>
         <form
+          method='post'
           onSubmit={() => {}}
           className="mt-4"
         >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <label type="id" className="block">
             <span className="text-sm text-gray-700">Username or Email</span>
             <input
@@ -63,21 +64,24 @@ export default function Login ({ csrfToken }) {
           <hr className='my-4'/>
           <div className="mt-6 flex gap-4">
             <button
-              type="submit"
+              onClick={() => signIn('google')}
+              type="button"
               className="capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200"
             >
               <RiGoogleFill className='text-xl' />
               <span>Google</span>
             </button>
             <button
-              type="submit"
+              onClick={() => signIn('twitter')}
+              type="button"
               className="capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200"
             >
               <RiTwitterLine className='text-xl' />
               <span>Twitter</span>
             </button>
             <button
-              type="submit"
+              onClick={() => signIn('instagram')}
+              type="button"
               className="capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200"
             >
               <RiInstagramLine className='text-xl' />
