@@ -1,7 +1,7 @@
-import SButton from './sButton'
-import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings, FiActivity } from 'react-icons/fi'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import SButton from './sButton'
+import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings, FiActivity } from 'react-icons/fi'
 
 export default function Sidebar () {
   const [active, setActive] = useState(1)

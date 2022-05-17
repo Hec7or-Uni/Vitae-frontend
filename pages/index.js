@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { FiCheck } from 'react-icons/fi'
 import Testimonial from '../components/Testimonial'
 import Navbar2 from '../components/Navbar2'
 import Footer2 from '../components/Footer2'
+import { FiCheck } from 'react-icons/fi'
 
 export default function Index () {
   return (

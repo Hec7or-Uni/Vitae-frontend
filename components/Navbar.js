@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useSession, signOut } from 'next-auth/react'
+import { useScreen } from '../context/ScreenContext'
 import Tippy from '@tippyjs/react'
 import copy from 'copy-to-clipboard'
 import { FiUserPlus, FiLogOut } from 'react-icons/fi'
-import { useScreen } from '../context/ScreenContext'
-import { useSession, signOut } from 'next-auth/react'
 
 const user = {
   name: 'Hec7orci7o',

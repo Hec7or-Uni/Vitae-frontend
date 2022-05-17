@@ -1,9 +1,9 @@
 import Layout from '../components/Layout'
-import Schedule from '../components/Schedule'
-import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 import { useState } from 'react'
-import cuid from 'cuid'
 import { getSession } from 'next-auth/react'
+import Schedule from '../components/Schedule'
+import cuid from 'cuid'
+import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 
 export default function Planning () {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '', mealType: '' }])

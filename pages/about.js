@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router'
-import { FiArrowLeft } from 'react-icons/fi'
-import Partner from '../components/Partner'
 import Layout2 from '../components/Layout2'
+import { useRouter } from 'next/router'
+import Partner from '../components/Partner'
+import { FiArrowLeft } from 'react-icons/fi'
 
 export default function About () {
   const router = useRouter()

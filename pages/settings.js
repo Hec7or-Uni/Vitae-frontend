@@ -1,6 +1,6 @@
 import Layout from '../components/Layout'
-import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import { getSession } from 'next-auth/react'
+import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
 export default function Settings () {
   return (

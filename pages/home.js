@@ -1,4 +1,5 @@
 import Layout from '../components/Layout'
+import { getSession } from 'next-auth/react'
 import React from 'react'
 import Schedule from '../components/Schedule'
 import {
@@ -14,7 +15,6 @@ import {
   Filler
 } from 'chart.js'
 import { Line, Pie } from 'react-chartjs-2'
-import { getSession } from 'next-auth/react'
 
 ChartJS.register(
   CategoryScale,

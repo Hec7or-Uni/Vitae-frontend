@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FiLogOut } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
-import Tippy from '@tippyjs/react'
 import { useSession, signOut } from 'next-auth/react'
+import Tippy from '@tippyjs/react'
+import { FiLogOut } from 'react-icons/fi'
 
 const user = {
   name: 'Hec7orci7o',

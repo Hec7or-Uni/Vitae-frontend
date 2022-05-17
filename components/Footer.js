@@ -1,11 +1,11 @@
+import Link from 'next/link'
+import { useScreen } from '../context/ScreenContext'
+import Tippy from '@tippyjs/react'
 import {
   FiMaximize,
   FiMinimize,
   FiSidebar
 } from 'react-icons/fi'
-import Tippy from '@tippyjs/react'
-import { useScreen } from '../context/ScreenContext'
-import Link from 'next/link'
 
 export default function Footer () {
   const {

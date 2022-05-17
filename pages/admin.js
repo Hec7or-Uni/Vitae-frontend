@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import React from 'react'
+import { getSession } from 'next-auth/react'
 import { FiUsers, FiUserCheck, FiTrendingUp } from 'react-icons/fi'
 import {
   Chart as ChartJS,
@@ -14,7 +15,6 @@ import {
   Filler
 } from 'chart.js'
 import { Line, Pie } from 'react-chartjs-2'
-import { getSession } from 'next-auth/react'
 
 import {
   ComposableMap,
