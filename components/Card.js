@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Card ({ id, img }) {
   return (
-    <Link href={id}>
+    <Link href={'/recipe/' + id}>
       <a className='w-40 h-56 rounded-lg relative'>
         <Image
           src={img}
