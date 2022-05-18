@@ -78,7 +78,7 @@ export default function Planning () {
               <label htmlFor='name' className='flex-1 flex flex-col gap-1'>
                 <span>Name</span>
                 <input
-                  type="text"
+                  type='text'
                   name='name'
                   placeholder='Write here your menu&apos;s name '
                   className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
@@ -86,7 +86,7 @@ export default function Planning () {
               </label>
               <label className='flex-1 flex flex-col gap-1'>
                 <span>date</span>
-                <input type="date" className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'/>
+                <input type='date' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'/>
               </label>
             </div>
             <div className='flex flex-col gap-2'>

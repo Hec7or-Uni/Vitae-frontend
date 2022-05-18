@@ -28,15 +28,15 @@ const geoUrl =
 
 export const MapChart = () => {
   return (
-    <ComposableMap projection="geoEqualEarth" height={1} width={1000} className="h-full w-full select-none">
+    <ComposableMap projection='geoEqualEarth' height={1} width={1000} className='h-full w-full select-none'>
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
           geographies.map(geo => (
             <Geography
               key={geo.rsmKey}
               geography={geo}
-              fill="#DDD"
-              stroke="#FFF"
+              fill='#DDD'
+              stroke='#FFF'
             />
           ))
         }
@@ -49,7 +49,7 @@ export const MapChart = () => {
       ].map(i => {
         return (
           <Marker key={i[0]} coordinates={i}>
-            <circle r={2.5} fill="#000" />
+            <circle r={2.5} fill='#000' />
           </Marker>
         )
       })}

@@ -157,8 +157,8 @@ export default function Home () {
               { id: 3, text: 'apples', quantity: 1 }
             ].map(items => {
               return (
-                <label key={items.id} htmlFor={items.text} className="flex items-center gap-2">
-                  <input type="checkbox" value={items.text}/>
+                <label key={items.id} htmlFor={items.text} className='flex items-center gap-2'>
+                  <input type='checkbox' value={items.text}/>
                   <span>{items.text} x{items.quantity}</span>
                 </label>
               )

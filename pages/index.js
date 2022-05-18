@@ -10,8 +10,8 @@ export default function Index () {
     <>
       <div className='w-full h-screen relative top-0 flex items-center justify-center'>
         <Image
-          src="https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=1&auto=format%2Ccompress&fit=crop&w=2399&h=594%201x,%20https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=2&auto=format%2Ccompress&fit=crop&w=2399&h=594%202x"
-          alt="Picture of the author"
+          src='https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=1&auto=format%2Ccompress&fit=crop&w=2399&h=594%201x,%20https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=2&auto=format%2Ccompress&fit=crop&w=2399&h=594%202x'
+          alt='Picture of the author'
           layout='fill'
           className='z-0'
         />
@@ -30,8 +30,8 @@ export default function Index () {
       <div className='py-20 my-28 h-full container flex justify-center gap-16 mx-auto'>
         <div className='basis-1/4 flex relative'>
           <Image
-            src="https://images.unsplash.com/photo-1650407423279-3ff8bbd83fc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-            alt="Picture of the author"
+            src='https://images.unsplash.com/photo-1650407423279-3ff8bbd83fc5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+            alt='Picture of the author'
             layout='fill'
             className='z-0'
           />
