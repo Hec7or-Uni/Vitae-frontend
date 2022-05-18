@@ -1,10 +1,13 @@
 import NextAuth from 'next-auth'
+import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
+import clientPromise from 'lib/mongodb'
 import GoogleProvider from 'next-auth/providers/google'
 import TwitterProvider from 'next-auth/providers/twitter'
 import InstagramProvider from 'next-auth/providers/instagram'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export default NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     // OAuth authentication providers...
     GoogleProvider({
