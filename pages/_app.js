@@ -8,7 +8,10 @@ function MyApp ({
   const getLayout = Component.getLayout || ((page) => page)
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider
+      session={session}
+      refetchInterval={5 * 60}
+    >
       {getLayout(<Component {...pageProps} />)}
     </SessionProvider>
   )

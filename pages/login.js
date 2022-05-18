@@ -3,6 +3,23 @@ import { signIn } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
 export default function Login () {
+  function handleSubmit (e) {
+    e.preventDefault()
+    const { email, password } = e.target
+    return new Promise(function (resolve, reject) {
+      signIn('credentials', {
+        email: email.value,
+        password: password.value,
+        redirect: false
+      }).then((res) => {
+        if (!res.ok) {
+          reject(new Error('error'))
+        }
+        resolve('ok')
+      })
+    })
+  }
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5 dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
       <div className="w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
@@ -11,20 +28,20 @@ export default function Login () {
         </div>
         <form
           method='post'
-          onSubmit={() => {}}
+          onSubmit={(e) => handleSubmit(e)}
           className="mt-4"
         >
-          <label type="id" className="block">
-            <span className="text-sm text-gray-700">Username or Email</span>
+          <label type="email" id="email" name="email" className="block">
+            <span className="text-sm text-gray-700">Email</span>
             <input
-              id="id"
-              type="id"
-              name="id"
+              id="email"
+              type="email"
+              name="email"
               className="block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent"
               required
             />
           </label>
-          <label type="password" className="block mt-3">
+          <label type="password" id="password" name="password" className="block mt-3">
             <span className="text-sm text-gray-700">Password</span>
             <input
               id="password"
