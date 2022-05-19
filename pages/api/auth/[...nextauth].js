@@ -43,7 +43,7 @@ export default NextAuth({
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch('http://localhost:4000/api/users/signin', {
+        const res = await fetch('http://localhost:4000/api/user/signin', {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' }
@@ -75,6 +75,12 @@ export default NextAuth({
       // Send properties to the client, like an access_token from a provider.
       session.accessToken = token.accessToken
       return session
+    },
+    async signIn ({ account, profile }) {
+      if (account.provider === 'google') {
+        return profile.email_verified && profile.email.endsWith('@gmail.com')
+      }
+      return true // Do different verification for other providers that don't have `email_verified`
     }
   },
   secret: process.env.NEXTAUTH_SECRET,

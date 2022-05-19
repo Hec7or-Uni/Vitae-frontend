@@ -2,10 +2,12 @@ import Link from 'next/link'
 import crypto from 'crypto'
 import CryptoJS from 'crypto-js'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Invite () {
   const [pw, setPw] = useState('')
   const [secureLVL, setSecureLVL] = useState(-1)
+  const router = useRouter()
 
   useEffect(() => {
     let secureLevel = -1
@@ -22,8 +24,8 @@ export default function Invite () {
     const salt = crypto.randomBytes(32).toString('hex')
     const query = {
       name: e.target.name.value,
-      lastName: e.target.lastName.value,
-      userName: e.target.username.value,
+      lastname: e.target.lastName.value,
+      username: e.target.username.value,
       email: e.target.email.value,
       salt: salt,
       hash: CryptoJS.SHA512(salt + e.target.password.value).toString()
@@ -34,8 +36,7 @@ export default function Invite () {
       body: JSON.stringify(query),
       headers: { 'Content-Type': 'application/json' }
     })
-      .then(res => res.json())
-      .then(res => console.log(res))
+      .then(() => router.push('http://localhost:3000/login'))
       .catch(err => console.error('error', err))
   }
 

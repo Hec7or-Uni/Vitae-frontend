@@ -1,23 +1,19 @@
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
 export default function Login () {
-  function handleSubmit (e) {
+  const router = useRouter()
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const { email, password } = e.target
-    return new Promise(function (resolve, reject) {
-      signIn('credentials', {
-        email: email.value,
-        password: password.value,
-        redirect: false
-      }).then((res) => {
-        if (!res.ok) {
-          reject(new Error('error'))
-        }
-        resolve('ok')
-      })
-    })
+    await signIn('credentials', {
+      email: e.target.email.value,
+      password: e.target.password.value,
+      redirect: false
+    }).then(() => router.push('http://localhost:3000/home'))
+      .catch(err => console.error('error', err))
   }
 
   return (
@@ -81,7 +77,7 @@ export default function Login () {
           <hr className='my-4'/>
           <div className='mt-6 flex gap-4'>
             <button
-              onClick={() => signIn('google')}
+              onClick={async () => await signIn('google')}
               type='button'
               className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
             >
@@ -89,7 +85,7 @@ export default function Login () {
               <span>Google</span>
             </button>
             <button
-              onClick={() => signIn('twitter')}
+              onClick={async () => await signIn('twitter')}
               type='button'
               className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
             >
@@ -97,7 +93,7 @@ export default function Login () {
               <span>Twitter</span>
             </button>
             <button
-              onClick={() => signIn('instagram')}
+              onClick={async () => await signIn('instagram')}
               type='button'
               className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
             >

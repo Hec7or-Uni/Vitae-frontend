@@ -1,8 +1,12 @@
 import Layout from '../components/Layout'
-import { getSession } from 'next-auth/react'
+import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
 export default function Settings ({ user, token }) {
+  /**
+   *
+   * @param {*} e
+   */
   const handleUpdate = async (e) => {
     e.preventDefault()
     const query = {
@@ -22,6 +26,19 @@ export default function Settings ({ user, token }) {
     }).then(res => res.json())
       .then(res => console.log(res))
       .catch(err => console.error(err))
+  }
+
+  /**
+   *
+   */
+  const handleDelete = async () => {
+    const uri = 'http://localhost:4000/api/user/delete-account'
+
+    await fetch(uri, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email })
+    }).then(() => signOut({ redirect: 'http://localhost:3000' }))
   }
 
   return (
@@ -59,7 +76,7 @@ export default function Settings ({ user, token }) {
           <label htmlFor='gender' className='flex-1 flex flex-col gap-1'>
             <span>Gender</span>
             <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-gray-100 text-black'>
-              <option defaultValue={user.gender}></option>
+              <option value='none' selected disabled hidden>{user.gender}</option>
               <option value='male'>male</option>
               <option value='female'>female</option>
             </select>
@@ -102,6 +119,7 @@ export default function Settings ({ user, token }) {
           </button>
           <button
             type='button'
+            onClick={() => { handleDelete() }}
             className='flex-1 px-2.5 py-2.5 rounded-md bg-red-400 text-white font-bold'
           >
             delete account
@@ -111,7 +129,7 @@ export default function Settings ({ user, token }) {
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
       <div className='w-2/3 flex gap-4'>
         <button
-          onClick={() => {}}
+          onClick={() => signIn('google')}
           type='button'
           className='flex-1 px-4 py-2 flex gap-3 items-center bg-gray-100 hover:bg-gray-200 rounded-md'
         >
