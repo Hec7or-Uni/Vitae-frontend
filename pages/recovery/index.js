@@ -1,29 +1,22 @@
 import { getCsrfToken } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import toast, { Toaster } from 'react-hot-toast'
 
 export default function Recovery ({ csrfToken }) {
   const router = useRouter()
 
-  function handleSubmit (e) {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    return new Promise(function (resolve, reject) {
-      const params = new URLSearchParams({
-        email: e.target.email.value
-      })
-      fetch(`/api/recovery/?${params.toString()}`).then((res) => {
-        res.json()
-        if (!res.ok) {
-          reject(new Error('error'))
-        }
-        resolve('ok')
-      })
+    const res = await fetch(`http://localhost:4000/api/recovery?email=${e.target.email.value}`, {
+      headers: {
+        'Content-Type': 'application-json'
+      }
     })
+      .then((res) => res.json())
+    console.log(res)
   }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5  dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2">
-      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6">
         <div className="flex items-center justify-center">
           <span className="text-xl font-medium text-gray-900 mb-4">
@@ -36,12 +29,7 @@ export default function Recovery ({ csrfToken }) {
         <form
           method="post"
           onSubmit={(e) => {
-            toast
-              .promise(handleSubmit(e), {
-                loading: 'Enviando email...',
-                success: 'Email enviado con éxito.',
-                error: 'Error al enviar el email.'
-              })
+            handleSubmit(e)
               .then(router.push('/'))
               .catch(router.push('/recovery'))
           }}
@@ -61,7 +49,7 @@ export default function Recovery ({ csrfToken }) {
           <div className="mt-8">
             <button
               type="submit"
-              className="capitalize w-full tracking-normal py-2.5 px-4 text-sm font-bold text-center text-white bg-dark1 hover:black rounded-md"
+              className="capitalize w-full tracking-normal py-2.5 px-4 text-sm font-bold text-center text-white bg-black hover:black rounded-md"
             >
               Continuar
             </button>
