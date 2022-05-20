@@ -17,8 +17,8 @@ export default function Login () {
   }
 
   return (
-    <div className='flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5 dark:bg-gradient-to-t dark:from-cm-color dark:via-cm-color dark:to-cm-color2'>
-      <div className='w-full max-w-sm p-4 bg-white dark:bg-color-light-neutral-1 rounded-md shadow-md sm:p-6'>
+    <div className='flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5'>
+      <div className='w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-6'>
         <div className='flex items-center justify-center'>
           <span className='text-xl font-medium text-gray-900'>Login</span>
         </div>
@@ -58,12 +58,11 @@ export default function Login () {
               </label>
             </div>
             <div>
-              <a
-                className='block text-sm text-blue-600 fontme hover:underline'
-                href='#'
-              >
-                Forgot your password?
-              </a>
+              <Link href="/recovery">
+                <a className='block text-sm text-blue-600 fontme hover:underline'>
+                  Forgot your password?
+                </a>
+              </Link>
             </div>
           </div>
           <div className='mt-6'>

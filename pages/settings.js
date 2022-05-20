@@ -102,7 +102,7 @@ export default function Settings ({ user }) {
               name='weight'
               type='number'
               placeholder='62,5'
-              defaultValue={user.weight[user.weight.length - 1]}
+              defaultValue={user.weight ? user.weight[user.weight.lenght - 1] : null}
               className='px-2.5 py-2 rounded-md bg-gray-100 text-black'
               min='5'
               max='250'
@@ -178,12 +178,7 @@ export async function getServerSideProps ({ req }) {
     email: session.user.email
   })
   const uri = `http://localhost:4000/api/user?${params.toString()}`
-  const user = await fetch(uri, {
-    method: 'GET'
-    // headers: {
-    //   Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
-    // }
-  }).then(res => res.json())
+  const user = await fetch(uri).then(res => res.json())
 
   return {
     props: {

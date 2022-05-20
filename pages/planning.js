@@ -4,18 +4,54 @@ import { getSession } from 'next-auth/react'
 import Schedule from '../components/Schedule'
 import cuid from 'cuid'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
+import { data } from '../lib/temp'
 
 export default function Planning () {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '', mealType: '' }])
+  const [header, setHeader] = useState({ name: '', date: '' })
   const [menuOp, setOp] = useState(true) // true = create | false = generate
 
   const addRecipe = () => {
     setMenu([...menu, { id: cuid(), recipe: '', mealType: '' }])
   }
 
-  // const saveMenu = (e) => {
-  //   e.preventDefault()
-  // }
+  const editRecipe = (e, id) => {
+    const localMenu = menu.map(elem => {
+      if (elem.id !== id) return elem
+      if (e.target.name === 'recipe') {
+        return {
+          ...elem,
+          recipe: e.target.value
+        }
+      } else if (e.target.name === 'mealType') {
+        return {
+          ...elem,
+          mealType: e.target.value
+        }
+      }
+      return elem
+    })
+    setMenu(localMenu)
+  }
+
+  const saveMenu = async (e) => {
+    e.preventDefault()
+    const data = {
+      name: header.name,
+      date: header.date,
+      recipes: menu.map(m => {
+        return {
+          name: m.recipe,
+          mealType: m.mealType
+        }
+      })
+    }
+    await fetch('http:localhost:4000/api', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+  }
 
   const delMenu = () => {
     setMenu([{ id: cuid(), recipe: '', mealType: '' }])
@@ -31,7 +67,7 @@ export default function Planning () {
 
   return (
     <div className='max-w-5xl flex flex-col gap-4 h-full'>
-      <form method='post'>
+      <form method='post' onSubmit={(e) => saveMenu(e)}>
         <div className='w-2/3 flex gap-4 justify-between'>
           <div className='flex gap-4'>
             <button
@@ -79,14 +115,24 @@ export default function Planning () {
                 <span>Name</span>
                 <input
                   type='text'
+                  id='name'
                   name='name'
+                  onChange={(e) => setHeader({ ...header, name: e.target.value })}
                   placeholder='Write here your menu&apos;s name '
                   className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                  required
                 />
               </label>
               <label className='flex-1 flex flex-col gap-1'>
                 <span>date</span>
-                <input type='date' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'/>
+                <input
+                  type='date'
+                  id='date'
+                  name='date'
+                  onChange={(e) => setHeader({ ...header, date: e.target.value })}
+                  className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                  required
+                />
               </label>
             </div>
             <div className='flex flex-col gap-2'>
@@ -94,15 +140,39 @@ export default function Planning () {
                 ? <>
                 {menu.map(r => {
                   return (
-                    <div key={r.id} className='flex gap-4 rounded-md'>
+                    <div
+                      key={r.id}
+                      className='flex gap-4 rounded-md'
+                    >
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
-                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'>
+                        <select
+                          id='recipe'
+                          name='recipe'
+                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                          onChange={(e) => editRecipe(e, r.id)}
+                          required
+                        >
                           <option value=''>Select a Recipe</option>
-                          {[{ id: 1, value: 'ristoranti' }].map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
+                          {data.recipes.map(m => {
+                            return (
+                              <option
+                                key={m.id}
+                                value={m.id}
+                              >
+                                {m.title}
+                              </option>
+                            )
+                          })}
                         </select>
                       </label>
                       <label htmlFor='mealType' className='flex flex-col gap-1 w-44'>
-                        <select id='mealType' name='mealType' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'>
+                        <select
+                          id='mealType'
+                          name='mealType'
+                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                          onChange={(e) => editRecipe(e, r.id)}
+                          required
+                        >
                           <option value=''>Meal type</option>
                           {[
                             { id: 1, value: 'breakfast' },
