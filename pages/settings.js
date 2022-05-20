@@ -2,7 +2,7 @@ import Layout from '../components/Layout'
 import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
-export default function Settings ({ user, token }) {
+export default function Settings ({ user }) {
   /**
    *
    * @param {*} e
@@ -17,7 +17,6 @@ export default function Settings ({ user, token }) {
       height: Number(e.target.height.value) || user.height,
       weight: [...user.weight, Number(e.target.weight.value)] || user.weight
     }
-    console.log(query)
     const uri = 'http://localhost:4000/api/user/update-account'
     await fetch(uri, {
       method: 'PUT',
@@ -76,9 +75,9 @@ export default function Settings ({ user, token }) {
           <label htmlFor='gender' className='flex-1 flex flex-col gap-1'>
             <span>Gender</span>
             <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-gray-100 text-black'>
-              <option value='none' selected disabled hidden>{user.gender}</option>
-              <option value='male'>male</option>
-              <option value='female'>female</option>
+              <option defaultValue={user.gender} value='none' disabled hidden></option>
+              <option value='male' selected={user.gender === 'male'}>male</option>
+              <option value='female' selected={user.gender === 'female'}>female</option>
             </select>
           </label>
         </div>
@@ -129,7 +128,9 @@ export default function Settings ({ user, token }) {
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
       <div className='w-2/3 flex gap-4'>
         <button
-          onClick={() => signIn('google')}
+          onClick={async () => await signIn('google', { redirect: false })
+            .then(res => console.log(res))
+            .catch(err => console.error(err))}
           type='button'
           className='flex-1 px-4 py-2 flex gap-3 items-center bg-gray-100 hover:bg-gray-200 rounded-md'
         >
