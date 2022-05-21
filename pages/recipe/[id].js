@@ -6,6 +6,11 @@ import { data, data2 } from '../../lib/temp'
 
 export default function Recipe ({ recipe, nutrition }) {
   const defaultImg = 'https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=1&auto=format%2Ccompress&fit=crop&w=2399&h=594%201x,%20https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=2&auto=format%2Ccompress&fit=crop&w=2399&h=594%202x'
+
+  const handleSaveRecipe = () => {
+
+  }
+
   return (
     <div className='max-w-5xl'>
       <div className='w-full h-80 relative'>
@@ -16,12 +21,14 @@ export default function Recipe ({ recipe, nutrition }) {
           className='object-cover z-0'
         />
         <div className='flex gap-x-4 absolute top-0 right-0 mt-2.5 mr-4'>
-          <FiPlus className='w-5 h-5 text-white'/>
-          <FiClock className='w-5 h-5 text-white'/>
-          <FiHeart className='w-5 h-5 text-white'/>
+          <FiPlus className='w-5 h-5 text-black'/>
+          <FiClock className='w-5 h-5 text-black'/>
+          <FiHeart className='w-5 h-5 text-black'/>
         </div>
         <div className='absolute bottom-0 right-0 mb-2.5 mr-4'>
-          <FiBookmark className='w-5 h-5 text-white'/>
+          <button onClick={() => handleSaveRecipe()}>
+            <FiBookmark className='w-5 h-5 text-black'/>
+          </button>
         </div>
         <h1 className='text-2xl font-medium text-white absolute bottom-0 left-0 mb-2.5 ml-4'>
           Quis sed amet lectus rhoncus
