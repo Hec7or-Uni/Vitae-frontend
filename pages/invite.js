@@ -91,8 +91,8 @@ export default function Invite () {
           <label type='email' className='block mt-1.5'>
             <span className='text-sm text-gray-700'>Email</span>
             <input
-              type='email'
               id='email'
+              type='email'
               name='email'
               autoComplete='email'
               className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
@@ -102,8 +102,8 @@ export default function Invite () {
           <label type='password' className='block mt-1.5'>
             <span className='text-sm text-gray-700'>Password</span>
             <input
-              type='password'
               id='password'
+              type='password'
               name='password'
               autoComplete='current-password'
               onChange={(e) => setPw(e.target.value)}
@@ -113,56 +113,30 @@ export default function Invite () {
           </label>
           <div className='grid w-full h-1 grid-cols-9 gap-4 mt-3'>
             {secureLVL === -1
-              ? (
-              <>
-                <span className={'h-full col-span-3 rounded bg-gray-300'} />
-                <span className={'h-full col-span-3 rounded bg-gray-300'} />
-                <span className={'h-full col-span-3 rounded bg-gray-300'} />
-              </>
-                )
-              : (
-              <>
-                {secureLVL === 0
-                  ? (
-                  <>
-                    <span className={'h-full col-span-3 rounded bg-red-500'} />
-                    <span className={'h-full col-span-3 rounded bg-gray-300'} />
-                    <span className={'h-full col-span-3 rounded bg-gray-300'} />
-                  </>
-                    )
-                  : (
-                  <>
-                    {secureLVL === 1
-                      ? (
-                      <>
-                        <span
-                          className={'h-full col-span-3 rounded bg-yellow-300'}
-                        />
-                        <span
-                          className={'h-full col-span-3 rounded bg-yellow-300'}
-                        />
-                        <span
-                          className={'h-full col-span-3 rounded bg-gray-300'}
-                        />
-                      </>
-                        )
-                      : (
-                      <>
-                        <span
-                          className={'h-full col-span-3 rounded bg-green-300'}
-                        />
-                        <span
-                          className={'h-full col-span-3 rounded bg-green-300'}
-                        />
-                        <span
-                          className={'h-full col-span-3 rounded bg-green-300'}
-                        />
-                      </>
-                        )}
-                  </>
-                    )}
-              </>
-                )}
+              ? (<>
+                <span className='h-full col-span-3 rounded bg-gray-300' />
+                <span className='h-full col-span-3 rounded bg-gray-300' />
+                <span className='h-full col-span-3 rounded bg-gray-300' />
+              </>)
+              : (<> {secureLVL === 0
+                  ? (<>
+                    <span className='h-full col-span-3 rounded bg-red-500' />
+                    <span className='h-full col-span-3 rounded bg-gray-300' />
+                    <span className='h-full col-span-3 rounded bg-gray-300' />
+                  </>)
+                  : (<> {secureLVL === 1
+                      ? (<>
+                        <span className='h-full col-span-3 rounded bg-yellow-300' />
+                        <span className='h-full col-span-3 rounded bg-yellow-300' />
+                        <span className='h-full col-span-3 rounded bg-gray-300' />
+                      </>)
+                      : (<>
+                        <span className='h-full col-span-3 rounded bg-green-300' />
+                        <span className='h-full col-span-3 rounded bg-green-300' />
+                        <span className='h-full col-span-3 rounded bg-green-300' />
+                      </>)}
+                  </>)}
+              </>)}
           </div>
           <label className='inline-flex items-center mt-4'>
             <input
@@ -173,18 +147,18 @@ export default function Invite () {
             <span className='ml-2 text-sm text-gray-600'>
               I accept the{' '}
               <Link href='/tos'>
-                <a className='font-bold hover:underline'>Terms of Service</a>
-              </Link>{' '}
-              and the{' '}
+                <a className='font-bold hover:underline underline-offset-1'>Terms of Service</a>
+              </Link>
+              {' '}and the{' '}
               <Link href='/privacypolicy'>
-                <a className='font-bold hover:underline'>Privacy Policy</a>
+                <a className='font-bold hover:underline underline-offset-1'>Privacy Policy</a>
               </Link>
             </span>
           </label>
           <div className='mt-6'>
             <button
               type='submit'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700'
+              className='w-full text-center capitalize text-xs font-bold tracking-normal px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 duration-300'
             >
               Register
             </button>
@@ -193,15 +167,12 @@ export default function Invite () {
       </div>
       <div className='flex w-full max-w-md p-4 bg-white rounded-md shadow-md sm:p-5 items-center justify-between'>
         <Link href='/login'>
-          <a
-            className='block text-sm text-blue-700 fontme hover:underline'
-            href='#'
-          >
+          <a className='block text-sm text-blue-700 fontme hover:underline underline-offset-1'>
             Have an account?
           </a>
         </Link>
         <Link href='/login'>
-          <a className='capitalize w-1/3 tracking-normal px-4 py-2.5 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700'>
+          <a className='w-1/3 text-center capitalize text-xs font-bold tracking-normal px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 duration-300'>
             Sign in
           </a>
         </Link>

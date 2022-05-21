@@ -1,4 +1,4 @@
-import Layout2 from '../components/Layout2'
+import Layout from '../components/Layout/NoSession'
 import { useRouter } from 'next/router'
 import { FiArrowLeft } from 'react-icons/fi'
 
@@ -41,5 +41,5 @@ export default function PrivacyPolicy () {
 }
 
 PrivacyPolicy.getLayout = function getLayout (page) {
-  return <Layout2>{page}</Layout2>
+  return <Layout>{page}</Layout>
 }

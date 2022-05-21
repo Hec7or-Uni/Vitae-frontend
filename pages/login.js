@@ -59,7 +59,7 @@ export default function Login () {
             </div>
             <div>
               <Link href="/recovery">
-                <a className='block text-sm text-blue-600 fontme hover:underline'>
+                <a className='block text-sm text-blue-600 fontme hover:underline underline-offset-1'>
                   Forgot your password?
                 </a>
               </Link>
@@ -68,7 +68,7 @@ export default function Login () {
           <div className='mt-6'>
             <button
               type='submit'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700'
+              className='w-full capitalize text-xs font-bold tracking-normal px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 duration-300'
             >
               Sign in
             </button>
@@ -78,7 +78,7 @@ export default function Login () {
             <button
               onClick={async () => await signIn('google')}
               type='button'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
+              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300'
             >
               <RiGoogleFill className='text-xl' />
               <span>Google</span>
@@ -86,7 +86,7 @@ export default function Login () {
             <button
               onClick={async () => await signIn('twitter')}
               type='button'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
+              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300'
             >
               <RiTwitterLine className='text-xl' />
               <span>Twitter</span>
@@ -94,7 +94,7 @@ export default function Login () {
             <button
               onClick={async () => await signIn('instagram')}
               type='button'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-200'
+              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300'
             >
               <RiInstagramLine className='text-xl' />
               <span>Instagram</span>
@@ -106,14 +106,14 @@ export default function Login () {
       <div className='flex w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-5 items-center justify-between'>
         <Link href='/invite'>
           <a
-            className='block text-sm text-blue-700 fontme hover:underline'
+            className='block text-sm text-blue-700 fontme hover:underline underline-offset-1'
             href='/invite'
           >
             Don’t have an account?
           </a>
         </Link>
         <Link href='/invite'>
-          <a className='capitalize w-1/3 tracking-normal px-4 py-2.5 text-xs font-bold text-center text-white bg-blue-600 rounded-md hover:bg-blue-700'>
+          <a className='w-1/3 text-center capitalize text-xs font-bold tracking-normal px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 duration-300'>
             Join Now
           </a>
         </Link>
