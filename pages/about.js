@@ -63,17 +63,17 @@ export default function About () {
                 img: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
                 title: 'Toral Pallás, Héctor',
                 description: 'Enim risus id risus faucibus. Quis diam sed condimentum a. Dignissim sed mattis vitae quis egestas.',
-                email: 'hector@vitae.co'
+                email: 'hector@vitop.xyz'
               }, {
                 img: 'https://images.unsplash.com/photo-1544168190-79c17527004f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80',
                 title: 'Bolu Li Yuan.',
                 description: 'Enim risus id risus faucibus. Quis diam sed condimentum a. Dignissim sed mattis vitae quis egestas.',
-                email: 'bolu@vitae.co'
+                email: 'bolu@vitop.xyz'
               }, {
                 img: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
                 title: 'García García, Álvaro',
                 description: 'Enim risus id risus faucibus. Quis diam sed condimentum a. Dignissim sed mattis vitae quis egestas.',
-                email: 'alvaro@vitae.co'
+                email: 'alvaro@vitop.xyz'
               }
             ].map(item => <Partner key={item.email} img={item.img} title={item.title} description={item.description} email={item.email} />)}
 

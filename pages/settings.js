@@ -178,7 +178,11 @@ export async function getServerSideProps ({ req }) {
     email: session.user.email
   })
   const uri = `http://localhost:4000/api/user?${params.toString()}`
-  const user = await fetch(uri).then(res => res.json())
+  const user = await fetch(uri, {
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
 
   return {
     props: {

@@ -10,7 +10,7 @@ export default function Footer () {
               href="/tos"
               className="text-gray-500 hover:text-gray-900 transition-colors duration-200"
             >
-              Terms of service
+              Terms of Service
             </a>
           </li>
           <li className="flex justify-center my-1">
@@ -26,7 +26,7 @@ export default function Footer () {
               href="/privacypolicy"
               className="text-gray-500 hover:text-gray-900 transition-colors duration-200"
             >
-              Privacy policy
+              Privacy Policy
             </a>
           </li>
         </ul>

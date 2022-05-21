@@ -77,7 +77,7 @@ export default function Index () {
               return (
                 <li key={text} className='flex items-start gap-2 max-w-prose'>
                   <span className='mt-1.5'>
-                    <FiCheck className='w-5 h-5 text-xl'/>
+                    <FiCheck className='w-5 h-5 text-xl text-green-600'/>
                   </span>
                   <p className='text-lg'>{text}</p>
                 </li>

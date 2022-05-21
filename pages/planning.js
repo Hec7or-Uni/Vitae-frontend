@@ -6,7 +6,7 @@ import cuid from 'cuid'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 import { data } from '../lib/temp'
 
-export default function Planning ({ email }) {
+export default function Planning ({ email, token }) {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '', mealType: '' }])
   const [header, setHeader] = useState({ name: '', date: '' })
   const [menuOp, setOp] = useState(true) // true = create | false = generate
@@ -50,11 +50,13 @@ export default function Planning ({ email }) {
         )
       }
     }
-    console.log(data)
 
-    await fetch('http://localhost:4000/api/user/save-menu', {
+    await fetch('http://localhost:4000/api/inventory/save-menu', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify(data)
     })
   }
@@ -247,6 +249,9 @@ export async function getServerSideProps ({ req }) {
   }
 
   return {
-    props: { email: session.user.email }
+    props: {
+      email: session.user.email,
+      token: req.cookies['next-auth.session-token']
+    }
   }
 }
