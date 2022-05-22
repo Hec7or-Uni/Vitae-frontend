@@ -71,7 +71,37 @@ export default function Settings ({ user, token }) {
               placeholder='Steve Solo'
             />
           </label>
-          <span className='flex-1'></span>
+          <label htmlFor='lastname' className='flex-1 flex flex-col gap-2'>
+            <span>Last Name</span>
+            <input
+              id='lastname'
+              name='lastname'
+              type='text'
+              defaultValue={user.lastname}
+              className='px-2.5 py-2 rounded-md bg-white text-black'
+              placeholder='Steve Solo'
+            />
+          </label>
+        </div>
+        <div className='flex gap-4'>
+          <label htmlFor='username' className='flex-1 flex flex-col gap-2'>
+            <span>Username</span>
+            <input
+              id='username'
+              name='username'
+              type='text'
+              defaultValue={user.username}
+              className='px-2.5 py-2 rounded-md bg-white text-black'
+              placeholder='Steve Solo'
+            />
+          </label>
+          <label htmlFor='gender' className='flex-1 flex flex-col gap-1'>
+            <span>Diet</span>
+            <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-white text-black'>
+              <option defaultValue={user.gender} value='none' disabled hidden></option>
+              <option value='vegetarian' selected={user.diet === 'vegetarian'}>vegetarian</option>
+            </select>
+          </label>
         </div>
         <div className='flex gap-4'>
           <label htmlFor='birth' className='flex-1 flex flex-col gap-1'>
