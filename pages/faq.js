@@ -9,7 +9,7 @@ export default function FAQ () {
           frequently asked questions
         </h2>
         <Question
-          title={'What is BIdeas?'}
+          title={'What is Vitop?'}
           content={
             <p>
               BIdeas is a platform where people from all over the world can come
@@ -19,7 +19,7 @@ export default function FAQ () {
           }
         />
         <Question
-          title={'Why BIdeas?'}
+          title={'Why Vitop?'}
           content={
             <p>
               Ideas arises from the need of one of our colleagues who once
@@ -32,7 +32,7 @@ export default function FAQ () {
           }
         />
         <Question
-          title={'How to create a team?'}
+          title={'How can I save a recipe?'}
           content={
             <>
               <ol>1 Log in to your account.</ol>
@@ -44,19 +44,46 @@ export default function FAQ () {
           }
         />
         <Question
-          title={'How to join a team?'}
+          title={'How can I create a menu?'}
           content={
-            <>
-              <ol>1 Log in to your account.</ol>
-              <ol>2 Navigate to /careers/teams.</ol>
-              <ol>3 Search for the team that fits your needs.</ol>
-              <ol>4 Click on apply for job.</ol>
-              <ol>5 Wait to be accepted by the team leader of that team.</ol>
-            </>
+            <p>
+              Finding the ideal project is often one of the hardest tasks, some
+              people may think that points are everything, but, if you really
+              want to find a team to be comfortable in, we recommend you to look
+              at the people involved in each team and google them. You can tell
+              a lot about a person just by what they post on their social
+              networks.
+            </p>
           }
         />
         <Question
-          title={'How to find the best projects?'}
+          title={'Can I link other accounts with the vitop account?'}
+          content={
+            <p>
+              Finding the ideal project is often one of the hardest tasks, some
+              people may think that points are everything, but, if you really
+              want to find a team to be comfortable in, we recommend you to look
+              at the people involved in each team and google them. You can tell
+              a lot about a person just by what they post on their social
+              networks.
+            </p>
+          }
+        />
+        <Question
+          title={'I forgot my password'}
+          content={
+            <p>
+              Finding the ideal project is often one of the hardest tasks, some
+              people may think that points are everything, but, if you really
+              want to find a team to be comfortable in, we recommend you to look
+              at the people involved in each team and google them. You can tell
+              a lot about a person just by what they post on their social
+              networks.
+            </p>
+          }
+        />
+        <Question
+          title={'Want some new functionality?'}
           content={
             <p>
               Finding the ideal project is often one of the hardest tasks, some
@@ -71,17 +98,14 @@ export default function FAQ () {
         <Question
           title={'How to report a bug?'}
           content={
-            <>
-              <p>
-                To report any failure or bug you can contact one of the
-                developers of the project, in order to do so their github
-                profiles are available in the footer of the page.
-              </p>
-              <p>
-                If you experiment any bug, please try to reload the page before
-                contacting, thank you.
-              </p>
-            </>
+            <p>
+              Finding the ideal project is often one of the hardest tasks, some
+              people may think that points are everything, but, if you really
+              want to find a team to be comfortable in, we recommend you to look
+              at the people involved in each team and google them. You can tell
+              a lot about a person just by what they post on their social
+              networks.
+            </p>
           }
         />
       </div>
