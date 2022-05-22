@@ -2,6 +2,7 @@ import Layout from '../components/Layout/WithSession'
 import React from 'react'
 import { getSession } from 'next-auth/react'
 import { FiUsers, FiUserCheck, FiTrendingUp } from 'react-icons/fi'
+import LineChart from '../components/Charts/Line'
 import {
   Chart as ChartJS,
   ArcElement,
@@ -14,7 +15,6 @@ import {
   Legend,
   Filler
 } from 'chart.js'
-import { Line, Pie } from 'react-chartjs-2'
 
 import {
   ComposableMap,
@@ -169,41 +169,52 @@ export const data3 = {
 
 export default function Admin () {
   return (
-    <div className='max-w-5xl grid grid-cols-3 gap-4 h-full'>
-      <div className='col-span-2 h-80 flex items-center justify-center'>
+    <div className='max-w-6xl grid grid-cols-3 gap-4 h-full'>
+      <div className='col-span-2 h-80 flex items-center justify-center flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
         <MapChart />
       </div>
       <div className='col-span-1 grid grid-rows-3 grid-flow-col gap-4'>
-        <div className='row-span-1 flex items-center gap-6 px-4 py-1.5'>
-          <FiUsers className='text-2xl'/>
-          <div className='flex flex-col'>
-            <h3 className='text-base font-medium'>Online users</h3>
-            <span className='text-2xl font-medium'>{Math.floor(Math.random() * 99) + 10}</span>
-          </div>
-        </div>
-        <div className='row-span-1 flex items-center gap-6 px-4 py-1.5'>
-          <FiUserCheck className='text-2xl'/>
-          <div className='flex flex-col'>
-            <h3 className='text-base font-medium'>Registered users</h3>
-            <span className='text-2xl font-medium'>{Math.floor(Math.random() * 10)}</span>
-          </div>
-        </div>
-        <div className='row-span-1 flex items-center gap-6 px-4 py-1.5'>
-          <FiTrendingUp className='text-2xl'/>
-          <div className='flex flex-col'>
-            <h3 className='text-base font-medium'>Daily visits</h3>
-            <span className='text-2xl font-medium'>{Math.floor(Math.random() * 10)}</span>
-          </div>
-        </div>
+        {[{
+          icon: <FiUsers className='text-2xl'/>,
+          text: 'Online users',
+          value: Math.floor(Math.random() * 99) + 10
+        }, {
+          icon: <FiUserCheck className='text-2xl'/>,
+          text: 'Registered users',
+          value: Math.floor(Math.random() * 99) + 10
+        }, {
+          icon: <FiTrendingUp className='text-2xl'/>,
+          text: 'Daily visits',
+          value: Math.floor(Math.random() * 99) + 10
+        }].map((item) => {
+          return (
+            <div key={1} className='row-span-1 flex items-center justify-between px-8 py-1 bg-white rounded-lg select-none'>
+              <div className='flex gap-4'>
+              {item.icon}
+                <h3 className='text-base font-medium'>{item.text}</h3>
+              </div>
+              <span className='text-2xl font-medium'>{item.value}</span>
+            </div>
+          )
+        })}
       </div>
-      <div className='py-6 px-2 col-span-1 h-64 w-full'>
-        <Line options={options} data={data1} />
+      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
+        <LineChart
+          labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
+          data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
+        />
       </div>
-      <div className='py-6 px-2 col-span-1 h-64 w-full'>
-        <Line options={options} data={data2} />
+      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
+        <LineChart
+          labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
+          data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
+        />
       </div>
-      <div className='py-6 px-2 col-span-1 h-64 w-full' >
-        <Pie options={options2} data={data3}/>
+      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
+        <LineChart
+          labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
+          data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
+        />
       </div>
     </div>
   )
