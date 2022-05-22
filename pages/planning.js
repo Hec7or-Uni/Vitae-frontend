@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/WithSession'
 import { useState } from 'react'
 import { getSession } from 'next-auth/react'
 import Schedule from '../components/Schedule'

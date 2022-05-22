@@ -42,16 +42,17 @@ export default function Index () {
               { id: 123457, image: recipe3 }
             ].map(recipe => {
               return (
-                <div
-                  key={recipe.id}
-                  className='w-96 h-44 rounded-lg bg-black relative flex items-center justify-center shadow-xl border-4 hover:scale-95 duration-300 z-0'>
-                  <Image
-                    src={recipe.image}
-                    alt='Picture of the author'
-                    layout='fill'
-                    className='w-full h-full object-cover z-0 rounded-lg hover:opacity-70'
-                  />
-                </div>
+                <Link href='/invite' key={recipe.id}>
+                  <a
+                    className='w-96 h-44 rounded-lg bg-black relative flex items-center justify-center shadow-xl border-4 hover:scale-95 duration-300 z-0'>
+                    <Image
+                      src={recipe.image}
+                      alt='Picture of the author'
+                      layout='fill'
+                      className='w-full h-full object-cover z-0 rounded-lg hover:opacity-70'
+                    />
+                  </a>
+                </Link>
               )
             })}
           </div>

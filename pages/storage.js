@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/WithSession'
 import { getSession } from 'next-auth/react'
 import Card from '../components/Card'
 import Search from '../components/Search'

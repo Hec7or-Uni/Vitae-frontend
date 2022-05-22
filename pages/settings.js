@@ -1,8 +1,8 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/WithSession'
 import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
-export default function Settings ({ user }) {
+export default function Settings ({ user, token }) {
   /**
    *
    * @param {*} e
@@ -20,7 +20,10 @@ export default function Settings ({ user }) {
     const uri = 'http://localhost:4000/api/user/update-account'
     await fetch(uri, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify(query)
     }).then(res => res.json())
       .then(res => console.log(res))
@@ -186,7 +189,8 @@ export async function getServerSideProps ({ req }) {
 
   return {
     props: {
-      user
+      user,
+      token: req.cookies['next-auth.session-token']
     }
   }
 }

@@ -35,10 +35,3 @@ export default function Testimonial ({ text, picture, name, rol }) {
     </div>
   )
 }
-
-Testimonial.defaultProps = {
-  text: 'To get social media testimonials like these, keep your customers engaged with your social media accounts by posting regularly yourself',
-  picture: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-  name: 'Jean Miguel',
-  rol: 'Nutricionista'
-}

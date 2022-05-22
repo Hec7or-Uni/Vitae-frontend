@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/WithSession'
 import React from 'react'
 import { getSession } from 'next-auth/react'
 import { FiUsers, FiUserCheck, FiTrendingUp } from 'react-icons/fi'

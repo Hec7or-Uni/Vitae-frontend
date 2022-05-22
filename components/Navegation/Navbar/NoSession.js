@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Logo from '../../Logo'
+import User from '../../User'
 
 export default function Navbar () {
   const { data: session } = useSession()
@@ -24,7 +25,14 @@ export default function Navbar () {
         <div className="flex gap-x-3 absolute right-0 mx-4">
         {session
           ? (
-            <></>
+            <div className='flex items-center gap-4'>
+              <Link href='/home'>
+                <a className='capitalize text-xs font-bold tracking-normal px-4 py-2.5 rounded-lg text-white hover:bg-gray-600 hover:bg-opacity-25 duration-300'>
+                  Back To Office
+                </a>
+              </Link>
+              <User/>
+            </div>
             )
           : (
             <nav className='flex gap-2 items-center'>
