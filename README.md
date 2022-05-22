@@ -31,7 +31,7 @@ Prerequisites
 You will need [node.js](https://nodejs.org/es/) & [npm](https://www.npmjs.com/)
 ```
 # 1. Clone the repository
-git clone https://github.com/Hec7or-Uni/CoGS.git
+git clone https://github.com/Hec7or-Uni/Vitae-frontend
 # 2. Install the dependencies with:
 npm install
 # 3. Run the project:
