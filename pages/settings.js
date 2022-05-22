@@ -26,8 +26,6 @@ export default function Settings ({ user, token }) {
       },
       body: JSON.stringify(query)
     }).then(res => res.json())
-      .then(res => console.log(res))
-      .catch(err => console.error(err))
   }
 
   const handleDelete = async () => {

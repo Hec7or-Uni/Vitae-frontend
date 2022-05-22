@@ -1,7 +1,6 @@
 export default function Schedule ({ data }) {
   const hoy = new Date()
   const DIA_EN_MILISEGUNDOS = 24 * 60 * 60 * 1000
-  console.log(new Date(hoy.getTime() - DIA_EN_MILISEGUNDOS).getDate())
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">

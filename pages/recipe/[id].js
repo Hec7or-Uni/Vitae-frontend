@@ -5,8 +5,6 @@ import { FiPlus, FiClock, FiHeart, FiBookmark } from 'react-icons/fi'
 import { data2 } from '../../lib/temp'
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
-  console.log(recipe.spoonId)
-
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
     await fetch('http://localhost:4000/api/inventory/save-recipe', {
