@@ -67,7 +67,7 @@ export default function Settings ({ user, token }) {
               name='name'
               type='text'
               defaultValue={user.name}
-              className='px-2.5 py-2 rounded-md bg-gray-100 text-black'
+              className='px-2.5 py-2 rounded-md bg-white text-black'
               placeholder='Steve Solo'
             />
           </label>
@@ -81,12 +81,12 @@ export default function Settings ({ user, token }) {
               name='birth'
               type='date'
               defaultValue={user.birth} // format: 'yyyy-mm-dd'
-              className='px-2.5 py-2 rounded-md bg-gray-100 text-black'
+              className='px-2.5 py-2 rounded-md bg-white text-black'
             />
           </label>
           <label htmlFor='gender' className='flex-1 flex flex-col gap-1'>
             <span>Gender</span>
-            <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-gray-100 text-black'>
+            <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-white text-black'>
               <option defaultValue={user.gender} value='none' disabled hidden></option>
               <option value='male' selected={user.gender === 'male'}>male</option>
               <option value='female' selected={user.gender === 'female'}>female</option>
@@ -102,7 +102,7 @@ export default function Settings ({ user, token }) {
               type='number'
               placeholder='175'
               defaultValue={user.height}
-              className='px-2.5 py-2 rounded-md bg-gray-100 text-black'
+              className='px-2.5 py-2 rounded-md bg-white text-black'
               min='0'
               max='250'
             />
@@ -115,7 +115,7 @@ export default function Settings ({ user, token }) {
               type='number'
               placeholder='62,5'
               defaultValue={user.weight ? user.weight[user.weight.lenght - 1] : null}
-              className='px-2.5 py-2 rounded-md bg-gray-100 text-black'
+              className='px-2.5 py-2 rounded-md bg-white text-black'
               min='5'
               max='250'
             />
@@ -124,14 +124,14 @@ export default function Settings ({ user, token }) {
         <div className='flex gap-4'>
           <button
             type='submit'
-            className='flex-1 px-2.5 py-2.5 rounded-md bg-green-400 text-white font-bold'
+            className='flex-1 px-2.5 py-2.5 rounded-md bg-green-700 bg-opacity-70 text-white font-bold'
           >
             Save changes
           </button>
           <button
             type='button'
             onClick={() => { handleDelete() }}
-            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-400 text-white font-bold'
+            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold'
           >
             delete account
           </button>
@@ -148,7 +148,7 @@ export default function Settings ({ user, token }) {
             }
           }}
           type='button'
-          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${google ? 'text-green-700' : 'text-black'}`}
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${google ? 'text-green-700' : 'text-black'}`}
         >
           <RiGoogleFill className='text-xl' />
           <span>Google</span>
@@ -162,7 +162,7 @@ export default function Settings ({ user, token }) {
             }
           }}
           type='button'
-          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${twitter ? 'text-green-700' : 'text-black'}`}
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${twitter ? 'text-green-700' : 'text-black'}`}
         >
           <RiTwitterLine className='text-xl' />
           <span>Twitter</span>
@@ -176,7 +176,7 @@ export default function Settings ({ user, token }) {
             }
           }}
           type='button'
-          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${instagram ? 'text-green-700' : 'text-black'}`}
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${instagram ? 'text-green-700' : 'text-black'}`}
         >
           <RiInstagramLine className='text-xl' />
           <span>Instagram</span>

@@ -1,4 +1,5 @@
 import { useScreen } from '../../../context/ScreenContext'
+import { useShare } from '../../../context/ShareContext'
 import Tippy from '@tippyjs/react'
 import {
   FiMaximize,
@@ -13,12 +14,14 @@ import {
 } from 'react-icons/fi'
 
 export default function Footer () {
+  const { handleOpen } = useShare()
   const {
     mzLayout,
     leftSidebar,
     handleMode,
     handleSl
   } = useScreen()
+
   return (
     <div className='h-10 w-full flex items-center justify-between px-4 bg-gray-900 bg-opacity-90'>
       <div className='flex gap-x-4'>
@@ -56,28 +59,36 @@ export default function Footer () {
         <Tippy
           arrow={false}
           trigger={'click'}
+          interactive={true}
           allowHTML={true}
           content={
             <div className='flex flex-col items-start mb-4 bg-gray-800 p-4 rounded-lg text-white divide-y'>
-              <a href='/' className='flex gap-3 items-start justify-start mb-4 cursor-pointer'>
-                <FiMessageCircle className='w-5 h-5'/>
-                <p className='text-sm font-medium'>Habla con nosotros</p>
+              <a
+                href='mailto:hi@vitop.xyz'
+                className='py-1.5 px-2 flex gap-3 items-center justify-start mb-2 cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'
+                >
+                <FiMessageCircle className='w-4 h-4'/>
+                <p className='text-xs font-medium'>Habla con nosotros</p>
+                <span className='text-xs font-medium bg-black bg-opacity-40 py-1 px-2 rounded-lg'>C</span>
               </a>
-              <div className='flex flex-col items-start gap-2.5'>
-                <div className='flex gap-3 items-start justify-start mt-4'>
-                  <FiGithub className='w-5 h-5'/>
-                  <p className='text-sm font-medium'>GitHub</p>
-                </div>
-                <div className='flex gap-3 items-start justify-start'>
-                  <FiUserPlus className='w-5 h-5'/>
-                  <p className='text-sm font-medium'>Invitar</p>
-                </div>
-                <div className='flex gap-3 items-start justify-start'>
-                  <FiLock className='w-5 h-5'/>
-                  <p className='text-sm font-medium'>Términos y privacidad</p>
-                </div>
-                <div className='flex gap-3 items-start justify-start mt-1'>
-                  <p className='text-sm font-medium opacity-50'>Vitop v1.0.0</p>
+              <div className='w-full flex flex-col items-start'>
+                <a href='https://github.com/orgs/Hec7or-Uni/teams/vitae/repositories' className='w-full mt-2 py-2.5 px-2 flex gap-3 items-center justify-start cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'>
+                  <FiGithub className='w-4 h-4'/>
+                  <p className='text-xs font-medium'>GitHub</p>
+                </a>
+                <button
+                  onClick={handleOpen}
+                  className='w-full py-2.5 px-2 flex gap-3 items-center justify-start  cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'
+                >
+                  <FiUserPlus className='w-4 h-4'/>
+                  <p className='text-xs font-medium'>Invitar</p>
+                </button>
+                <a href='tos' className='w-full py-2.5 px-2 flex gap-3 items-center justify-start  cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'>
+                  <FiLock className='w-4 h-4'/>
+                  <p className='text-xs font-medium'>Términos y privacidad</p>
+                </a>
+                <div className='flex gap-3 items-start justify-start mt-2'>
+                  <p className='text-xs font-medium opacity-40'>Vitop v1.0.0</p>
                 </div>
               </div>
             </div>
@@ -100,7 +111,7 @@ export default function Footer () {
           }
         >
           <button
-            onClick={() => {}}
+            onClick={handleOpen}
             className='flex items-center font-bold text-xs opacity-90 hover:opacity-100 select-none'
           >
             <FiShare2 className='w-4 h-4 cursor-pointer stroke-2 text-white select-none'/>
