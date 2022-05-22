@@ -2,9 +2,11 @@ import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
 import { getSession } from 'next-auth/react'
 import { FiPlus, FiClock, FiHeart, FiBookmark } from 'react-icons/fi'
-import { data, data2 } from '../../lib/temp'
+import { data2 } from '../../lib/temp'
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
+  console.log(recipe.spoonId)
+
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
     await fetch('http://localhost:4000/api/inventory/save-recipe', {
@@ -114,7 +116,8 @@ Recipe.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
 }
 
-export async function getServerSideProps ({ req }) {
+export async function getServerSideProps (context) {
+  const { params, req } = context
   const session = await getSession({ req })
 
   if (!session) {
@@ -125,13 +128,22 @@ export async function getServerSideProps ({ req }) {
       }
     }
   }
-  const recipes = data.recipes
+
+  // const recipes = data.recipes
   const nutrition = [
     { name: 'calories', value: data2.calories },
     { name: 'carbs', value: data2.carbs },
     { name: 'fats', value: data2.fat },
     { name: 'proteins', value: data2.protein }]
-  const recipe = recipes[0]
+  // const recipe = recipes[0]
+
+  const parametros = new URLSearchParams({ spoonId: Number(params.id) })
+  const recipe = await fetch(`http://localhost:4000/api/inventory?${parametros.toString()}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
 
   return {
     props: {

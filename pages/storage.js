@@ -2,7 +2,6 @@ import Layout from '../components/Layout/WithSession'
 import { getSession } from 'next-auth/react'
 import Card from '../components/Card'
 import Search from '../components/Search'
-import { data } from '../lib/temp'
 
 export default function Storage ({ recipes }) {
   return (
@@ -30,9 +29,16 @@ export async function getServerSideProps ({ req }) {
       }
     }
   }
-  const recipes = data.recipes
+
+  const parametros = new URLSearchParams({ email: session.user.email })
+  const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
 
   return {
-    props: { recipes }
+    props: { recipes: user.saved_recipes }
   }
 }

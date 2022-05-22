@@ -32,6 +32,12 @@ export async function getServerSideProps ({ req }) {
   }
   const recipes = data.recipes
 
+  // const recipes = await fetch('http://localhost:4000/api/inventory/random-recipes', {
+  //   headers: {
+  //     Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+  //   }
+  // }).then(res => res.json())
+
   return {
     props: { recipes }
   }

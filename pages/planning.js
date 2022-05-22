@@ -4,15 +4,14 @@ import { getSession } from 'next-auth/react'
 import Schedule from '../components/Schedule'
 import cuid from 'cuid'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
-import { data } from '../lib/temp'
 
-export default function Planning ({ email, token }) {
-  const [menu, setMenu] = useState([{ id: cuid(), recipe: '', mealType: '' }])
+export default function Planning ({ email, token, recipes }) {
+  const [menu, setMenu] = useState([{ id: cuid(), recipe: '' }])
   const [header, setHeader] = useState({ name: '', date: '' })
   const [menuOp, setOp] = useState(true) // true = create | false = generate
 
   const addRecipe = () => {
-    setMenu([...menu, { id: cuid(), recipe: '', mealType: '' }])
+    setMenu([...menu, { id: cuid(), recipe: '' }])
   }
 
   const editRecipe = (e, id) => {
@@ -41,13 +40,7 @@ export default function Planning ({ email, token }) {
       menu: {
         name: header.name,
         date: header.date,
-        recipes: menu.map(m => {
-          return {
-            recipe: m.recipe,
-            mealType: m.mealType
-          }
-        }
-        )
+        recipes: menu.map(m => { return { _id: m.recipe } })
       }
     }
 
@@ -62,7 +55,7 @@ export default function Planning ({ email, token }) {
   }
 
   const delMenu = () => {
-    setMenu([{ id: cuid(), recipe: '', mealType: '' }])
+    setMenu([{ id: cuid(), recipe: '' }])
   }
 
   const removeRecipe = (id) => {
@@ -161,32 +154,16 @@ export default function Planning ({ email, token }) {
                           required
                         >
                           <option value=''>Select a Recipe</option>
-                          {data.recipes.map(m => {
+                          {recipes.map(m => {
                             return (
                               <option
                                 key={m.id}
-                                value={m.id}
+                                value={m._id}
                               >
                                 {m.title}
                               </option>
                             )
                           })}
-                        </select>
-                      </label>
-                      <label htmlFor='mealType' className='flex flex-col gap-1 w-44'>
-                        <select
-                          id='mealType'
-                          name='mealType'
-                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
-                          onChange={(e) => editRecipe(e, r.id)}
-                          required
-                        >
-                          <option value=''>Meal type</option>
-                          {[
-                            { id: 1, value: 'breakfast' },
-                            { id: 2, value: 'lunch' },
-                            { id: 3, value: 'snack' },
-                            { id: 4, value: 'dinner' }].map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
                         </select>
                       </label>
                       <button type='button' onClick={() => removeRecipe(r.id)}>
@@ -248,10 +225,19 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  const parametros = new URLSearchParams({ email: session.user.email })
+  const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
+
   return {
     props: {
       email: session.user.email,
-      token: req.cookies['next-auth.session-token']
+      token: req.cookies['next-auth.session-token'],
+      recipes: user.saved_recipes
     }
   }
 }

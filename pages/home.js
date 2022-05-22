@@ -5,7 +5,9 @@ import Schedule from '../components/Schedule'
 import LineChart from '../components/Charts/Line'
 import Pie from '../components/Charts/Pie'
 
-export default function Home () {
+export default function Home ({ user }) {
+  console.log(user.weight)
+
   return (
     <div className='max-w-6xl flex flex-col gap-4 h-full'>
       <div className='w-full flex gap-2'>
@@ -19,8 +21,8 @@ export default function Home () {
           <div className='w-full flex justify-center gap-2'>
             <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
               <LineChart
-                labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
-                data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
+                labels={user.weight.map(item => item.date)}
+                data={user.weight.map(item => item.weight)}
               />
             </div>
             <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
@@ -70,7 +72,15 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  const parametros = new URLSearchParams({ email: session.user.email })
+  const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
+
   return {
-    props: { }
+    props: { user }
   }
 }
