@@ -4,9 +4,17 @@ import React from 'react'
 import Schedule from '../components/Schedule'
 import LineChart from '../components/Charts/Line'
 import Pie from '../components/Charts/Pie'
+import { toTimestamp, fromTimestamp, fromDate } from '../lib/dates'
 
 export default function Home ({ user }) {
-  console.log(user.weight)
+  const today = toTimestamp(fromDate(new Date()))
+  const defaultArray = ['2022-05-16', '2022-05-20']
+  let newArray = defaultArray
+    .map(date => toTimestamp(date))
+    .filter(item => item <= today)
+    .sort()
+    .map(timestamp => fromTimestamp(timestamp))
+  if (newArray.length >= 30) { newArray = newArray.slice(newArray.length - 30) }
 
   return (
     <div className='max-w-6xl flex flex-col gap-4 h-full'>
