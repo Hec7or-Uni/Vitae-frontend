@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Testimonial from '../components/Testimonial'
-import Navbar from '../components/Navegation/Navbar/NoSession'
-import Footer from '../components/Navegation/Footer/NoSession'
+import Layout from '../components/Layout/NoSession'
 import { FiCheck } from 'react-icons/fi'
 import { Counter, Observer } from '../components/Counter'
 
@@ -16,7 +15,6 @@ export default function Index () {
   const recipe3 = 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2020'
   return (
     <>
-      <Navbar />
       <div className='w-full h-screen relative top-0 flex items-center justify-center -mt-16' >
         <Image
           src={backgroundImage}
@@ -124,7 +122,10 @@ export default function Index () {
           </p>
         </div>
       </div>
-      <Footer />
     </>
   )
+}
+
+Index.getLayout = function getLayout (page) {
+  return <Layout>{page}</Layout>
 }
