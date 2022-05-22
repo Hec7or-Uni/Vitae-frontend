@@ -3,10 +3,10 @@ import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 
 export default function Settings ({ user, token }) {
-  /**
-   *
-   * @param {*} e
-   */
+  const google = user.accounts.some(item => item.provider === 'google')
+  const twitter = user.accounts.some(item => item.provider === 'twitter')
+  const instagram = user.accounts.some(item => item.provider === 'instagram')
+
   const handleUpdate = async (e) => {
     e.preventDefault()
     const query = {
@@ -30,17 +30,26 @@ export default function Settings ({ user, token }) {
       .catch(err => console.error(err))
   }
 
-  /**
-   *
-   */
   const handleDelete = async () => {
     const uri = 'http://localhost:4000/api/user/delete-account'
 
     await fetch(uri, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify({ email: user.email })
     }).then(() => signOut({ redirect: 'http://localhost:3000' }))
+  }
+
+  const disconnect = async (provider) => {
+    const uri = 'http://localhost:4000/api/user/disconnect-account'
+    await fetch(uri, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: user.email, provider })
+    })
   }
 
   return (
@@ -129,31 +138,47 @@ export default function Settings ({ user, token }) {
         </div>
       </form>
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
-      <div className='w-2/3 flex gap-4'>
+      <div className='max-w-sm flex gap-4'>
         <button
-          onClick={async () => await signIn('google', { redirect: false })
-            .then(res => console.log(res))
-            .catch(err => console.error(err))}
+          onClick={async () => {
+            if (google) {
+              await disconnect('google')
+            } else {
+              await signIn('google')
+            }
+          }}
           type='button'
-          className='flex-1 px-4 py-2 flex gap-3 items-center bg-gray-100 hover:bg-gray-200 rounded-md'
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${google ? 'text-green-700' : 'text-black'}`}
         >
-          <RiGoogleFill className='w-6 h-6' />
+          <RiGoogleFill className='text-xl' />
           <span>Google</span>
         </button>
         <button
-          onClick={() => {}}
+          onClick={async () => {
+            if (twitter) {
+              await disconnect('twitter')
+            } else {
+              await signIn('twitter')
+            }
+          }}
           type='button'
-          className='flex-1 px-4 py-2 flex gap-3 items-center bg-gray-100 hover:bg-gray-200 rounded-md'
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${twitter ? 'text-green-700' : 'text-black'}`}
         >
-          <RiTwitterLine className='w-6 h-6' />
+          <RiTwitterLine className='text-xl' />
           <span>Twitter</span>
         </button>
         <button
-          onClick={() => {}}
+          onClick={async () => {
+            if (instagram) {
+              await disconnect('instagram')
+            } else {
+              await signIn('instagram')
+            }
+          }}
           type='button'
-          className='flex-1 px-4 py-2 flex gap-3 items-center bg-gray-100 hover:bg-gray-200 rounded-md'
+          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 ${instagram ? 'text-green-700' : 'text-black'}`}
         >
-          <RiInstagramLine className='w-6 h-6' />
+          <RiInstagramLine className='text-xl' />
           <span>Instagram</span>
         </button>
       </div>

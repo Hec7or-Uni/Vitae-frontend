@@ -78,13 +78,12 @@ export default NextAuth({
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
-        const res = await fetch('http://localhost:4000/api/user/connect-account', {
+        await fetch('http://localhost:4000/api/user/connect-account', {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),
           headers: { 'Content-Type': 'application/json' }
         }).then(res => res.json())
           .catch(err => console.error(err))
-        console.log(res)
       }
       if (account.provider === 'google') { return profile.email_verified && profile.email.endsWith('@gmail.com') }
       if (account.provider === 'twitter') { return profile.email_verified && profile.email.endsWith('@gmail.com') }
