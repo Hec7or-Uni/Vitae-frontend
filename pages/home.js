@@ -15,7 +15,6 @@ export default function Home ({ user }) {
   const userIMC = getUserIMC(user)
   const preferences = getUserPreferences(user)
   const shoppingList = generateShoppingList(user)
-  console.log(preferences)
 
   return (
     <div className='max-w-6xl flex flex-col gap-4 h-full'>
@@ -54,7 +53,7 @@ export default function Home ({ user }) {
           </ul>
         </div>
       </div>
-      <Schedule />
+      <Schedule data={user.menus} />
     </div>
   )
 }
