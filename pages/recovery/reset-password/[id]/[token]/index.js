@@ -72,7 +72,7 @@ export default function Recovery ({ csrfToken, id }) {
           <div className="mt-8">
             <button
               type="submit"
-              className="capitalize w-full tracking-normal py-2.5 px-4 text-sm font-bold text-center text-white bg-dark1 hover:black rounded-md"
+              className="capitalize w-full tracking-normal py-2.5 px-4 text-sm font-bold text-center text-white bg-black rounded-md"
             >
               Guardar Cambios
             </button>

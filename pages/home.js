@@ -82,17 +82,9 @@ export async function getServerSideProps ({ req }) {
     }
   }).then(res => res.json())
 
-  const shoppingList = await fetch('http://localhost:4000/api/inventory/shopping-list', {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
-    }
-  }).then(res => res.json())
-
   return {
     props: {
-      user,
-      shoppingList
+      user
     }
   }
 }
