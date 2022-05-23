@@ -19,7 +19,7 @@ export default function Layout ({ children }) {
           >
             <Sidebar />
             <main className='flex-1 overflow-y-auto bg-gradient-to-t '>
-              <div className='container mx-auto py-4'>
+              <div className='h-full container mx-auto py-4'>
                 { children }
               </div>
             </main>

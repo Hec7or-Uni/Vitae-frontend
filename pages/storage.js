@@ -8,7 +8,7 @@ export default function Storage ({ recipes }) {
     <div className='max-w-5xl flex flex-col gap-5'>
       <Search />
       <div className='flex flex-wrap gap-4 overflow-y-auto'>
-        {recipes.map(item => <Card key={item.id} id={item.id} img={item.image} />)}
+        {recipes.map(item => <Card key={item.id} id={item.spoonId} img={item.image} />)}
       </div>
     </div>
   )

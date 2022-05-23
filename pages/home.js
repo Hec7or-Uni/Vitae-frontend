@@ -2,35 +2,41 @@ import Layout from '../components/Layout/WithSession'
 import { getSession } from 'next-auth/react'
 import React from 'react'
 import Schedule from '../components/Schedule'
-import LineChart from '../components/Charts/Line'
+import LineChart from '../components/Charts/LineChart'
+import VariousLines from '../components/Charts/VariousLines'
 import Pie from '../components/Charts/Pie'
-import { toTimestamp, fromTimestamp, fromDate } from '../lib/dates'
+import { format } from '../lib/dates'
+import { formatData, getUserNut, getUserIMC } from '../lib/statistics'
 
-export default function Home ({ user }) {
-  const today = toTimestamp(fromDate(new Date()))
-  const defaultArray = ['2022-05-16', '2022-05-20']
-  let newArray = defaultArray
-    .map(date => toTimestamp(date))
-    .filter(item => item <= today)
-    .sort()
-    .map(timestamp => fromTimestamp(timestamp))
-  if (newArray.length >= 30) { newArray = newArray.slice(newArray.length - 30) }
+export default function Home ({ user, shoppingList }) {
+  const userNut = getUserNut(user)
+  const userNutFormated = formatData(userNut)
+  const userIMC = getUserIMC(user)
+  console.log(userIMC)
+
+  // Generacion de la lista de la compra
+  const lista = []
+  // eslint-disable-next-line no-unused-vars
+  for (const [key, i] of Object.entries(shoppingList)) {
+    lista.push({
+      text: i.nombre,
+      quantity: i.cantidad,
+      unit: i.unidad
+    })
+  }
 
   return (
     <div className='max-w-6xl flex flex-col gap-4 h-full'>
       <div className='w-full flex gap-2'>
         <div className='w-2/3 flex flex-col gap-2'>
           <div className='w-full h-60 flex items-center justify-center px-4 py-3.5 bg-white shadow-md rounded-lg'>
-            <LineChart
-              labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
-              data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
-            />
+            <VariousLines data={userNutFormated}/>
           </div>
           <div className='w-full flex justify-center gap-2'>
             <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
               <LineChart
-                labels={user.weight.map(item => item.date)}
-                data={user.weight.map(item => item.weight)}
+                labels={userIMC.map(item => format(item.date).substring(0, 5))}
+                data={userIMC.map(item => item.imc.bmi)}
               />
             </div>
             <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
@@ -44,15 +50,11 @@ export default function Home ({ user }) {
         <div className='divide-y-2 divide-black flex flex-col p-4 w-1/3 bg-white rounded-lg shadow-md'>
           <h3 className='text-lg font-medium mb-3'>Shopping List</h3>
           <ul className='max-h-96 overflow-y-auto pt-1.5'>
-            {[
-              { id: 1, text: 'apples', quantity: 1 },
-              { id: 2, text: 'sugar', quantity: 1 },
-              { id: 3, text: 'apples', quantity: 1 }
-            ].map(items => {
+            {lista.map(items => {
               return (
-                <label key={items.id} htmlFor={items.text} className='flex items-center gap-2'>
+                <label key={items.text} htmlFor={items.text} className='flex items-center gap-2'>
                   <input type='checkbox' value={items.text}/>
-                  <span>{items.text} x{items.quantity}</span>
+                  <span>{items.text} x{items.quantity} {items.unit}</span>
                 </label>
               )
             })}
@@ -88,7 +90,17 @@ export async function getServerSideProps ({ req }) {
     }
   }).then(res => res.json())
 
+  const shoppingList = await fetch('http://localhost:4000/api/inventory/shopping-list', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
+
   return {
-    props: { user }
+    props: {
+      user,
+      shoppingList
+    }
   }
 }

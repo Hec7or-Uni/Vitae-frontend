@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { format } from '../../lib/dates'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -54,9 +55,16 @@ export const options = {
   }
 }
 
-function createGradient (ctx, area) {
-  const colorStart = '#16c78400'
-  const colorEnd = '#16c78488'
+const COLORS = {
+  0: '#16c784', // green
+  1: '#3861fb', // blue
+  2: '#ea3943', // red
+  3: '#f5a341' // orange
+}
+
+function createGradient (ctx, area, color) {
+  const colorStart = color + '00'
+  const colorEnd = color + '88'
 
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
 
@@ -66,7 +74,15 @@ function createGradient (ctx, area) {
   return gradient
 }
 
-export default function LineChart ({ labels, data }) {
+export default function LineChart ({ data }) {
+  const labels = data.map(item => format(item.date).substring(0, 5))
+  const dataset = Object.keys(data[0].values)
+  const _data = []
+  dataset.forEach(element => {
+    const elementType = data.map(item => item.values[element])
+    _data.push(elementType)
+  })
+
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: []
@@ -78,18 +94,20 @@ export default function LineChart ({ labels, data }) {
 
     setChartData({
       labels,
-      datasets: [{
-        backgroundColor: createGradient(chart.ctx, chart.chartArea),
-        type: 'line',
-        label: 'Dataset 1',
-        borderColor: '#16c784',
-        borderWidth: 3,
-        fill: 'origin',
-        pointRadius: 0,
-        pointHitRadius: 100,
-        data: data,
-        tension: 0.33
-      }],
+      datasets: _data.map((data, index) => {
+        return {
+          backgroundColor: createGradient(chart.ctx, chart.chartArea, COLORS[index]),
+          type: 'line',
+          label: dataset[index],
+          borderColor: COLORS[index],
+          borderWidth: 3,
+          fill: 'origin',
+          pointRadius: 0,
+          pointHitRadius: 100,
+          data: data,
+          tension: 0.33
+        }
+      }),
       tooltips: {
         mode: 'dataset'
       }
