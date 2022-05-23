@@ -74,6 +74,12 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  await fetch('http://localhost:4000/api/user/statistics', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ field: 'visitIndex' })
+  })
+
   const parametros = new URLSearchParams({ email: session.user.email })
   const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
     method: 'GET',

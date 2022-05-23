@@ -28,11 +28,11 @@ export const options = {
   maintainAspectRatio: false,
   scales: {
     y: {
-      min: 0,
-      max: 100,
-      ticks: {
-        stepSize: 25
-      },
+      // min: 0,
+      // max: 100,
+      // ticks: {
+      //   stepSize: 25
+      // },
       beginAtZero: true,
       grid: {
         display: false

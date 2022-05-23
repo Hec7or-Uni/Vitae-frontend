@@ -13,12 +13,12 @@ export default function Navbar () {
         <div className=''>
           <Link href='/'>
             <a className='capitalize text-sm font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'>
-              home
+              Home
             </a>
           </Link>
           <Link href='/about'>
             <a className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'>
-              about
+              About
             </a>
           </Link>
         </div>
