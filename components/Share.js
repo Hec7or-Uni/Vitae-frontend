@@ -10,11 +10,11 @@ export default function Share (second) {
   return (
     <div className={`h-full absolute top-0 left-0 w-full z-50 flex justify-center ${popUp ? '' : 'hidden'}`}>
       <div className='h-full w-full absolute bg-black opacity-60'/>
-      <div className='mt-32 h-fit max-w-lg bg-gray-900 text-white p-6 rounded-lg flex flex-col gap-2 relative'>
-        <h2 className='text-xl font-bold'>
+      <div className='mt-32 h-fit max-w-lg bg-[#3a5a40] text-white p-6 rounded-lg flex flex-col gap-2 relative'>
+        <h2 className='text-xl font-bold opacity-95'>
           Invite your friends
         </h2>
-        <p className='text-xs opacity-70'>
+        <p className='text-xs opacity-70 tracking-wider'>
           Explicaion resumida del proyecto Explicaion resumida del proyecto Explicaion resumida del proyecto Explicaion resumida del proyecto Explicaion resumida del proyecto
         </p>
         <div className='mt-2 flex flex-col gap-2'>
@@ -45,7 +45,7 @@ export default function Share (second) {
                       format: 'text/plain'
                     })
                   }
-                  className='flex-1 border py-5 rounded-md flex flex-col gap-1.5 items-center justify-center'
+                  className='flex-1 border py-5 rounded-md flex flex-col gap-1.5 items-center justify-center opacity-70 hover:opacity-100'
                 >
                   {social.icon}
                   <span className='capitalize text-sm select-none'>{social.text}</span>
@@ -80,7 +80,7 @@ export default function Share (second) {
                       format: 'text/plain'
                     })
                   }
-                  className='flex-1 border py-5 rounded-md flex flex-col gap-1.5 items-center justify-center'
+                  className='flex-1 border py-5 rounded-md flex flex-col gap-1.5 items-center justify-center opacity-70 hover:opacity-100'
                 >
                   {social.icon}
                   <span className='capitalize text-sm select-none'>{social.text}</span>

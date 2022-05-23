@@ -5,7 +5,7 @@ import Schedule from '../components/Schedule'
 import cuid from 'cuid'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 
-export default function Planning ({ email, token, recipes }) {
+export default function Planning ({ menus, email, token, recipes }) {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '' }])
   const [header, setHeader] = useState({ name: '', date: '' })
   const [menuOp, setOp] = useState(true) // true = create | false = generate
@@ -68,20 +68,24 @@ export default function Planning ({ email, token, recipes }) {
 
   return (
     <div className='max-w-5xl flex flex-col gap-4 h-full'>
-      <form method='post' onSubmit={(e) => saveMenu(e)}>
-        <div className='w-2/3 flex gap-4 justify-between'>
+      <form
+        method='post'
+        onSubmit={(e) => saveMenu(e)}
+        className='w-2/3 bg-white rounded-md px-6 py-4'
+      >
+        <div className='flex gap-4 justify-between'>
           <div className='flex gap-4'>
             <button
               type='button'
               onClick={() => handleChangeOp()}
-              className='px-5 py-2 bg-gray-200 rounded-md text-lg font-medium'
+              className={`px-5 py-2 rounded-md text-lg font-medium shadow-md ${menuOp ? 'bg-[#3a5a40] bg-opacity-40' : 'bg-white'}`}
             >
               Create Menu
             </button>
             <button
               type='button'
               onClick={() => handleChangeOp()}
-              className='px-5 py-2 bg-gray-200 rounded-md text-lg font-medium'
+              className={`px-5 py-2 rounded-md text-lg font-medium shadow-md ${!menuOp ? 'bg-[#3a5a40] bg-opacity-40' : 'bg-white'}`}
             >
               Generate Menu
             </button>
@@ -110,7 +114,7 @@ export default function Planning ({ email, token, recipes }) {
             </button>
           </div>
         </div>
-        <div className='w-2/3 flex flex-col gap-4 pt-6 pb-10'>
+        <div className='w-full flex flex-col gap-4 pt-6 pb-10'>
             <div className='flex gap-4'>
               <label htmlFor='name' className='flex-1 flex flex-col gap-1'>
                 <span>Name</span>
@@ -120,7 +124,7 @@ export default function Planning ({ email, token, recipes }) {
                   name='name'
                   onChange={(e) => setHeader({ ...header, name: e.target.value })}
                   placeholder='Write here your menu&apos;s name '
-                  className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                  className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'
                   required
                 />
               </label>
@@ -131,7 +135,7 @@ export default function Planning ({ email, token, recipes }) {
                   id='date'
                   name='date'
                   onChange={(e) => setHeader({ ...header, date: e.target.value })}
-                  className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                  className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'
                   required
                 />
               </label>
@@ -149,7 +153,7 @@ export default function Planning ({ email, token, recipes }) {
                         <select
                           id='recipe'
                           name='recipe'
-                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'
+                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'
                           onChange={(e) => editRecipe(e, r.id)}
                           required
                         >
@@ -178,21 +182,12 @@ export default function Planning ({ email, token, recipes }) {
                   return (
                     <div key={r.id} className='flex gap-4 rounded-md'>
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
-                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'>
+                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent'>
                           <option value=''>Select a Recipe</option>
-                          {[{ id: 1, value: 'ristoranti' }].map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
+                          {recipes.map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
                         </select>
                       </label>
-                      <label htmlFor='mealType' className='flex flex-col gap-1 w-44'>
-                        <select id='mealType' name='mealType' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input focus:border-blue-600 bg-transparent'>
-                          <option value=''>Meal type</option>
-                          {[
-                            { id: 1, value: 'breakfast' },
-                            { id: 2, value: 'lunch' },
-                            { id: 3, value: 'snack' },
-                            { id: 4, value: 'dinner' }].map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
-                        </select>
-                      </label>
+
                       <button type='button' onClick={() => removeRecipe(r.id)}>
                         <FiX className='w-5 h-5 mr-1'/>
                       </button>
@@ -204,7 +199,7 @@ export default function Planning ({ email, token, recipes }) {
             </div>
           </div>
         </form>
-      <Schedule />
+      <Schedule data={menus} />
     </div>
   )
 }
@@ -235,6 +230,7 @@ export async function getServerSideProps ({ req }) {
 
   return {
     props: {
+      menus: user.menus,
       email: session.user.email,
       token: req.cookies['next-auth.session-token'],
       recipes: user.saved_recipes

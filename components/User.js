@@ -4,7 +4,7 @@ import { useSession, signOut } from 'next-auth/react'
 import Tippy from '@tippyjs/react'
 import { FiLogOut } from 'react-icons/fi'
 
-const image = 'https://images.unsplash.com/photo-1639094133769-cd123688d17f?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=703'
+const image = 'https://images.unsplash.com/photo-1639628735078-ed2f038a193e?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074'
 
 export default function User () {
   const { data: session } = useSession()
