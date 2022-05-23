@@ -5,15 +5,34 @@ import Schedule from '../components/Schedule'
 import LineChart from '../components/Charts/LineChart'
 import VariousLines from '../components/Charts/VariousLines'
 import Pie from '../components/Charts/Pie'
-import { format } from '../lib/dates'
+import { format, __TODAY, fromTimestamp } from '../lib/dates'
 import { formatData, getUserNut, getUserIMC, getUserPreferences } from '../lib/statistics'
 import { generateShoppingList } from '../lib/shopping'
 
 export default function Home ({ user }) {
-  const userNut = getUserNut(user)
-  const userNutFormated = formatData(userNut)
+  let userNut
+  let userNutFormated
+  let preferences
+  if (user.menu) {
+    userNut = getUserNut(user)
+    userNutFormated = formatData(userNut)
+    preferences = getUserPreferences(user)
+  } else {
+    userNutFormated = [{
+      date: fromTimestamp(__TODAY),
+      values: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      }
+    }]
+    preferences = {
+      labels: ['carbs', 'fat', 'protein'],
+      values: [1, 1, 1]
+    }
+  }
   const userIMC = getUserIMC(user)
-  const preferences = getUserPreferences(user)
   const shoppingList = generateShoppingList(user)
 
   return (

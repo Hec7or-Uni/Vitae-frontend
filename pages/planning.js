@@ -22,11 +22,6 @@ export default function Planning ({ menus, email, token, recipes }) {
           ...elem,
           recipe: e.target.value
         }
-      } else if (e.target.name === 'mealType') {
-        return {
-          ...elem,
-          mealType: e.target.value
-        }
       }
       return elem
     })
@@ -63,7 +58,20 @@ export default function Planning ({ menus, email, token, recipes }) {
   }
 
   const handleChangeOp = () => {
-    setOp(!menuOp)
+    if (menuOp && recipes.length !== 0) {
+      // cambiamos a generate
+      const data = [
+        { id: cuid(), recipe: '' },
+        { id: cuid(), recipe: '' },
+        { id: cuid(), recipe: '' }
+      ]
+      setMenu(data)
+      setOp(false)
+    } else {
+      // cambiamos a create
+      delMenu()
+      setOp(true)
+    }
   }
 
   return (
@@ -182,7 +190,7 @@ export default function Planning ({ menus, email, token, recipes }) {
                   return (
                     <div key={r.id} className='flex gap-4 rounded-md'>
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
-                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent'>
+                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'>
                           <option value=''>Select a Recipe</option>
                           {recipes.map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
                         </select>
