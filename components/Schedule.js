@@ -13,7 +13,6 @@ export default function Schedule ({ data }) {
     .sort((a, b) => a.date - b.date)
     .map(item => { return { ...item, date: fromTimestamp(item.date) } })
 
-  console.log(data)
   const day0 = data.filter(item => toTimestamp(item.date) === __TODAY - DIA_EN_MILISEGUNDOS)
   const day1 = data.filter(item => toTimestamp(item.date) === __TODAY)
   const day2 = data.filter(item => toTimestamp(item.date) === __TODAY + 2 * DIA_EN_MILISEGUNDOS)
@@ -25,7 +24,6 @@ export default function Schedule ({ data }) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className='w-full h-72 grid grid-cols-10 divide-x divide-black border-l border-r border-black'>
-        {/* dia */}
         {zip(timestamps, days).map(element => {
           return (
             <div key={element[0]} className='col-span-2 flex flex-col items-center'>
@@ -44,6 +42,5 @@ export default function Schedule ({ data }) {
         })}
       </div>
     </div>
-
   )
 }
