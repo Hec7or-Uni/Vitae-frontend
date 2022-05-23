@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { format } from '../../lib/dates'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -74,8 +73,7 @@ function createGradient (ctx, area, color) {
   return gradient
 }
 
-export default function LineChart ({ data }) {
-  const labels = data.map(item => format(item.date).substring(0, 5))
+export default function VariousLines ({ labels, data }) {
   const dataset = Object.keys(data[0].values)
   const _data = []
   dataset.forEach(element => {

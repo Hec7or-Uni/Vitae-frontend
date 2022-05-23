@@ -64,7 +64,7 @@ function createGradient (ctx, area) {
   return gradient
 }
 
-export default function LineChart ({ labels, data }) {
+export default function LineChart ({ label, labels, data }) {
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: []
@@ -79,7 +79,7 @@ export default function LineChart ({ labels, data }) {
       datasets: [{
         backgroundColor: createGradient(chart.ctx, chart.chartArea),
         type: 'line',
-        label: 'Dataset 1',
+        label,
         borderColor: '#16c784',
         borderWidth: 3,
         fill: 'origin',
