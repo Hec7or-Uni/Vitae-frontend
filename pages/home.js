@@ -6,13 +6,14 @@ import LineChart from '../components/Charts/LineChart'
 import VariousLines from '../components/Charts/VariousLines'
 import Pie from '../components/Charts/Pie'
 import { format } from '../lib/dates'
-import { formatData, getUserNut, getUserIMC } from '../lib/statistics'
+import { formatData, getUserNut, getUserIMC, getUserPreferences } from '../lib/statistics'
 
 export default function Home ({ user, shoppingList }) {
   const userNut = getUserNut(user)
   const userNutFormated = formatData(userNut)
   const userIMC = getUserIMC(user)
-  console.log(userIMC)
+  const preferences = getUserPreferences(user)
+  console.log(preferences)
 
   // Generacion de la lista de la compra
   const lista = []
