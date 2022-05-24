@@ -93,6 +93,8 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  console.log(session)
+
   await fetch('http://localhost:4000/api/user/statistics', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },

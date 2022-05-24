@@ -11,6 +11,7 @@ function MyApp ({
     <SessionProvider
       session={session}
       refetchInterval={5 * 60}
+      refetchOnWindowFocus={true}
     >
       {getLayout(<Component {...pageProps} />)}
     </SessionProvider>

@@ -135,30 +135,15 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
         </div>
       </div>
       <div className='w-full flex flex-col gap-6 justify-start items-start pb-28'>
-        <Comment
-          recipeId={recipe._id}
-          email={email}
-          creatorEmail={email}
-          message={''}
-          creationDate={''}
-          profileImg={''}
-          isReply={false}
-          except={true}
-        />
+        <Comment />
         {comments.length !== 0 &&
           comments.map(item => {
             return (
               <ul key={item._id} className='flex flex-col gap-2 ml-0'>
                 <li>
                   <Comment
-                    _id={item._id}
-                    recipeId={recipe._id}
-                    email={email}
-                    creatorEmail={item.creatorEmail}
-                    message={item.content}
-                    creationDate={item.createdAt}
-                    profileImg={item.profileImg}
-                    isReply={false}
+                    recipeId={item.recipeId}
+                    comment={item.comment}
                   />
                   <ul className='flex flex-col ml-16 gap-2'>
                       {item.response.map(item => {
@@ -166,14 +151,8 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
                           <li key={item._id} className='flex gap-4'>
                             <FiCornerDownRight className='w-6 h-6 mt-3'/>
                             <Comment
-                              _id={item._id}
-                              recipeId={item._id}
-                              email={email}
-                              creatorEmail={item.creatorEmail}
-                              message={item.content}
-                              creationDate={item.createdAt}
-                              profileImg={item.profileImg}
-                              isReply={true}
+                              recipeId={item.recipeId}
+                              comment={item.comment}
                             />
                           </li>
                         )

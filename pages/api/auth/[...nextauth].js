@@ -49,12 +49,13 @@ export default NextAuth({
           headers: { 'Content-Type': 'application/json' }
         })
 
-        const { username, email, salt, hash } = await res.json()
+        const { username, email, salt, hash, role } = await res.json()
         if (res.ok && CryptoJS.SHA512(salt + credentials.password).toString() === hash) {
           // If no error and we have user data, return it
           return {
             username,
-            email
+            email,
+            role
           }
         }
 
@@ -73,13 +74,12 @@ export default NextAuth({
     },
     async session ({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
-      // session.user.role = user.role || false
+      // session.user.role = user.role // Add role value to user object so it is passed along with session
       session.accessToken = token.accessToken
       return session
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
-        console.log(account, profile)
         await fetch('http://localhost:4000/api/user/connect-account', {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),

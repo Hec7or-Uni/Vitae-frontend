@@ -1,48 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import SButton from './sButton'
 import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings, FiActivity } from 'react-icons/fi'
 
 export default function Sidebar () {
-  const [active, setActive] = useState(1)
+  const [links, setLinks] = useState([])
   const router = useRouter()
-  let links
 
-  if (router.asPath !== '/admin') {
-    links = [{
-      id: 1,
-      link: '/home',
-      icon: <FiHeart className='text-xl stroke-2' />,
-      text: 'home'
-    }, {
-      id: 2,
-      link: '/discover',
-      icon: <FiGlobe className='text-xl stroke-2' />,
-      text: 'discover'
-    }, {
-      id: 3,
-      link: '/storage',
-      icon: <FiBox className='text-xl stroke-2' />,
-      text: 'storage'
-    }, {
-      id: 4,
-      link: '/planning',
-      icon: <FiCalendar className='text-xl stroke-2' />,
-      text: 'planning'
-    }, {
-      id: 5,
-      link: '/settings',
-      icon: <FiSettings className='text-xl stroke-2' />,
-      text: 'settings'
-    }]
-  } else {
-    links = [{
-      id: 1,
-      link: '/admin',
-      icon: <FiActivity className='text-xl stroke-2' />,
-      text: 'home'
-    }]
-  }
+  useEffect(() => {
+    console.log(router.asPath)
+    let lista
+    if (router.asPath !== '/admin') {
+      lista = [{
+        id: 1,
+        link: '/home',
+        icon: <FiHeart className='text-xl stroke-2' />,
+        text: 'home'
+      }, {
+        id: 2,
+        link: '/discover',
+        icon: <FiGlobe className='text-xl stroke-2' />,
+        text: 'discover'
+      }, {
+        id: 3,
+        link: '/storage',
+        icon: <FiBox className='text-xl stroke-2' />,
+        text: 'storage'
+      }, {
+        id: 4,
+        link: '/planning',
+        icon: <FiCalendar className='text-xl stroke-2' />,
+        text: 'planning'
+      }, {
+        id: 5,
+        link: '/settings',
+        icon: <FiSettings className='text-xl stroke-2' />,
+        text: 'settings'
+      }]
+    } else {
+      lista = [{
+        id: 1,
+        link: '/admin',
+        icon: <FiActivity className='text-xl stroke-2' />,
+        text: 'home'
+      }]
+    }
+    setLinks(lista)
+  }, [router.asPath])
 
   return (
     <div className='h-full bg-gray-200 bg-opacity-90'>
@@ -54,8 +58,7 @@ export default function Sidebar () {
             link={item.link}
             icon={item.icon}
             text={item.text}
-            active={active}
-            handler={setActive}
+            active={router.asPath === item.link}
           />
         )
       })}

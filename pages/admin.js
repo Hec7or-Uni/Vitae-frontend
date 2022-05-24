@@ -114,6 +114,22 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  const { email, role } = await fetch('http://localhost:4000/api/user/signin', {
+    method: 'POST',
+    body: JSON.stringify({ email: session.user.email }),
+    headers: { 'Content-Type': 'application/json' }
+  }).then(res => res.json())
+
+  const allowedEmails = ['hector@vitop.xyz', 'bolu@vitop.xyz', 'alvaro@vitop.xyz']
+  if (!allowedEmails.includes(email) || role !== 1) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   const data = await fetch('http://localhost:4000/api/user/statistics', {
     method: 'GET',
     headers: {
@@ -122,7 +138,6 @@ export async function getServerSideProps ({ req }) {
     }
   }).then(res => res.json())
 
-  console.log(data)
   return {
     props: {
       allData: data
