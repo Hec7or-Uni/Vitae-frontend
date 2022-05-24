@@ -79,6 +79,7 @@ export default NextAuth({
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
+        console.log(account, profile)
         await fetch('http://localhost:4000/api/user/connect-account', {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),

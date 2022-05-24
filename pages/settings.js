@@ -1,6 +1,7 @@
 import Layout from '../components/Layout/WithSession'
 import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
+import Tippy from '@tippyjs/react'
 
 export default function Settings ({ user, token }) {
   const google = user.accounts.some(item => item.provider === 'google')
@@ -181,7 +182,15 @@ export default function Settings ({ user, token }) {
           <RiGoogleFill className='text-xl' />
           <span>Google</span>
         </button>
-        <button
+        <Tippy
+          arrow={false}
+          content={
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+              currently unavailable
+            </span>
+          }
+        >
+          <button
           onClick={async () => {
             if (twitter) {
               await disconnect('twitter')
@@ -190,25 +199,37 @@ export default function Settings ({ user, token }) {
             }
           }}
           type='button'
-          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${twitter ? 'text-green-700' : 'text-black'}`}
+          className={`cursor-not-allowed capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white hover:text-red-500 flex items-center gap-1 hover:scale-95 duration-300 ${twitter ? 'text-green-700' : 'text-black'}`}
+          disabled={true}
         >
           <RiTwitterLine className='text-xl' />
           <span>Twitter</span>
         </button>
-        <button
-          onClick={async () => {
-            if (instagram) {
-              await disconnect('instagram')
-            } else {
-              await signIn('instagram')
-            }
-          }}
-          type='button'
-          className={`capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${instagram ? 'text-green-700' : 'text-black'}`}
+        </Tippy>
+        <Tippy
+          arrow={false}
+          content={
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+              currently unavailable
+            </span>
+          }
         >
-          <RiInstagramLine className='text-xl' />
-          <span>Instagram</span>
-        </button>
+          <button
+            onClick={async () => {
+              if (instagram) {
+                await disconnect('instagram')
+              } else {
+                await signIn('instagram')
+              }
+            }}
+            type='button'
+            className={`cursor-not-allowed capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center bg-white-600 shadow-md rounded-md hover:text-red-500 hover:bg-white flex items-center gap-1 hover:scale-95 duration-300 ${instagram ? 'text-green-700' : 'text-black'}`}
+            disabled={true}
+          >
+            <RiInstagramLine className='text-xl' />
+            <span>Instagram</span>
+          </button>
+        </Tippy>
       </div>
     </div>
   )
