@@ -17,12 +17,10 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
   if (!exception) {
     creatorEmail = comment.creatorEmail || user
     content = comment.content
-    parentId = comment._id
+    parentId = comment.parentId
     createdAt = comment.createdAt
   }
-  if (child) {
-    console.log(comment)
-  }
+  // if (child) { }
 
   const timeago = useTimeAgo(exception ? 'Created at...' : createdAt)
   const [text, setLetters] = useState(exception ? '' : content)
@@ -56,7 +54,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
   const handlePublishRep = async (e) => {
     e.preventDefault()
     const body = {
-      parentId,
+      parentId: comment._id,
       comment: {
         creatorEmail: user,
         content: text
@@ -80,11 +78,11 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
     }
 
     if (parentId) { body.comment.parentId = parentId }
-    // await fetch('http://localhost:4000/api/user/comments', {
-    //   method: 'PUT',
-    //   headers,
-    //   body: JSON.stringify(body)
-    // })
+    await fetch('http://localhost:4000/api/user/comments', {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(body)
+    })
   }
 
   const handleDelete = async (e) => {
@@ -99,7 +97,6 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       }
     }
     if (parentId) { body.comment.parentId = parentId }
-    console.log(body)
     await fetch('http://localhost:4000/api/user/comments', {
       method: 'DELETE',
       headers,
