@@ -2,9 +2,9 @@ import Layout from '../components/Layout/WithSession'
 import React from 'react'
 import { getSession } from 'next-auth/react'
 import { FiUsers, FiUserCheck, FiTrendingUp } from 'react-icons/fi'
-import LineChart from '../components/Charts/Line'
-import Pie from '../components/Charts/Pie'
-
+import VariousLines from '../components/Charts/VariousLines'
+import { format } from '../lib/dates'
+import { zip } from '../lib/functions'
 import {
   ComposableMap,
   Geographies,
@@ -17,7 +17,7 @@ const geoUrl =
 
 export const MapChart = () => {
   return (
-    <ComposableMap projection='geoEqualEarth' height={1} width={1000} className='h-full w-full select-none'>
+    <ComposableMap projection='geoEqualEarth' height={450} width={1000} className='h-full w-full select-none flex-1'>
       <Geographies geography={geoUrl}>
         {({ geographies }) =>
           geographies.map(geo => (
@@ -46,28 +46,42 @@ export const MapChart = () => {
   )
 }
 
-export default function Admin () {
+export default function Admin ({ allData }) {
+  const registerUsers = allData.registerUsers
+  const labelLine = allData.DailyVisits.map(item => format(item.createdAt.substring(0, 10)).substring(0, 5))
+  const registerLine = allData.DailyVisits.map(item => item.visitHome)
+  const unregisteredLine = allData.DailyVisits.map(item => item.visitIndex)
+  const data = zip(labelLine, registerLine, unregisteredLine).map(items => {
+    return {
+      date: items[0],
+      values: {
+        'register users': items[1],
+        'unregister users': items[2]
+      }
+    }
+  })
+
   return (
-    <div className='max-w-6xl grid grid-cols-3 gap-4 h-full'>
-      <div className='col-span-2 h-80 flex items-center justify-center flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
+    <div className='max-w-5xl grid grid-cols-3 gap-4 min-h-fit'>
+      <div className='col-span-3 min-h-80 flex items-center justify-center px-1 py-4 bg-white shadow-md rounded-lg'>
         <MapChart />
       </div>
-      <div className='col-span-1 grid grid-rows-3 grid-flow-col gap-4'>
+      <div className='flex flex-col gap-4'>
         {[{
           icon: <FiUsers className='text-2xl'/>,
-          text: 'Online users',
-          value: Math.floor(Math.random() * 99) + 10
+          text: 'Registered users',
+          value: registerUsers
         }, {
           icon: <FiUserCheck className='text-2xl'/>,
-          text: 'Registered users',
-          value: Math.floor(Math.random() * 99) + 10
+          text: 'Visits by registered users',
+          value: allData.DailyVisits[allData.DailyVisits.length - 1].visitHome
         }, {
           icon: <FiTrendingUp className='text-2xl'/>,
-          text: 'Daily visits',
-          value: Math.floor(Math.random() * 99) + 10
+          text: 'Visits by unregistered users',
+          value: allData.DailyVisits[allData.DailyVisits.length - 1].visitIndex
         }].map((item) => {
           return (
-            <div key={1} className='row-span-1 flex items-center justify-between px-8 py-1 bg-white rounded-lg select-none'>
+            <div key={1} className='h-20 flex items-center justify-between px-8 py-1 bg-white rounded-lg select-none'>
               <div className='flex gap-4'>
               {item.icon}
                 <h3 className='text-base font-medium'>{item.text}</h3>
@@ -77,23 +91,8 @@ export default function Admin () {
           )
         })}
       </div>
-      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
-        <LineChart
-          labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
-          data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
-        />
-      </div>
-      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
-        <LineChart
-          labels={['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']}
-          data={[1, 2, 3, 4, 5, 6, 7].map(() => Math.random(0, 100) * 100)}
-        />
-      </div>
-      <div className='h-64 flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
-        <Pie
-          labels={['calories', 'carbs', 'fats', 'proteins']}
-          data={[1, 2, 3, 4].map(() => Math.random(0, 100) * 100)}
-        />
+      <div className='col-span-2 h-full flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
+        <VariousLines labels={labelLine} data={data}/>
       </div>
     </div>
   )
@@ -115,7 +114,18 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  const data = await fetch('http://localhost:4000/api/user/statistics', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
+
+  console.log(data)
   return {
-    props: { }
+    props: {
+      allData: data
+    }
   }
 }

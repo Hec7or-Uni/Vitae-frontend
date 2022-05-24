@@ -73,11 +73,13 @@ export default NextAuth({
     },
     async session ({ session, token, user }) {
       // Send properties to the client, like an access_token from a provider.
+      // session.user.role = user.role || false
       session.accessToken = token.accessToken
       return session
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
+        console.log(account, profile)
         await fetch('http://localhost:4000/api/user/connect-account', {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),

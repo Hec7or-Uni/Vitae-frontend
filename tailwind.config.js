@@ -4,7 +4,11 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      minHeight: {
+        80: '20'
+      }
+    }
   },
-  plugins: []
+  plugins: [require('@tailwindcss/typography')]
 }

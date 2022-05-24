@@ -1,6 +1,14 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
 
 export default async (req, res) => {
+  const allowedMethods = ['GET']
+  const { method } = req
+  if (!allowedMethods.includes(method)) {
+    res.setHeader('Allow', allowedMethods)
+    res.status(501).end(`Method ${method} Not Allowed`)
+    return
+  }
+
   try {
     const smStream = new SitemapStream({
       hostname: `https://${req.headers.host}`,

@@ -69,7 +69,7 @@ export default function Footer () {
                 >
                 <FiMessageCircle className='w-4 h-4'/>
                 <p className='text-xs font-medium'>Habla con nosotros</p>
-                <span className='text-xs font-medium bg-black bg-opacity-40 py-1 px-2 rounded-lg'>C</span>
+                <span className='text-xs font-medium bg-black bg-opacity-40 py-1 px-2 rounded-lg'>Q</span>
               </a>
               <div className='w-full flex flex-col items-start'>
                 <a href='https://github.com/orgs/Hec7or-Uni/teams/vitae/repositories' className='w-full mt-2 py-2.5 px-2 flex gap-3 items-center justify-start cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'>

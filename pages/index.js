@@ -129,3 +129,14 @@ export default function Index () {
 Index.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
 }
+
+export async function getServerSideProps ({ req }) {
+  await fetch('http://localhost:4000/api/user/statistics', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ field: 'visitIndex' })
+  })
+  return {
+    props: {}
+  }
+}
