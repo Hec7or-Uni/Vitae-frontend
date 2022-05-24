@@ -7,6 +7,7 @@ import Share from '../Share'
 import { ShareProvider } from '../../context/ShareContext'
 import useKey from '../../hooks/useKey'
 import { useRouter } from 'next/router'
+import { SWRConfig } from 'swr'
 
 export default function Layout ({ children }) {
   const router = useRouter()
@@ -16,26 +17,33 @@ export default function Layout ({ children }) {
 
   useKey('KeyQ', handleContact)
   return (
-    <ScreenProvider>
-      <ShareProvider>
-        <Meta/>
-        <div className='h-screen w-full flex flex-col divide-y-2 divide-gray-700 relative'>
-          <Navbar />
-          <div
-            className='flex flex-1 divide-x-2 divide-gray-500'
-            style={{ height: 'calc(100vh - 6.5rem)' }}
-          >
-            <Sidebar />
-            <main className='flex-1 overflow-y-auto bg-gradient-to-t '>
-              <div className='h-full container mx-auto py-4'>
-                { children }
-              </div>
-            </main>
+    <SWRConfig
+      value={{
+        refreshInterval: 3000,
+        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+      }}
+    >
+      <ScreenProvider>
+        <ShareProvider>
+          <Meta/>
+          <div className='h-screen w-full flex flex-col divide-y-2 divide-gray-700 relative'>
+            <Navbar />
+            <div
+              className='flex flex-1 divide-x-2 divide-gray-500'
+              style={{ height: 'calc(100vh - 6.5rem)' }}
+            >
+              <Sidebar />
+              <main className='flex-1 overflow-y-auto bg-gradient-to-t '>
+                <div className='h-full container mx-auto py-4'>
+                  { children }
+                </div>
+              </main>
+            </div>
+            <Footer />
+            <Share/>
           </div>
-          <Footer />
-          <Share/>
-        </div>
-      </ShareProvider>
-    </ScreenProvider>
+        </ShareProvider>
+      </ScreenProvider>
+    </SWRConfig>
   )
 }

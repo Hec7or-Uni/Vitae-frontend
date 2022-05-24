@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn-primary {
+    @apply text-base font-semibold px-4 py-1.5 rounded-lg border border-gray-200 bg-white shadow-md hover:bg-transparent duration-150 hover:text-white;
+  }
+}
+
 body {
   background-color: #f0efeb;
 }

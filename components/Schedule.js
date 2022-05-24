@@ -15,9 +15,9 @@ export default function Schedule ({ data }) {
 
   const day0 = data.filter(item => toTimestamp(item.date) === __TODAY - DIA_EN_MILISEGUNDOS)
   const day1 = data.filter(item => toTimestamp(item.date) === __TODAY)
-  const day2 = data.filter(item => toTimestamp(item.date) === __TODAY + 2 * DIA_EN_MILISEGUNDOS)
-  const day3 = data.filter(item => toTimestamp(item.date) === __TODAY + 3 * DIA_EN_MILISEGUNDOS)
-  const day4 = data.filter(item => toTimestamp(item.date) === __TODAY + 4 * DIA_EN_MILISEGUNDOS)
+  const day2 = data.filter(item => toTimestamp(item.date) === __TODAY + 1 * DIA_EN_MILISEGUNDOS)
+  const day3 = data.filter(item => toTimestamp(item.date) === __TODAY + 2 * DIA_EN_MILISEGUNDOS)
+  const day4 = data.filter(item => toTimestamp(item.date) === __TODAY + 3 * DIA_EN_MILISEGUNDOS)
 
   const days = [day0, day1, day2, day3, day4]
 

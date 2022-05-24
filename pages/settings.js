@@ -16,7 +16,7 @@ export default function Settings ({ user, token }) {
       birth: e.target.birth.value || user.birth,
       gender: e.target.gender.value || user.gender,
       height: Number(e.target.height.value) || user.height,
-      weight: Number(e.target.weight.value) || user.weight[user.weight.lenght - 1]
+      weight: Number(e.target.weight.value) || user.weight[user.weight.length - 1]
     }
     const uri = 'http://localhost:4000/api/user/update-account'
     await fetch(uri, {
@@ -26,7 +26,7 @@ export default function Settings ({ user, token }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(query)
-    }).then(res => res.json())
+    }).then(res => console.log(res))
       .catch(err => console.error(err))
   }
 
@@ -145,7 +145,7 @@ export default function Settings ({ user, token }) {
               name='weight'
               type='number'
               placeholder='62,5'
-              defaultValue={user.weight.lenght !== 0 ? user.weight[user.weight.lenght - 1] : null}
+              defaultValue={user.weight.length >= 0 ? user.weight[user.weight.length - 1].weight : null}
               className='px-2.5 py-2 rounded-md bg-white text-black'
               min='5'
               max='250'

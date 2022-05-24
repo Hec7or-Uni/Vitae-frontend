@@ -59,13 +59,18 @@ export default function Planning ({ menus, email, token, recipes }) {
 
   const handleChangeOp = () => {
     if (menuOp && recipes.length !== 0) {
-      // cambiamos a generate
-      const data = [
-        { id: cuid(), recipe: '' },
-        { id: cuid(), recipe: '' },
-        { id: cuid(), recipe: '' }
-      ]
-      setMenu(data)
+      const newMenu = recipes
+        .filter(item => Math.random() > 0.5)
+        .map(item => {
+          return {
+            id: cuid(),
+            recipe: item._id,
+            title: item.title
+          }
+        })
+
+      console.log(newMenu)
+      setMenu(newMenu)
       setOp(false)
     } else {
       // cambiamos a create
@@ -169,7 +174,7 @@ export default function Planning ({ menus, email, token, recipes }) {
                           {recipes.map(m => {
                             return (
                               <option
-                                key={m.id}
+                                key={m._id}
                                 value={m._id}
                               >
                                 {m.title}
@@ -187,15 +192,29 @@ export default function Planning ({ menus, email, token, recipes }) {
               </>
                 : <>
                 {menu.map(r => {
+                  console.log(r)
                   return (
                     <div key={r.id} className='flex gap-4 rounded-md'>
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
-                        <select id='recipe' name='recipe' className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'>
-                          <option value=''>Select a Recipe</option>
-                          {recipes.map(m => <option key={m.id} value={m.value}>{m.value}</option>)}
+                        <select
+                          id='recipe'
+                          name='recipe'
+                          onChange={(e) => editRecipe(e, r.id)}
+                          className='block w-full px-3 py-2 mt-1 text-gray-700 border rounded-md form-input bg-transparent border-black border-opacity-30'
+                        >
+                          <option value={r._id}>{r.title}</option>
+                          {recipes.map(m => {
+                            return (
+                              <option
+                                key={m._id}
+                                value={m._id}
+                              >
+                                {m.title}
+                              </option>
+                            )
+                          })}
                         </select>
                       </label>
-
                       <button type='button' onClick={() => removeRecipe(r.id)}>
                         <FiX className='w-5 h-5 mr-1'/>
                       </button>

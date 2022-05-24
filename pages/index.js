@@ -4,6 +4,7 @@ import Testimonial from '../components/Testimonial'
 import Layout from '../components/Layout/NoSession'
 import { FiCheck } from 'react-icons/fi'
 import { Counter, Observer } from '../components/Counter'
+import Newsletter from '../components/Newsletter'
 
 export default function Index () {
   const reset = entry => <Counter number={'15000'} duration={2} />
@@ -27,11 +28,7 @@ export default function Index () {
             <h1 className='text-white text-center text-4xl font-bold capitalize'>
               Rutrum vitae morbi quam nulla vel massa eu id massa.
             </h1>
-            <Link href={'/'}>
-              <a className='px-4 py-1.5 bg-white rounded-lg text-lg'>
-                Join Now
-              </a>
-            </Link>
+            <Newsletter/>
           </div>
           <div className='w-1/4 z-10 flex flex-col gap-6 items-center'>
             {[

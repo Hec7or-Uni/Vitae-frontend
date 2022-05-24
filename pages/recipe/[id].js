@@ -5,8 +5,26 @@ import { FiPlus, FiClock, FiHeart, FiBookmark, FiCornerDownRight } from 'react-i
 import { data2 } from '../../lib/temp'
 import Comment from '../../components/Comment'
 import { zip } from '../../lib/functions'
+// import useSWR from 'swr'
+
+// const fetchWithToken = async (uri, spoonId, token) => {
+//   console.log(uri, spoonId, token)
+
+//   const parametros = new URLSearchParams({ spoonId: spoonId })
+//   const recipe = await fetch(`${uri}?${parametros.toString()}`, {
+//     method: 'GET',
+//     headers: {
+//       Authorization: `Bearer ${token}`
+//     }
+//   }).then(res => res.json())
+//     .catch(err => console.error(err))
+//   return { data: recipe }
+// }
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
+  // const { data: swr } = useSWR(['http://localhost:4000/api/inventory', recipe.spoonId, token], fetchWithToken)
+  // console.log(swr)
+
   const images = [
     'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
     'https://images.unsplash.com/photo-1608842850202-06e70ead4c10?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687',
