@@ -2,12 +2,13 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import Logo from '../../Logo'
 import User from '../../User'
+import { useScreen } from '../../../context/ScreenContext'
 
 export default function Navbar () {
   const { data: session } = useSession()
-
+  const { handleDocs } = useScreen()
   return (
-    <div className="sticky top-0 h-16 w-full flex items-center tracking-wide z-50 bg-gray-900 bg-opacity-50">
+    <div className="sticky top-0 h-16 w-full flex items-center tracking-wide z-40 bg-gray-900 bg-opacity-50">
       <div className="flex justify-center items-center container mx-auto relative">
         <Logo url={'/'} />
         <div className=''>
@@ -21,6 +22,12 @@ export default function Navbar () {
               About
             </a>
           </Link>
+          <button
+            onClick={handleDocs}
+            className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'
+          >
+            Memoria
+          </button>
         </div>
         <div className="flex gap-x-3 absolute right-0 mx-4">
         {session

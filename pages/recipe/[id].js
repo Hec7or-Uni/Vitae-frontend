@@ -134,20 +134,20 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           })}
         </div>
       </div>
-      <div className='w-full flex flex-col gap-6 justify-start items-start pb-28'>
+      <div className='w-full flex flex-col gap-4 justify-start items-start pb-28'>
         <Comment recipeId={recipe.spoonId} user={email} token={token}/>
         {comments.length !== 0 &&
           comments.reverse().map(item => {
             return (
-              <ul key={item._id} className='flex flex-col gap-2 ml-0'>
-                <li>
+              <ul key={item._id} className='w-full flex flex-col justify-start items-start gap-2'>
+                <li className='w-full flex flex-col justify-start items-start gap-2'>
                   <Comment
                     recipeId={recipe.spoonId}
                     comment={item}
                     user={email}
                     token={token}
                   />
-                  <ul className='flex flex-col ml-16 gap-2'>
+                  <ul className='flex flex-col gap-2 w-full ml-4'>
                       {item.response.map(item => {
                         return (
                           <li key={item._id} className='flex gap-4'>
@@ -157,6 +157,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
                               comment={item}
                               user={email}
                               token={token}
+                              child={true}
                             />
                           </li>
                         )

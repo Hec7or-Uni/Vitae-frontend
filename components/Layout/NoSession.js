@@ -3,13 +3,18 @@ import Navbar from '../Navegation/Navbar/NoSession'
 import Footer from '../Navegation/Footer/NoSession'
 import CookieConsent from 'react-cookie-consent'
 import Link from 'next/link'
+import { ScreenProvider } from '../../context/ScreenContext'
+import Documentation from '../Documentation'
 
-export default function Layout ({ children }) {
+export default function Layout ({ children, docs }) {
   return (
-    <>
+    <ScreenProvider>
       <Meta/>
       <div>
-        <Navbar />
+        <div>
+          {docs !== undefined && <Documentation source={docs.source} frontMatter={docs.frontMatter} />}
+          <Navbar />
+        </div>
         <main>
           { children }
         </main>
@@ -59,6 +64,6 @@ export default function Layout ({ children }) {
           </a>
         </Link>.
       </CookieConsent>
-    </>
+    </ScreenProvider>
   )
 }

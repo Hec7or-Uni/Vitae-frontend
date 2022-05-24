@@ -3,6 +3,8 @@ import { useRouter } from 'next/router'
 import Partner from '../components/Partner'
 import { FiArrowLeft } from 'react-icons/fi'
 import Image from 'next/image'
+import { serialize } from 'next-mdx-remote/serialize'
+import { getPost } from '../lib/mdxUtils'
 
 export default function About () {
   const router = useRouter()
@@ -85,5 +87,18 @@ export default function About () {
 }
 
 About.getLayout = function getLayout (page) {
-  return <Layout>{page}</Layout>
+  const docs = page.props
+  return <Layout docs={docs}>{page}</Layout>
+}
+
+export const getStaticProps = async () => {
+  const { content, data } = getPost('memoria')
+  const mdxSource = await serialize(content, { scope: data })
+
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: data
+    }
+  }
 }

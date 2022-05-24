@@ -5,6 +5,8 @@ import Layout from '../components/Layout/NoSession'
 import { FiCheck } from 'react-icons/fi'
 import { Counter, Observer } from '../components/Counter'
 import Newsletter from '../components/Newsletter'
+import { serialize } from 'next-mdx-remote/serialize'
+import { getPost } from '../lib/mdxUtils'
 
 export default function Index () {
   const reset = entry => <Counter number={'15000'} duration={2} />
@@ -124,16 +126,24 @@ export default function Index () {
 }
 
 Index.getLayout = function getLayout (page) {
-  return <Layout>{page}</Layout>
+  const docs = page.props
+  return <Layout docs={docs}>{page}</Layout>
 }
 
 export async function getServerSideProps ({ req }) {
+  const { content, data } = getPost('memoria')
+  const mdxSource = await serialize(content, { scope: data })
+
   await fetch('http://localhost:4000/api/user/statistics', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ field: 'visitIndex' })
   })
+
   return {
-    props: {}
+    props: {
+      source: mdxSource,
+      frontMatter: data
+    }
   }
 }

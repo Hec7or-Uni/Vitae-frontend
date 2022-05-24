@@ -1,5 +1,7 @@
 import Question from '../components/Question'
 import Layout from '../components/Layout/NoSession'
+import { serialize } from 'next-mdx-remote/serialize'
+import { getPost } from '../lib/mdxUtils'
 
 export default function FAQ () {
   return (
@@ -114,5 +116,18 @@ export default function FAQ () {
 }
 
 FAQ.getLayout = function getLayout (page) {
-  return <Layout>{page}</Layout>
+  const docs = page.props
+  return <Layout docs={docs}>{page}</Layout>
+}
+
+export const getStaticProps = async () => {
+  const { content, data } = getPost('memoria')
+  const mdxSource = await serialize(content, { scope: data })
+
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: data
+    }
+  }
 }
