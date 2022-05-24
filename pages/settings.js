@@ -16,7 +16,7 @@ export default function Settings ({ user, token }) {
       birth: e.target.birth.value || user.birth,
       gender: e.target.gender.value || user.gender,
       height: Number(e.target.height.value) || user.height,
-      weight: [...user.weight, Number(e.target.weight.value)] || user.weight
+      weight: Number(e.target.weight.value) || user.weight[user.weight.lenght - 1]
     }
     const uri = 'http://localhost:4000/api/user/update-account'
     await fetch(uri, {
@@ -27,6 +27,7 @@ export default function Settings ({ user, token }) {
       },
       body: JSON.stringify(query)
     }).then(res => res.json())
+      .catch(err => console.error(err))
   }
 
   const handleDelete = async () => {
@@ -40,6 +41,7 @@ export default function Settings ({ user, token }) {
       },
       body: JSON.stringify({ email: user.email })
     }).then(() => signOut({ redirect: 'http://localhost:3000' }))
+      .catch(err => console.error(err))
   }
 
   const disconnect = async (provider) => {
@@ -48,7 +50,7 @@ export default function Settings ({ user, token }) {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: user.email, provider })
-    })
+    }).catch(err => console.error(err))
   }
 
   return (
@@ -143,7 +145,7 @@ export default function Settings ({ user, token }) {
               name='weight'
               type='number'
               placeholder='62,5'
-              defaultValue={user.weight ? user.weight[user.weight.lenght - 1] : null}
+              defaultValue={user.weight.lenght !== 0 ? user.weight[user.weight.lenght - 1] : null}
               className='px-2.5 py-2 rounded-md bg-white text-black'
               min='5'
               max='250'
@@ -260,6 +262,9 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
   }).then(res => res.json())
+    .catch(err => console.error(err))
+
+  console.log(user)
 
   return {
     props: {

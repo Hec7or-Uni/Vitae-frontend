@@ -16,8 +16,11 @@ export default function Discover ({ email, recipes, token }) {
         Authorization: token
       }
     }).then(res => res.json())
+      .catch(err => console.log(err))
+
     console.log(recipes)
-    if (recipes.results.length >= 0) { setRecipes(recipes.results) }
+    const temp = recipes.results || recipes.recipes
+    if (temp.length >= 0) { setRecipes(temp) }
   }
 
   return (
@@ -52,11 +55,13 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
   }).then(res => res.json())
+    .catch(err => console.error(err))
 
+  console.log(recipes)
   return {
     props: {
       email: session.user.email,
-      recipes,
+      recipes: recipes,
       token: req.cookies['next-auth.session-token']
     }
   }
