@@ -1,10 +1,20 @@
 import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
 import { getSession } from 'next-auth/react'
-import { FiPlus, FiClock, FiHeart, FiBookmark } from 'react-icons/fi'
+import { FiPlus, FiClock, FiHeart, FiBookmark, FiCornerDownRight } from 'react-icons/fi'
 import { data2 } from '../../lib/temp'
+import Comment from '../../components/Comment'
+import { zip } from '../../lib/functions'
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
+  const images = [
+    'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
+    'https://images.unsplash.com/photo-1608842850202-06e70ead4c10?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687',
+    'https://images.unsplash.com/photo-1638439430466-b2bb7fdc1d67?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
+    'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
+  ]
+
+  const comments = recipe.comments
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
     await fetch('http://localhost:4000/api/inventory/save-recipe', {
@@ -90,21 +100,71 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           Dignissim et nisl
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {nutrition.map(item => {
+          {zip(images, recipe.nutrition).map(item => {
             return (
-              <div key={item.name} className='w-full basis-1/4 h-28 bg-gray-200 relative mt-4 flex flex-col items-center justify-center p-4'>
-                <Image
-                  src='https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=1&auto=format%2Ccompress&fit=crop&w=2399&h=594%201x,%20https://images.unsplash.com/photo-1649509557437-ed6357197b5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1vZi10aGUtZGF5fHx8fGVufDB8fHx8&dpr=2&auto=format%2Ccompress&fit=crop&w=2399&h=594%202x'
-                  alt='Picture of the author'
-                  layout='fill'
-                  className='object-cover z-0'
-                />
-                <p className='text-center text-lg z-50'>{item.value}</p>
-                <p className='text-center text-lg z-50'>{item.name}</p>
+              <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
+                  <Image
+                    src={item[0]}
+                    alt='Picture of the author'
+                    layout='fill'
+                    className='w-full h-full object-cover z-0 opacity-50'
+                  />
+                <p className='text-center text-2xl z-50 font-bold text-white select-none'>{item[1].value}</p>
+                <p className='text-center text-2xl z-50 font-bold text-white select-none'>{item[1].name}</p>
               </div>
             )
           })}
         </div>
+      </div>
+      <div className='w-full flex flex-col gap-6 justify-start items-start pb-28'>
+        <Comment
+          recipeId={recipe._id}
+          email={email}
+          creatorEmail={email}
+          message={''}
+          creationDate={''}
+          profileImg={''}
+          isReply={false}
+          except={true}
+        />
+        {comments.length !== 0 &&
+          comments.map(item => {
+            return (
+              <ul key={item._id} className='flex flex-col gap-2 ml-0'>
+                <li>
+                  <Comment
+                    _id={item._id}
+                    recipeId={recipe._id}
+                    email={email}
+                    creatorEmail={item.creatorEmail}
+                    message={item.content}
+                    creationDate={item.createdAt}
+                    profileImg={item.profileImg}
+                    isReply={false}
+                  />
+                  <ul className='flex flex-col ml-16 gap-2'>
+                      {item.response.map(item => {
+                        return (
+                          <li key={item._id} className='flex gap-4'>
+                            <FiCornerDownRight className='w-6 h-6 mt-3'/>
+                            <Comment
+                              _id={item._id}
+                              recipeId={item._id}
+                              email={email}
+                              creatorEmail={item.creatorEmail}
+                              message={item.content}
+                              creationDate={item.createdAt}
+                              profileImg={item.profileImg}
+                              isReply={true}
+                            />
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </li>
+              </ul>
+            )
+          })}
       </div>
     </div>
   )

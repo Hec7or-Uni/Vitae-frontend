@@ -8,6 +8,7 @@ export default async (req, res) => {
     res.status(501).end(`Method ${method} Not Allowed`)
     return
   }
+
   try {
     const smStream = new SitemapStream({
       hostname: `https://${req.headers.host}`,
