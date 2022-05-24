@@ -17,10 +17,7 @@ export default function Discover ({ email, recipes, token }) {
       }
     }).then(res => res.json())
       .catch(err => console.log(err))
-
-    console.log(recipes)
-    const temp = recipes.results || recipes.recipes
-    if (temp.length >= 0) { setRecipes(temp) }
+    setRecipes(recipes)
   }
 
   return (

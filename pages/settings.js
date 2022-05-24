@@ -4,6 +4,7 @@ import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import Tippy from '@tippyjs/react'
 
 export default function Settings ({ user, token }) {
+  console.log(user.weight)
   const google = user.accounts.some(item => item.provider === 'google')
   const twitter = user.accounts.some(item => item.provider === 'twitter')
   const instagram = user.accounts.some(item => item.provider === 'instagram')
@@ -100,7 +101,19 @@ export default function Settings ({ user, token }) {
             <span>Diet</span>
             <select id='gender' name='gender' className='px-2.5 py-2 rounded-md bg-white text-black'>
               <option defaultValue={user.gender} value='none' disabled hidden></option>
-              <option value='vegetarian' selected={user.diet === 'vegetarian'}>vegetarian</option>
+              {[
+                'Gluten Free',
+                'Ketogenic',
+                'Vegetarian',
+                'Lacto-Vegetarian',
+                'Ovo-Vegetarian',
+                'Vegan',
+                'Pescetarian',
+                'Paleo',
+                'Primal',
+                'Low FODMAP',
+                'Whole30'
+              ].map(item => <option key={item} value='vegetarian'>vegetarian</option>)}
             </select>
           </label>
         </div>
@@ -145,7 +158,7 @@ export default function Settings ({ user, token }) {
               name='weight'
               type='number'
               placeholder='62,5'
-              defaultValue={user.weight.length >= 0 ? user.weight[user.weight.length - 1].weight : null}
+              defaultValue={user.weight.length === 0 ? null : user.weight[user.weight.length - 1].weight}
               className='px-2.5 py-2 rounded-md bg-white text-black'
               min='5'
               max='250'
