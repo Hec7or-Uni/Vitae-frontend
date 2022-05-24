@@ -20,8 +20,10 @@ const fetchWithToken = async (uri, spoonId, token) => {
 }
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
-  const { data: swr } = useSWR(['http://localhost:4000/api/user/comments', recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
-  console.log('swr', swr)
+  const { data: comments, error } = useSWR(['http://localhost:4000/api/user/comments', recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
+
+  if (error) return <div>failed to load</div>
+  if (!comments) return <div>loading...</div>
 
   const images = [
     'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
@@ -30,7 +32,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
     'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
   ]
 
-  const comments = recipe.comments
+  // const comments = recipe.comments
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
     await fetch('http://localhost:4000/api/inventory/save-recipe', {
@@ -134,9 +136,8 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       </div>
       <div className='w-full flex flex-col gap-4 justify-start items-start pb-28'>
         <Comment recipeId={recipe.spoonId} user={email} token={token}/>
-        {comments.length !== 0 &&
-          comments.reverse().map(item => {
-            return (
+        {comments.reverse().map(item => {
+          return (
               <ul key={item._id} className='w-full flex flex-col justify-start items-start gap-2'>
                 <li className='w-full flex flex-col justify-start items-start gap-2'>
                   <Comment
@@ -163,8 +164,8 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
                     </ul>
                   </li>
               </ul>
-            )
-          })}
+          )
+        })}
       </div>
     </div>
   )

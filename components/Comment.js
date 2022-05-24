@@ -20,7 +20,6 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
     parentId = comment.parentId
     createdAt = comment.createdAt
   }
-  // if (child) { }
 
   const timeago = useTimeAgo(exception ? 'Created at...' : createdAt)
   const [text, setLetters] = useState(exception ? '' : content)
@@ -65,6 +64,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       headers,
       body: JSON.stringify(body)
     })
+    setReply(false)
   }
 
   const handleEdit = async () => {
