@@ -101,7 +101,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           </Tippy>
         </div>
         </div>
-        <div className={`${saved ? 'hidden' : ''} absolute bottom-0 right-0 mb-2.5 mr-4 flex items-center bg-black bg-opacity-70 p-2 rounded-lg`}>
+        <div className={`${saved ? 'hidden' : ''} absolute bottom-0 right-0 mb-2.5 mr-6 flex items-center bg-black bg-opacity-70 p-2 rounded-lg`}>
           <button onClick={() => handleSaveRecipe()} disabled={saved}>
             <FiBookmark className='w-5 h-5 text-white'/>
           </button>
