@@ -46,7 +46,7 @@ export default function Planning ({ menus, email, token, recipes }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data)
-    }).catch(err => err)
+    }).catch(err => console.error(err))
   }
 
   const delMenu = () => {
@@ -250,7 +250,7 @@ export async function getServerSideProps ({ req }) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json()).catch(err => err)
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: {

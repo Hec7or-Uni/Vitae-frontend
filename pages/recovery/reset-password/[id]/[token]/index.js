@@ -24,7 +24,7 @@ export default function Recovery ({ csrfToken, id }) {
       body: JSON.stringify({ data })
     }).then((res) => {
       res.json()
-    }).catch(err => err)
+    }).catch(err => console.error(err))
   }
 
   return (
@@ -42,8 +42,8 @@ export default function Recovery ({ csrfToken, id }) {
           method="post"
           onSubmit={(e) => {
             handleSubmit(e)
-              .then(router.push('/'))
-              .catch(router.push('/recovery'))
+              .then(() => router.push('/'))
+              .catch(() => router.push('/recovery'))
           }
           }
           className="mt-4"
@@ -88,7 +88,7 @@ export async function getServerSideProps (context) {
 
   // check if this id exists in the database
   const params = new URLSearchParams({ id })
-  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`).catch(err => err)
+  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`).catch(err => console.error(err))
   if (!user) {
     return {
       redirect: {
@@ -102,8 +102,7 @@ export async function getServerSideProps (context) {
   try {
     // eslint-disable-next-line no-unused-vars
     const payload = jwt.verify(token, secret)
-  } catch (error) {
-  }
+  } catch (error) { }
   return {
     props: {
       id: id

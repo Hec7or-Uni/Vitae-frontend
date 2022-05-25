@@ -31,7 +31,7 @@ export default function Login () {
           }
           reject(new Error('error'))
         })
-        .catch(err => { reject(new Error(err)) })
+        .catch(err => console.error(err))
     })
   }
 
@@ -56,7 +56,7 @@ export default function Login () {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/home'))
-              .catch(() => router.reload())
+              .catch(err => console.error(err))
           }}
 
           className='mt-4'

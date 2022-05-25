@@ -36,7 +36,7 @@ export async function getServerSideProps ({ req }) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json()).catch(err => err)
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: { menus: user.menus }

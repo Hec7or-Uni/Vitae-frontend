@@ -7,7 +7,7 @@ export default function Recovery ({ csrfToken }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}recovery?email=${e.target.email.value}`)
-      .then((res) => res.json()).catch(err => err)
+      .then((res) => res.json()).catch(err => console.error(err))
   }
 
   return (
@@ -25,8 +25,8 @@ export default function Recovery ({ csrfToken }) {
           method="post"
           onSubmit={(e) => {
             handleSubmit(e)
-              .then(router.push('/'))
-              .catch(router.push('/recovery'))
+              .then(() => router.push('/'))
+              .catch(() => router.push('/recovery'))
           }}
           className="mt-4"
         >

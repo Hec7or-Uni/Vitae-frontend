@@ -120,7 +120,7 @@ export async function getServerSideProps ({ req }) {
     method: 'POST',
     body: JSON.stringify({ email: session.user.email }),
     headers: { 'Content-Type': 'application/json' }
-  }).then(res => res.json()).catch(err => err)
+  }).then(res => res.json()).catch(err => console.error(err))
 
   const allowedEmails = ['hector@vitop.xyz', 'bolu@vitop.xyz', 'alvaro@vitop.xyz']
   if (!allowedEmails.includes(email) || role !== 1) {
@@ -138,7 +138,7 @@ export async function getServerSideProps ({ req }) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json()).catch(err => err)
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: {

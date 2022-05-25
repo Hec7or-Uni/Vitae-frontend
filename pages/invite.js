@@ -44,7 +44,7 @@ export default function Invite () {
           }
           reject(new Error('error'))
         })
-        .catch(err => { reject(new Error(err)) })
+        .catch(err => console.error(err))
     })
   }
 
@@ -71,7 +71,7 @@ export default function Invite () {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/login'))
-              .catch(() => router.reload())
+              .catch(err => console.error(err))
           }}
           className='mt-4'
         >
