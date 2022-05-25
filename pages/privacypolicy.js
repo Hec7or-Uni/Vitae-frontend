@@ -7,10 +7,10 @@ import { getPost } from '../lib/mdxUtils'
 export default function PrivacyPolicy () {
   const router = useRouter()
   return (
-    <div className='container mx-auto flex gap-x-4 items-start py-8 px-1.5'>
+    <div className='container mx-auto flex gap-x-4 items-start py-8 px-4 sm:px-1.5'>
       <button
         onClick={() => router.push('/')}
-        className='flex items-center justify-center w-10 h-10'
+        className='hidden sm:flex items-center justify-center w-10 h-10'
       >
         <FiArrowLeft className='text-2xl'/>
       </button>
@@ -18,7 +18,7 @@ export default function PrivacyPolicy () {
         <h1 className='font-bold text-2xl mb-1.5'>
           Privacy Policy
         </h1>
-        <p className='font-normal text-base'>
+        <p className='font-normal text-base text-justify md:text-left'>
           At vitop, accessible from http://vitop/, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by vitop and how we use it.
         </p>
         <p className='font-normal text-base'>

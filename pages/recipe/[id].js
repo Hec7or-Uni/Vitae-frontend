@@ -5,6 +5,7 @@ import { FiPlus, FiClock, FiHeart, FiBookmark, FiCornerDownRight } from 'react-i
 import Comment from '../../components/Comment'
 import { zip } from '../../lib/functions'
 import useSWR from 'swr'
+import defaultImage from '../../public/defaultImage.png'
 
 const fetchWithToken = async (uri, spoonId, token) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })
@@ -48,7 +49,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
     <div className='max-w-5xl'>
       <div className='w-full h-80 relative'>
         <Image
-          src= {recipe.image}
+          src= {recipe.image || defaultImage}
           alt='Picture of the author'
           layout='fill'
           className='object-cover z-0'
@@ -64,12 +65,12 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           </button>
         </div>
         <h1 className='text-2xl font-medium text-white absolute bottom-0 left-0 mb-2.5 ml-4'>
-          Quis sed amet lectus rhoncus
+          {recipe.title}
         </h1>
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-          Sapien rutrum amet, ac
+          Ingredients
         </h2>
         <div className='mt-4 flex flex-wrap gap-4 w-2/3'>
           {recipe.extendedIngredients.map(ingredient => {
@@ -93,7 +94,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-        Sollicitudin convallis placerat id
+        Instructions
         </h2>
         <ol className='mt-4 flex flex-col gap-4 w-2/3 list-decimal'>
           {recipe.analyzedInstructions.map(instruction => {
@@ -114,10 +115,10 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-          Dignissim et nisl
+          Nutrition
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {zip(images, recipe.nutrition).map(item => {
+          {recipe.nutrition && zip(images, recipe.nutrition).map(item => {
             return (
               <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
                   <Image

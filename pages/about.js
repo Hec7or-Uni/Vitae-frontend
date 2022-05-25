@@ -27,7 +27,7 @@ export default function About () {
           <h2 className='font-medium text-4xl'>
             Who We Are
           </h2>
-          <p className='font-normal text-base pt-4 pb-8 w-2/3'>
+          <p className='font-normal text-base pt-4 pb-8 w-full lg:w-2/3'>
             We are a small group of students formed by the casuistry of the moment who were asked to find a problem and solve it in such a way that a large group of people could benefit from our work.
           </p>
           <div className='w-full h-96 rounded-lg relative bg-gray-200'>
@@ -43,7 +43,7 @@ export default function About () {
           <h2 className='font-medium text-4xl'>
             Our Mision
           </h2>
-          <p className='font-normal text-base pt-4 pb-8 w-2/3'>
+          <p className='font-normal text-base pt-4 pb-8 w-full lg:w-2/3'>
           The main mission of the team was to develop a useful application that would help users with the daily routine of preparing and organizing meals as we detected that it was one of the biggest time wasters in most families.
           </p>
           <div className='w-full h-96 rounded-lg relative bg-gray-200'>
@@ -59,7 +59,7 @@ export default function About () {
           <h2 className='font-medium text-4xl'>
             The Team
           </h2>
-          <p className='font-normal text-base pt-4 pb-8 w-2/3'>
+          <p className='font-normal text-base pt-4 pb-8 w-full lg:w-2/3'>
             The team is made up of three members, all of them computer engineering students at the University of Zaragoza and they are responsible for the product they are navigating right now, both the good and the bad :D
           </p>
           <div className='w-full flex flex-col gap-4'>

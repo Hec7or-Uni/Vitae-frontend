@@ -1,12 +1,15 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Tippy from '@tippyjs/react'
 import { FiLogOut } from 'react-icons/fi'
+import { useScreen } from '../context/ScreenContext'
 
 const image = 'https://images.unsplash.com/photo-1639628735078-ed2f038a193e?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074'
 
 export default function User () {
+  const { handleDocs } = useScreen()
   const { data: session } = useSession()
   const [menu, setMenu] = useState(false)
   const handleMenu = () => setMenu(!menu)
@@ -54,7 +57,25 @@ export default function User () {
           <span className='text-sm truncate'>{session.user.username || 'Anonymous'}</span>
           <span className='text-xs truncate'>{session.user.email}</span>
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col divide-y-2'>
+        <div className='sm:hidden flex flex-col items-start'>
+          <Link href='/'>
+            <a className='py-1.5 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'>
+              Home
+            </a>
+          </Link>
+          <Link href='/about'>
+            <a className='py-1.5 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'>
+              About
+            </a>
+          </Link>
+          <button
+            onClick={handleDocs}
+            className='py-1.5 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'
+          >
+            Memoria
+          </button>
+          </div>
           <div className='mt-2 py-2 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'>
             <button
               onClick={() => { signOut() }}

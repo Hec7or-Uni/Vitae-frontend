@@ -6,8 +6,8 @@ import Link from 'next/link'
 
 export default function FAQ () {
   return (
-    <div className="container px-16 py-8 min-h-screen -mt-16 mx-auto">
-      <div className="mx-auto flex flex-wrap items-center justify-center w-1/2 pb-10 mt-24">
+    <div className="container py-8 min-h-screen -mt-16 mx-auto">
+      <div className="mx-auto flex flex-wrap items-center justify-center w-full pb-10 mt-24 md:w-3/5 lg:w-1/2">
         <h2 className="px-2 py-2 font-bold text-2xl capitalize mb-8">
           frequently asked questions
         </h2>

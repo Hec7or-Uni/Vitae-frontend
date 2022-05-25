@@ -11,7 +11,7 @@ export default function Navbar () {
     <div className="sticky top-0 h-16 w-full flex items-center tracking-wide z-40 bg-gray-900 bg-opacity-50">
       <div className="flex justify-center items-center container mx-auto relative">
         <Logo url={'/'} />
-        <div className=''>
+        <div className='hidden sm:flex'>
           <Link href='/'>
             <a className='capitalize text-sm font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300 hover:underline hover:underline-offset-2'>
               Home

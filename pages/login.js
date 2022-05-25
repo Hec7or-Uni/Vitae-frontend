@@ -92,7 +92,7 @@ export default function Login () {
             </button>
           </div>
           <hr className='my-4'/>
-          <div className='mt-6 flex gap-4'>
+          <div className='mt-6 flex gap-4 flex-col sm:flex-row'>
             <button
               onClick={async () => await signIn('google')}
               type='button'
