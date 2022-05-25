@@ -3,12 +3,12 @@ import { getSession } from 'next-auth/react'
 import Card from '../components/Card'
 import Search from '../components/Search'
 
-export default function Storage ({ recipes }) {
+export default function Storage ({ menus }) {
   return (
     <div className='max-w-5xl flex flex-col gap-5'>
       <Search />
       <div className='flex flex-wrap gap-4 overflow-y-auto'>
-        {recipes.map(item => <Card key={item.id} id={item.spoonId} img={item.image} />)}
+        {menus.map(item => <Card key={item._id} id={item._id} img={item.recipes[0].image}/>)}
       </div>
     </div>
   )
@@ -39,6 +39,6 @@ export async function getServerSideProps ({ req }) {
   }).then(res => res.json())
 
   return {
-    props: { recipes: user.saved_recipes }
+    props: { menus: user.menus }
   }
 }

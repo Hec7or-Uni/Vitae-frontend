@@ -3,7 +3,7 @@ import { VscVerified } from 'react-icons/vsc'
 
 export default function Testimonial ({ text, picture, name, rol }) {
   return (
-    <div className='bg-white w-72 shadow-lg rounded-xl p-4 hover:-translate-y-4 duration-300'>
+    <div className='bg-white w-72 shadow-lg rounded-xl p-4 hover:-translate-y-4 duration-300 select-none'>
       <p className='text-gray-600'>
         <span className='font-bold text-indigo-500 text-lg'>
           “

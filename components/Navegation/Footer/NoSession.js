@@ -1,4 +1,5 @@
 import { GoMarkGithub } from 'react-icons/go'
+import Tippy from '@tippyjs/react'
 
 export default function Footer () {
   return (
@@ -31,18 +32,36 @@ export default function Footer () {
           </li>
         </ul>
         <div className=" flex w-full sm:w-1/3 pt-8 mx-auto items-center justify-around">
-          <a
-            href="https://github.com/Hec7or-Uni/Vitae-frontend"
-            className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
-          >
-           <GoMarkGithub className='w-5 h-5'/>
-          </a>
+        <Tippy
+          arrow={false}
+          content={
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+              backend
+            </span>
+          }
+        >
           <a
             href="https://github.com/Hec7or-Uni/Vitae-backend"
             className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
           >
             <GoMarkGithub className='w-5 h-5'/>
           </a>
+        </Tippy>
+          <Tippy
+          arrow={false}
+          content={
+            <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+              frontend
+            </span>
+          }
+        >
+          <a
+            href="https://github.com/Hec7or-Uni/Vitae-frontend"
+            className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
+          >
+           <GoMarkGithub className='w-5 h-5'/>
+          </a>
+        </Tippy>
         </div>
         <div className="text-center text-gray-500 pt-10 sm:pt-12 font-light flex items-center justify-center">
           Developed by

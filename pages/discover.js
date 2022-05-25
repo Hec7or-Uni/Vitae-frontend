@@ -54,7 +54,6 @@ export async function getServerSideProps ({ req }) {
   }).then(res => res.json())
     .catch(err => console.error(err))
 
-  console.log(recipes)
   return {
     props: {
       email: session.user.email,

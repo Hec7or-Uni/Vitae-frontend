@@ -39,7 +39,7 @@ export default function Planning ({ menus, email, token, recipes }) {
       }
     }
 
-    await fetch('http://localhost:4000/api/inventory/save-menu', {
+    await fetch('http://localhost:4000/api/inventory/menu', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

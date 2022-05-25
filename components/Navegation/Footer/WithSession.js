@@ -62,14 +62,16 @@ export default function Footer () {
           interactive={true}
           allowHTML={true}
           content={
-            <div className='flex flex-col items-start mb-4 bg-gray-800 p-4 rounded-lg text-white divide-y'>
+            <div className='flex flex-col items-start mb-4 bg-gray-800 p-4 rounded-lg text-white divide-y w-52'>
               <a
                 href='mailto:hi@vitop.xyz'
-                className='py-1.5 px-2 flex gap-3 items-center justify-start mb-2 cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'
+                className='w-full py-1.5 px-2 flex gap-3 items-center mb-2 cursor-pointer justify-between opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'
                 >
-                <FiMessageCircle className='w-4 h-4'/>
-                <p className='text-xs font-medium'>Habla con nosotros</p>
-                <span className='text-xs font-medium bg-black bg-opacity-40 py-1 px-2 rounded-lg'>Q</span>
+                  <div className='flex gap-2'>
+                    <FiMessageCircle className='w-4 h-4'/>
+                    <p className='text-xs font-medium'>Talk to us</p>
+                  </div>
+                  <span className='block text-xs font-medium bg-black bg-opacity-40 py-1 px-2 rounded-lg'>Q</span>
               </a>
               <div className='w-full flex flex-col items-start'>
                 <a href='https://github.com/orgs/Hec7or-Uni/teams/vitae/repositories' className='w-full mt-2 py-2.5 px-2 flex gap-3 items-center justify-start cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'>
@@ -81,11 +83,11 @@ export default function Footer () {
                   className='w-full py-2.5 px-2 flex gap-3 items-center justify-start  cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'
                 >
                   <FiUserPlus className='w-4 h-4'/>
-                  <p className='text-xs font-medium'>Invitar</p>
+                  <p className='text-xs font-medium'>Invite</p>
                 </button>
                 <a href='tos' className='w-full py-2.5 px-2 flex gap-3 items-center justify-start  cursor-pointer opacity-60 hover:opacity-100 hover:bg-gray-100 hover:bg-opacity-5 rounded-md'>
                   <FiLock className='w-4 h-4'/>
-                  <p className='text-xs font-medium'>Términos y privacidad</p>
+                  <p className='text-xs font-medium'>Terms and Privacy</p>
                 </a>
                 <div className='flex gap-3 items-start justify-start mt-2'>
                   <p className='text-xs font-medium opacity-40'>Vitop v1.0.0</p>

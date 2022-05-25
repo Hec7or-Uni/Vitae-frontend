@@ -7,7 +7,7 @@ export default function FAQ ({ title, content }) {
     <div className="w-full px-2 mb-1">
       <div
         onClick={() => setActive(!isActive)}
-        className="p-4 bg-neutral rounded shadow-md transition duration-200 cursor-pointer mb-3"
+        className="p-4 bg-neutral rounded-lg shadow-md transition duration-200 cursor-pointer mb-3 bg-white"
       >
         <div className="flex justify-between items-center">
           <p

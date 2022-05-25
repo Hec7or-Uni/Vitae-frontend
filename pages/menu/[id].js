@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
+import { getSession } from 'next-auth/react'
 import { FiPlus, FiClock, FiHeart, FiBookmark } from 'react-icons/fi'
 
 export default function Menu () {
@@ -75,4 +76,34 @@ export default function Menu () {
 
 Menu.getLayout = function getLayout (page) {
   return <Layout>{page}</Layout>
+}
+
+export async function getServerSideProps (context) {
+  const { params, req } = context
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  const parametros = new URLSearchParams({ spoonId: Number(params.id) })
+  const recipe = await fetch(`http://localhost:4000/api/inventory?${parametros.toString()}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+    }
+  }).then(res => res.json())
+
+  return {
+    props: {
+      email: session.user.email,
+      recipe,
+      token: req.cookies['next-auth.session-token']
+    }
+  }
 }

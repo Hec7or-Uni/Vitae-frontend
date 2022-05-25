@@ -2,7 +2,6 @@ import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
 import { getSession } from 'next-auth/react'
 import { FiPlus, FiClock, FiHeart, FiBookmark, FiCornerDownRight } from 'react-icons/fi'
-import { data2 } from '../../lib/temp'
 import Comment from '../../components/Comment'
 import { zip } from '../../lib/functions'
 import useSWR from 'swr'
@@ -188,14 +187,6 @@ export async function getServerSideProps (context) {
     }
   }
 
-  // const recipes = data.recipes
-  const nutrition = [
-    { name: 'calories', value: data2.calories },
-    { name: 'carbs', value: data2.carbs },
-    { name: 'fats', value: data2.fat },
-    { name: 'proteins', value: data2.protein }]
-  // const recipe = recipes[0]
-
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
   const recipe = await fetch(`http://localhost:4000/api/inventory?${parametros.toString()}`, {
     method: 'GET',
@@ -208,7 +199,6 @@ export async function getServerSideProps (context) {
     props: {
       email: session.user.email,
       recipe,
-      nutrition,
       token: req.cookies['next-auth.session-token']
     }
   }

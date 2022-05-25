@@ -5,7 +5,7 @@ import { RiTwitterLine, RiRedditLine, RiFacebookFill, RiLinkedinFill, RiMailLine
 
 const uri = 'https://vitop.xyz'
 
-export default function Share (second) {
+export default function Share () {
   const { popUp, handleClose } = useShare()
   return (
     <div className={`h-full absolute top-0 left-0 w-full z-50 flex justify-center ${popUp ? '' : 'hidden'}`}>

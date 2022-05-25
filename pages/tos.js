@@ -9,7 +9,7 @@ export default function Tos () {
   return (
     <div className='container mx-auto flex gap-x-4 items-start py-8 px-1.5'>
       <button
-        onClick={() => router.back()}
+        onClick={() => router.push('/')}
         className='flex items-center justify-center w-10 h-10'
       >
         <FiArrowLeft className='text-2xl'/>

@@ -27,8 +27,8 @@ export default function Index () {
         />
         <div className='container w-full flex items-center justify-between z-10 px-20 py-10'>
           <div className='max-w-prose z-10 flex flex-col gap-8 items-center'>
-            <h1 className='text-white text-center text-4xl font-bold capitalize'>
-              Rutrum vitae morbi quam nulla vel massa eu id massa.
+            <h1 className='text-white text-center text-3xl font-bold capitalize'>
+              welcome to the place where you can achieve your nutritional goals.
             </h1>
             <Newsletter/>
           </div>
@@ -67,10 +67,10 @@ export default function Index () {
         <div className='py-24'>
           <ul className='flex flex-col gap-y-8'>
             {[
-              'Pretium neque sit semper quam consequat. Facilisi tortor, platea vitae eu, odio lacus, sed nisl.',
-              'Tincidunt lectus semper viverra diam sodales. Phasellus augue et gravida bibendum tincidunt.',
-              'Dui arcu velit augue quisque ipsum at vitae lacinia. Orci morbi eget sed ultricies euismod suspendisse volutpat.',
-              'Placerat euismod ut mauris vitae fames. Orci, varius elit id aliquet vitae.'
+              '24/7 connected to give you exceptional service.',
+              'Availability of a multitude of recipes with which you can quickly create a plan to follow with or without the help of a specialist.',
+              'Generation of metrics with which to see your progress and thus serve as feedback for further improvement.',
+              'Technical service with high availability in case of any problem'
             ].map(text => {
               return (
                 <li key={text} className='flex items-start gap-2 max-w-prose'>
@@ -113,9 +113,9 @@ export default function Index () {
         </div>
       </section>
       <div className='py-10 my-28 container mx-auto flex justify-center'>
-        <div className='w-2/3 text-center'>
+        <div className='w-1/2 text-center'>
           <p>
-          Massa justo sit massa ac sed sit. Duis tristique semper elit urna, ullamcorper nec ultrices nulla. Id vel enim diam tortor purus egestas nulla. Nullam ornare nibh nulla fames ultrices urna massa nunc. Dui, vestibulum adipiscing eget dictumst. Iaculis placerat vitae, blandit ac.
+          Project done during the academic period while taking the subject of systems and web technologies taught by Javier Fabra at the University of Zaragoza.
           <br/>
           Id viverra vel, nunc, tristique ante varius amet, nibh elementum. Justo, amet, amet, augue tincidunt. Vitae, at pulvinar scelerisque libero. Sodales ac lectus at netus molestie ullamcorper viverra. Faucibus vulputate nisl, nunc, sed viverra odio sem quis. Pharetra egestas sit congue venenatis vulputate ut tellus.
           </p>

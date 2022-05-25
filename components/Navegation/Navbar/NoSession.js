@@ -13,18 +13,18 @@ export default function Navbar () {
         <Logo url={'/'} />
         <div className=''>
           <Link href='/'>
-            <a className='capitalize text-sm font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'>
+            <a className='capitalize text-sm font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300 hover:underline hover:underline-offset-2'>
               Home
             </a>
           </Link>
           <Link href='/about'>
-            <a className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'>
+            <a className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300 hover:underline hover:underline-offset-2'>
               About
             </a>
           </Link>
           <button
             onClick={handleDocs}
-            className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300'
+            className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300 hover:underline hover:underline-offset-2'
           >
             Memoria
           </button>
