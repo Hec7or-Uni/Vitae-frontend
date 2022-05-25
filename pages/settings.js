@@ -20,7 +20,7 @@ export default function Settings ({ user, token }) {
       height: Number(e.target.height.value) || user.height,
       weight: Number(e.target.weight.value) || user.weight[user.weight.length - 1]
     }
-    const uri = 'http://localhost:4000/api/user/update-account'
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/update-account`
     return new Promise((resolve, reject) => {
       fetch(uri, {
         method: 'PUT',
@@ -42,7 +42,7 @@ export default function Settings ({ user, token }) {
   }
 
   const handleDelete = () => {
-    const uri = 'http://localhost:4000/api/user/delete-account'
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/delete-account`
     return new Promise((resolve, reject) => {
       fetch(uri, {
         method: 'DELETE',
@@ -63,7 +63,7 @@ export default function Settings ({ user, token }) {
   }
 
   const disconnect = async (provider) => {
-    const uri = 'http://localhost:4000/api/user/disconnect-account'
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/disconnect-account`
     await fetch(uri, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -229,10 +229,9 @@ export default function Settings ({ user, token }) {
                           loading: { duration: 4000 },
                           success: { duration: 4000 },
                           error: { duration: 4000 }
-                        }).then(() => signOut({ redirect: 'http://localhost:3000' }))
+                        }).then(() => signOut({ redirect: process.env.NEXT_PUBLIC_BASE_PATH_FRONTEND }))
                           .catch(err => err)
-                      }
-                      }
+                      }}
                       className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                     >
                       Delete

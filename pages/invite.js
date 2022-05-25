@@ -33,7 +33,7 @@ export default function Invite () {
     }
 
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:4000/api/user/signup', {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
         method: 'POST',
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }

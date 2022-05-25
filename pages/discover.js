@@ -10,7 +10,7 @@ export default function Discover ({ email, recipes, token }) {
   const handleSearch = async (e) => {
     e.preventDefault()
     const params = new URLSearchParams({ email, search: e.target.target.value })
-    const recipes = await fetch(`http://localhost:4000/api/inventory/search-recipes?${params.toString()}`, {
+    const recipes = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/search-recipes?${params.toString()}`, {
       method: 'GET',
       headers: {
         Authorization: token

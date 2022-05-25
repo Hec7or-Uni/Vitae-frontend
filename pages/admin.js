@@ -116,7 +116,7 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const { email, role } = await fetch('http://localhost:4000/api/user/signin', {
+  const { email, role } = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signin`, {
     method: 'POST',
     body: JSON.stringify({ email: session.user.email }),
     headers: { 'Content-Type': 'application/json' }
@@ -132,7 +132,7 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const data = await fetch('http://localhost:4000/api/user/statistics', {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

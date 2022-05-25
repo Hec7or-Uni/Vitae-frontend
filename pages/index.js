@@ -134,7 +134,7 @@ export async function getServerSideProps ({ req }) {
   const { content, data } = getPost('memoria')
   const mdxSource = await serialize(content, { scope: data })
 
-  await fetch('http://localhost:4000/api/user/statistics', {
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ field: 'visitIndex' })

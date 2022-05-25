@@ -30,7 +30,7 @@ const images = [
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
   const [saved, setSaved] = useState(false)
-  const { data: comments, error } = useSWR(['http://localhost:4000/api/user/comments', recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
+  const { data: comments, error } = useSWR([`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
 
   if (error) return <div>failed to load</div>
   if (!comments) return <div>loading...</div>
@@ -231,7 +231,7 @@ export async function getServerSideProps (context) {
   }
 
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
-  const recipe = await fetch(`http://localhost:4000/api/inventory?${parametros.toString()}`, {
+  const recipe = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory?${parametros.toString()}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`

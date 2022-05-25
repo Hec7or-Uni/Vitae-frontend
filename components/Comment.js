@@ -43,7 +43,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
         content: text
       }
     }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
@@ -59,7 +59,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
         content: text
       }
     }
-    await fetch('http://localhost:4000/api/user/comment-reply', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comment-reply`, {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
@@ -78,7 +78,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
     }
 
     if (parentId) { body.comment.parentId = parentId }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(body)
@@ -97,7 +97,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       }
     }
     if (parentId) { body.comment.parentId = parentId }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}/user/comments`, {
       method: 'DELETE',
       headers,
       body: JSON.stringify(body)

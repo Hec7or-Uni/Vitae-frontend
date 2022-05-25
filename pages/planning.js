@@ -247,7 +247,7 @@ export async function getServerSideProps ({ req }) {
   }
 
   const parametros = new URLSearchParams({ email: session.user.email })
-  const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
+  const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
