@@ -66,7 +66,7 @@ export default function Admin ({ allData }) {
       <div className='w-full min-h-80 flex items-center justify-center px-1 py-4 bg-white shadow-md rounded-lg'>
         <MapChart />
       </div>
-      <div className='w-full flex min-h-fit items-center gap-4'>
+      <div className='w-full h-64 flex min-h-fit items-center gap-4'>
         <div className='flex flex-col gap-4'>
           {[{
             icon: <FiUsers className='w-6 h-6'/>,

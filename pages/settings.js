@@ -2,6 +2,7 @@ import Layout from '../components/Layout/WithSession'
 import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import Tippy from '@tippyjs/react'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Settings ({ user, token }) {
   console.log(user.weight)
@@ -20,29 +21,45 @@ export default function Settings ({ user, token }) {
       weight: Number(e.target.weight.value) || user.weight[user.weight.length - 1]
     }
     const uri = 'http://localhost:4000/api/user/update-account'
-    await fetch(uri, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(query)
-    }).then(res => console.log(res))
-      .catch(err => console.error(err))
+    return new Promise((resolve, reject) => {
+      fetch(uri, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(query)
+      })
+        .then((res) => {
+          console.log(res)
+          if (res.status === 204 && res.ok === true) {
+            resolve('ok')
+          }
+          reject(new Error('error'))
+        })
+        .catch(err => { reject(new Error(err)) })
+    })
   }
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     const uri = 'http://localhost:4000/api/user/delete-account'
-
-    await fetch(uri, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ email: user.email })
-    }).then(() => signOut({ redirect: 'http://localhost:3000' }))
-      .catch(err => console.error(err))
+    return new Promise((resolve, reject) => {
+      fetch(uri, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ email: user.email })
+      })
+        .then((res) => {
+          if (res.status === 200 && res.ok === true) {
+            resolve('ok')
+          }
+          reject(new Error('error'))
+        })
+        .catch(err => { reject(new Error(err)) })
+    })
   }
 
   const disconnect = async (provider) => {
@@ -51,14 +68,26 @@ export default function Settings ({ user, token }) {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: user.email, provider })
-    }).catch(err => console.error(err))
+    }).catch(err => err)
   }
 
   return (
     <div className='max-w-5xl flex flex-col gap-4 h-full'>
+      <Toaster position="top-center" reverseOrder={false} />
       <form
         method='PUT'
-        onSubmit={(e) => handleUpdate(e)}
+        onSubmit={(e) => {
+          toast
+            .promise(handleUpdate(e), {
+              loading: 'Updating data',
+              success: 'Data updated successfully',
+              error: 'Error while updating data'
+            }, {
+              loading: { duration: 4000 },
+              success: { duration: 4000 },
+              error: { duration: 4000 }
+            })
+        }}
         className='w-full sm:w-2/3 flex flex-col gap-4'
       >
         <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
@@ -174,7 +203,44 @@ export default function Settings ({ user, token }) {
           </button>
           <button
             type='button'
-            onClick={() => { handleDelete() }}
+            onClick={() =>
+              toast((t) => (
+                <div className="flex flex-col items-center gap-2">
+                  <p className="font-medium">Delete account?</p>
+                  <p className="text-xs text-center">
+                  You will lose access to the site and your data will be erased from the
+                  registered users section.
+                  </p>
+                  <div className="flex gap-4 mt-2">
+                    <button
+                      onClick={() => toast.dismiss(t.id)}
+                      className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-white hover:bg-gray-100 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-indigo-500 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    >
+                      Dismiss
+                    </button>
+                    <button
+                      onClick={() => {
+                        toast.dismiss(t.id)
+                        toast.promise(handleDelete(), {
+                          loading: 'Deleting account',
+                          success: 'Account successfully deleted',
+                          error: 'Error on successful account deletion'
+                        }, {
+                          loading: { duration: 4000 },
+                          success: { duration: 4000 },
+                          error: { duration: 4000 }
+                        }).then(() => signOut({ redirect: 'http://localhost:3000' }))
+                          .catch(err => err)
+                      }
+                      }
+                      className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            }
             className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold break-words'
           >
             delete account

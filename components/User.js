@@ -54,7 +54,7 @@ export default function User () {
     {menu && (
       <div className='rounded w-40 flex flex-col gap-3 divide-y divide-gray-500 bg-white shadow-md bg-blend-hard-light px-2 py-1 absolute top-0 right-0 mt-10 truncate'>
         <div className='flex flex-col opacity-70'>
-          <span className='text-sm truncate'>{session.user.username || 'Anonymous'}</span>
+          <span className='text-sm truncate font-medium'>Email:</span>
           <span className='text-xs truncate'>{session.user.email}</span>
         </div>
         <div className='flex flex-col divide-y-2'>

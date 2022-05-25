@@ -121,7 +121,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
             </a>
             <div className='flex flex-col gap-0 w-96'>
               <span className='text-base font-medium'>{exception ? user : creatorEmail}</span>
-              <span className='text-xs font-medium'>{timeago}</span>
+              <span className='text-xs font-medium'>{timeago !== 'NaNs' ? timeago : 'Created at...' }</span>
             </div>
             <div className='flex items-center gap-2.5 absolute right-0 mr-1'>
               <>
@@ -168,7 +168,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
               </>
               {!exception && !child && <Tippy
                 arrow={false}
-                content={ <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+                content={<span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
                     reply
                   </span>}
               >

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import toast, { Toaster } from 'react-hot-toast'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useRef, useState } from 'react'
@@ -13,28 +14,51 @@ export default function Login () {
   function onChange (value) {
     if (captcha.current.getValue()) {
       cambiarusuarioValido(true)
-      console.log('El usuario no es un robot')
     }
   }
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault()
-    await signIn('credentials', {
-      email: e.target.email.value,
-      password: e.target.password.value,
-      redirect: false
-    }).then(() => router.push('http://localhost:3000/home'))
-      .catch(err => console.error('error', err))
+    return new Promise((resolve, reject) => {
+      signIn('credentials', {
+        email: e.target.email.value,
+        password: e.target.password.value,
+        redirect: false
+      })
+        .then((res) => {
+          if (res.status === 200 && res.ok === true) {
+            resolve('ok')
+          }
+          reject(new Error('error'))
+        })
+        .catch(err => { reject(new Error(err)) })
+    })
   }
 
   return (
     <div className='flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5'>
+      <Toaster position="top-center" reverseOrder={false} />
       <div className='w-full max-w-sm p-4 bg-white rounded-md shadow-md sm:p-6'>
         <div className='flex items-center justify-center'>
           <span className='text-xl font-medium text-gray-900'>Login</span>
         </div>
         <form
           method='post'
-          onSubmit={(e) => handleSubmit(e)}
+          onSubmit={(e) => {
+            toast
+              .promise(handleSubmit(e), {
+                loading: 'Logging in',
+                success: 'Successfully logged in',
+                error: 'Error while Logging in'
+              }, {
+                loading: { duration: 4000 },
+                success: { duration: 4000 },
+                error: { duration: 4000 }
+              })
+              .then(() => router.push('/home'))
+              .catch(() => router.reload())
+          }}
+
           className='mt-4'
         >
           <label type='email' id='email' name='email' className='block'>
