@@ -2,10 +2,20 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useRef, useState } from 'react'
 
 export default function Login () {
   const router = useRouter()
+  const captcha = useRef(null)
+  const [usuarioValido, cambiarusuarioValido] = useState(null)
 
+  function onChange (value) {
+    if (captcha.current.getValue()) {
+      cambiarusuarioValido(true)
+      console.log('El usuario no es un robot')
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault()
     await signIn('credentials', {
@@ -47,6 +57,13 @@ export default function Login () {
               required
             />
           </label>
+          <div className='flex items-center justify-center mt-4'>
+            <ReCAPTCHA
+              ref={captcha}
+              sitekey="6Ld9DBggAAAAACTxGJnMVi-O_ZlOn-1nt-sLEQcO"
+              onChange={onChange}
+            />,
+          </div>
           <div className='flex items-center justify-between mt-4'>
             <div>
               <label className='inline-flex items-center'>
@@ -69,6 +86,7 @@ export default function Login () {
             <button
               type='submit'
               className='w-full capitalize text-xs font-bold tracking-normal px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 duration-300'
+              disabled={!usuarioValido}
             >
               Sign in
             </button>
