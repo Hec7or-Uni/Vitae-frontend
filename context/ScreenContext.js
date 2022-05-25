@@ -20,7 +20,9 @@ export function ScreenProvider ({ children }) {
       else toggleMZ(true)
     }
   }
-  const handleSl = () => toggleLS(!leftSidebar)
+  const handleSl = () => {
+    toggleLS(!leftSidebar)
+  }
   const handleDocs = () => toggleDocs(!docsActive)
 
   return (
