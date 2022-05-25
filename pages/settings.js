@@ -182,7 +182,7 @@ export default function Settings ({ user, token }) {
         </div>
       </form>
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
-      <div className='max-w-sm flex gap-4 flex-wrap'>
+      <div className='max-w-sm flex gap-4 flex-wrap sm:flex-nowrap'>
         <button
           onClick={async () => {
             if (google) {

@@ -6,6 +6,8 @@ import Comment from '../../components/Comment'
 import { zip } from '../../lib/functions'
 import useSWR from 'swr'
 import defaultImage from '../../public/defaultImage.png'
+import Tippy from '@tippyjs/react'
+import { useState } from 'react'
 
 const fetchWithToken = async (uri, spoonId, token) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })
@@ -25,6 +27,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
   if (error) return <div>failed to load</div>
   if (!comments) return <div>loading...</div>
 
+  const [saved, setSaved] = useState(false)
   const images = [
     'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
     'https://images.unsplash.com/photo-1608842850202-06e70ead4c10?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687',
@@ -43,6 +46,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       },
       body: JSON.stringify({ email, recipe })
     })
+    setSaved(true)
   }
 
   return (
@@ -55,13 +59,51 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           className='object-cover z-0'
         />
         <div className='flex gap-x-4 absolute top-0 right-0 mt-2.5 mr-4'>
-          <FiPlus className='w-5 h-5 text-black'/>
-          <FiClock className='w-5 h-5 text-black'/>
-          <FiHeart className='w-5 h-5 text-black'/>
+        <div className='flex gap-x-4 absolute top-0 right-0 mt-2.5 mr-4 bg-black bg-opacity-70 p-2 rounded-lg'>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              Healthy {recipe.healthScore || 0}%
+            </span>
+            }
+          >
+            <button>
+            <FiPlus className='w-5 h-5 text-white'/>
+            </button>
+          </Tippy>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              Preparation time: {recipe.readyInMinutes}m
+            </span>
+            }
+          >
+            <button>
+            <FiClock className='w-5 h-5 text-white cursor-pointer'/>
+            </button>
+          </Tippy>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              score: {'unknown'}
+            </span>
+            }
+          >
+            <button>
+              <FiHeart className='w-5 h-5 text-white cursor-pointer'/>
+            </button>
+          </Tippy>
         </div>
-        <div className='absolute bottom-0 right-0 mb-2.5 mr-4'>
-          <button onClick={() => handleSaveRecipe()}>
-            <FiBookmark className='w-5 h-5 text-black'/>
+        </div>
+        <div className={`${saved ? 'hidden' : ''} absolute bottom-0 right-0 mb-2.5 mr-4 flex items-center bg-black bg-opacity-70 p-2 rounded-lg`}>
+          <button onClick={() => handleSaveRecipe()} disabled={saved}>
+            <FiBookmark className='w-5 h-5 text-white'/>
           </button>
         </div>
         <h1 className='text-2xl font-medium text-white absolute bottom-0 left-0 mb-2.5 ml-4'>

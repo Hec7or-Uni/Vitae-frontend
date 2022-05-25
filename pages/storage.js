@@ -1,15 +1,13 @@
 import Layout from '../components/Layout/WithSession'
 import { getSession } from 'next-auth/react'
 import Card from '../components/Card'
-import Search from '../components/Search'
 
 export default function Storage ({ menus }) {
   return (
     <div className='max-w-5xl flex flex-col gap-5'>
-      <Search />
       <div className='flex flex-wrap gap-4 overflow-y-auto'>
         {menus.map(item => {
-          return <Card key={item._id} id={item._id} img={item.image} />
+          return <Card key={item._id} url={'/menu/' + item._id} img={item.image} />
         })}
       </div>
     </div>

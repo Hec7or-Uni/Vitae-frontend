@@ -24,7 +24,7 @@ export default function Discover ({ email, recipes, token }) {
     <div className='max-w-5xl flex flex-col gap-5'>
       <Search funct={handleSearch} />
       <div className='flex flex-wrap gap-4 overflow-y-auto'>
-        {localRecipes.map(item => <Card key={item.spoonId} id={item.spoonId} img={item.image} />)}
+        {localRecipes.map(item => <Card key={item.spoonId} url={'/recipe/' + item.spoonId} img={item.image} />)}
       </div>
     </div>
   )
@@ -46,8 +46,8 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const params = new URLSearchParams({ email: session.user.email })
-  const recipes = await fetch(`http://localhost:4000/api/inventory/random-recipes?${params}`, {
+  const params = new URLSearchParams({ quantity: 25 })
+  const recipes = await fetch(`http://localhost:4000/api/inventory/discovery?${params.toString()}`, {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
