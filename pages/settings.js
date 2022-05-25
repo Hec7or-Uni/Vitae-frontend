@@ -59,9 +59,9 @@ export default function Settings ({ user, token }) {
       <form
         method='PUT'
         onSubmit={(e) => handleUpdate(e)}
-        className='w-2/3 flex flex-col gap-4'
+        className='w-full sm:w-2/3 flex flex-col gap-4'
       >
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='name' className='flex-1 flex flex-col gap-2'>
             <span>Name</span>
             <input
@@ -85,7 +85,7 @@ export default function Settings ({ user, token }) {
             />
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='username' className='flex-1 flex flex-col gap-2'>
             <span>Username</span>
             <input
@@ -117,7 +117,7 @@ export default function Settings ({ user, token }) {
             </select>
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='birth' className='flex-1 flex flex-col gap-1'>
             <span>Birth</span>
             <input
@@ -137,7 +137,7 @@ export default function Settings ({ user, token }) {
             </select>
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='height' className='flex-1 flex flex-col gap-1'>
             <span>Size <span className='text-xs'>in cm</span></span>
             <input
@@ -165,7 +165,7 @@ export default function Settings ({ user, token }) {
             />
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <button
             type='submit'
             className='flex-1 px-2.5 py-2.5 rounded-md bg-green-700 bg-opacity-70 text-white font-bold'
@@ -175,14 +175,14 @@ export default function Settings ({ user, token }) {
           <button
             type='button'
             onClick={() => { handleDelete() }}
-            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold'
+            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold break-words'
           >
             delete account
           </button>
         </div>
       </form>
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
-      <div className='max-w-sm flex gap-4'>
+      <div className='max-w-sm flex gap-4 flex-wrap'>
         <button
           onClick={async () => {
             if (google) {

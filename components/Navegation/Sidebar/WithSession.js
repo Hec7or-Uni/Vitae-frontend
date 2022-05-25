@@ -42,7 +42,7 @@ export default function Sidebar () {
         id: 1,
         link: '/admin',
         icon: <FiActivity className='text-xl stroke-2' />,
-        text: 'home'
+        text: 'admin'
       }]
     }
     setLinks(lista)
