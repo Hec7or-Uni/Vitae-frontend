@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import SButton from './sButton'
+import SButton from './SButton'
 import { FiHeart, FiGlobe, FiBox, FiCalendar, FiSettings, FiActivity } from 'react-icons/fi'
 
 export default function Sidebar () {
