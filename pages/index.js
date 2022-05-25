@@ -138,7 +138,7 @@ export async function getServerSideProps ({ req }) {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ field: 'visitIndex' })
-  })
+  }).catch(err => console.error(err))
 
   return {
     props: {
