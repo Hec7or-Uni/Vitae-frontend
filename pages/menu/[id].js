@@ -1,4 +1,4 @@
-import Layout from '../../components/Layout'
+import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
 import { FiPlus, FiClock, FiHeart, FiBookmark } from 'react-icons/fi'
 
