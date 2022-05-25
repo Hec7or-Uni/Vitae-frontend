@@ -16,7 +16,7 @@ export default function Discover ({ email, recipes, token }) {
         Authorization: token
       }
     }).then(res => res.json())
-      .catch(err => console.log(err))
+      .catch(err => err)
     setRecipes(recipes)
   }
 
@@ -52,7 +52,7 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
+    .catch(err => err)
 
   return {
     props: {

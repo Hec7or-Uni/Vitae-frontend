@@ -6,9 +6,8 @@ export default function Recovery ({ csrfToken }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}recovery?email=${e.target.email.value}`)
-      .then((res) => res.json())
-    console.log(res)
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}recovery?email=${e.target.email.value}`)
+      .then((res) => res.json()).catch(err => err)
   }
 
   return (

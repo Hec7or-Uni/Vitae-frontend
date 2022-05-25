@@ -8,7 +8,6 @@ import { zip } from '../../lib/functions'
 import Tippy from '@tippyjs/react'
 
 export default function Menu ({ menu }) {
-  console.log(menu)
   // para los estimados
   let health = 0; let time = 0; let score = 0
   const recipes = menu.recipes.map(item => item)
@@ -163,7 +162,7 @@ export async function getServerSideProps (context) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => err)
 
   const menu = user.menus.filter(menu => menu._id === params.id)[0]
 

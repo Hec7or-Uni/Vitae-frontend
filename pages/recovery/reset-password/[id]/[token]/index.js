@@ -24,7 +24,7 @@ export default function Recovery ({ csrfToken, id }) {
       body: JSON.stringify({ data })
     }).then((res) => {
       res.json()
-    })
+    }).catch(err => err)
   }
 
   return (
@@ -88,7 +88,7 @@ export async function getServerSideProps (context) {
 
   // check if this id exists in the database
   const params = new URLSearchParams({ id })
-  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`)
+  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`).catch(err => err)
   if (!user) {
     return {
       redirect: {
@@ -100,10 +100,9 @@ export async function getServerSideProps (context) {
 
   const secret = process.env.SECRET + user.passwd
   try {
+    // eslint-disable-next-line no-unused-vars
     const payload = jwt.verify(token, secret)
-    console.log(payload)
   } catch (error) {
-    console.log(error.message)
   }
   return {
     props: {

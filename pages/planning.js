@@ -46,7 +46,7 @@ export default function Planning ({ menus, email, token, recipes }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data)
-    })
+    }).catch(err => err)
   }
 
   const delMenu = () => {
@@ -69,7 +69,6 @@ export default function Planning ({ menus, email, token, recipes }) {
           }
         })
 
-      console.log(newMenu)
       setMenu(newMenu)
       setOp(false)
     } else {
@@ -191,7 +190,6 @@ export default function Planning ({ menus, email, token, recipes }) {
               </>
                 : <>
                 {menu.map(r => {
-                  console.log(r)
                   return (
                     <div key={r.id} className='flex gap-4 rounded-md'>
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
@@ -252,7 +250,7 @@ export async function getServerSideProps ({ req }) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => err)
 
   return {
     props: {

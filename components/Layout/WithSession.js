@@ -19,7 +19,7 @@ export default function Layout ({ children }) {
     <SWRConfig
       value={{
         refreshInterval: 20,
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+        fetcher: (resource, init) => fetch(resource, init).then(res => res.json()).catch(err => err)
       }}
     >
         <ShareProvider>

@@ -5,7 +5,6 @@ import Tippy from '@tippyjs/react'
 import toast, { Toaster } from 'react-hot-toast'
 
 export default function Settings ({ user, token }) {
-  console.log(user.weight)
   const google = user.accounts.some(item => item.provider === 'google')
   const twitter = user.accounts.some(item => item.provider === 'twitter')
   const instagram = user.accounts.some(item => item.provider === 'instagram')
@@ -31,7 +30,6 @@ export default function Settings ({ user, token }) {
         body: JSON.stringify(query)
       })
         .then((res) => {
-          console.log(res)
           if (res.status === 204 && res.ok === true) {
             resolve('ok')
           }
@@ -341,8 +339,6 @@ export async function getServerSideProps ({ req }) {
     }
   }).then(res => res.json())
     .catch(err => console.error(err))
-
-  console.log(user)
 
   return {
     props: {

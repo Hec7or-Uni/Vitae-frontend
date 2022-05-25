@@ -14,7 +14,7 @@ export default function Newsletter () {
       },
       body: JSON.stringify(data)
     }
-    const response = await fetch(endpoint, options)
+    const response = await fetch(endpoint, options).catch(err => err)
     if (response.status === 201) setActive(false)
   }
 

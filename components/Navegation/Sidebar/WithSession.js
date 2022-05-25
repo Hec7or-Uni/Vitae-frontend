@@ -8,7 +8,6 @@ export default function Sidebar () {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(router.asPath)
     let lista
     if (router.asPath !== '/admin') {
       lista = [{

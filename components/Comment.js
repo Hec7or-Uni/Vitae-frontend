@@ -47,7 +47,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   const handlePublishRep = async (e) => {
@@ -63,7 +63,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
     setReply(false)
   }
 
@@ -82,7 +82,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       method: 'PUT',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   const handleDelete = async (e) => {
@@ -101,7 +101,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       method: 'DELETE',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   return (

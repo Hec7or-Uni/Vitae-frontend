@@ -17,7 +17,7 @@ const fetchWithToken = async (uri, spoonId, token) => {
       Authorization: `Bearer ${token}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
+    .catch(err => err)
   return recipe.comments
 }
 
@@ -45,7 +45,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({ email, recipe })
-    })
+    }).catch(err => err)
     setSaved(true)
   }
 
@@ -236,7 +236,7 @@ export async function getServerSideProps (context) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => err)
 
   return {
     props: {

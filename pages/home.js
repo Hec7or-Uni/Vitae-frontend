@@ -94,13 +94,11 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  console.log(session)
-
   await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ field: 'visitIndex' })
-  })
+  }).catch(err => err)
 
   const parametros = new URLSearchParams({ email: session.user.email })
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
@@ -108,7 +106,7 @@ export async function getServerSideProps ({ req }) {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => err)
 
   return {
     props: {
