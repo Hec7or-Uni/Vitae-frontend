@@ -3,14 +3,15 @@ import Navbar from '../Navegation/Navbar/NoSession'
 import Footer from '../Navegation/Footer/NoSession'
 import CookieConsent from 'react-cookie-consent'
 import Link from 'next/link'
-import { ScreenProvider } from '../../context/ScreenContext'
+import { useScreen } from '../../context/ScreenContext'
 import Documentation from '../Documentation'
 
 export default function Layout ({ children, docs }) {
+  const { docsActive } = useScreen()
   return (
-    <ScreenProvider>
+    <>
       <Meta/>
-      <div>
+      <div className={`${docsActive ? 'overflow-y-hidden h-screen' : ''}`}>
         <div>
           {docs !== undefined && <Documentation source={docs.source} frontMatter={docs.frontMatter} />}
           <Navbar />
@@ -64,6 +65,6 @@ export default function Layout ({ children, docs }) {
           </a>
         </Link>.
       </CookieConsent>
-    </ScreenProvider>
+    </>
   )
 }

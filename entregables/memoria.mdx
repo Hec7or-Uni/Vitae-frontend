@@ -1,83 +1,79 @@
 ---
-title: "Documentation"
-description: "Documentation of the assambly editor"
-date: "Mar 16, 2022"
+title: "Vitop App"
+description: "Aplicación de dietas con la que mejorar tu calidad de vida"
+date: "24-05-22"
 ---
 
-## Quick Start
-## Usage
-1. Login into your github account.
-2. Set up your configuration & upload it to the system.
- - bits / inst
- - inst format
-3. write your asm code in the editor.
-4. Select the output format you prefer: [**binary**, **memory**]
+## Resumen
+---
 
-## Example
-We will start from an initial state in which we will have defined the instructions that we want to be able to program.
-```
-mov K, rb       ; SignExt(K) → BR(rb)                K cte de 16 bits 
-add ra, rb, rd 	; BR(ra) + BR(rb) → BR(rd) 
-ld (ra), rb 	; MEM(BR(ra)15-0) → BR(rb) 
-st rb, (ra) 	; BR(rb) → MEM(BR(ra)15-0) 
-beq ra, rb, K 	; si BR(ra)==BR(rb) salta a @ K 
-nop             ; no realiza ninguna acción
-```
+### ¿Qué es Vitop?
+Vitop es una aplicación web cuyo principal objetivo es ayudar a las personas a llevar una dieta sana y equilibrada. Para ello, la app ofrece la busqueda y almacenamiento de recetas con las que poder generar menus personalizados. Además, aporta información al usuario mediante distintas métricas de las que hablaremos posteriormente.
+Esta aplicación no busca solo mantener a los usuarios sanos, sino que también tiene como objetivo facilitar y simplificar algunas de las tareas del dia a dia.
 
-To begin with, we will define in which bits the parameters of our instructions will be placed as follows:
-```
-31           <-- inst -->             0
-000- ---- ---- ---- ---- ---- ---- ----	;    nop
-001A AAAA BBBB BKKKK KKKK KKKK KKK K--- ;    beq
-010- ---- BBBB BKKKK KKKK KKKK KKK K---	;    mov
-011A AAAA BBBB BDDD DD-- ---- ---- ----	;    add
-100A AAAA BBBB B--- ---- ---- ---- ----	;    ld
-101A AAAA BBBB B--- ---- ---- ---- ----	;    st
-```
 
-Now that we know how we want to organize our instructions, we can start with the configuration.
-```
-INST: 32 bits
-```
+## Analisis y Diseño
+---
+### Analisis de requisitos
+En las etapas inciales del proyecto se realizó un pequeño analisis de cuales podrían ser los principales problemas de las personas de entre 20-50 años.
+Algunos de los mas relevantes fueron:
+- Falta de tiempo para planificar un menu familiar
+- Desconocimiento sobre cocina (recetas, ingredientes, etc)
+- Demasiados sitios donde buscar recetas 
+- Llevar un registro del progreso
 
-```
-nop; 000 31:29;
-beq ra rb #K; 001 31:29 28:24 23:19 18:3;
-mov #K rb; 010 31:29 18:3 23:19;
-add ra rb rd; 011 31:29 28:24 23:19 18:14;
-ld ra rb; 100 31:29 28:24 23:19 18:3;
-st rb ra; 101 31:29 23:19 28:24 18:3;
-```
+### Publico objetivo
+Tras haber realizado un ligero analisis del entorno y alguna que otra entrevista, llegamos a la conclusión de que nuestro público objetivo eran personas de entre 18-25 años que esten estudiando fuera de su hogar, y padres que estan trabajando todo el día y no tienen apenas tiempo para pensar que cocinar.
 
-As you can see in the configuration above, you can see that there are two clearly different parts, separated by the ";" character. The left part indicates the instruction and its parameters and the right part how these are translated.
+### Analisis de la competencia
+Previo a la validacion de la idea, se realizo una busqueda exaustiva de sitios similares al de la idea inicial, entre ellos estaban los de la siguiente tabla:
 
-We have 3 types of arguments or parameters that are part of the left part: instructions, registers and constants.
-The instructions are defined by the following regular expression: /^([a-z0-9]+)/i <br/>
-The registers by: /^r([a-zA-Z]+)/<br/>
-Constants by: /^#([a-z])/i
+| Name | Lista de la compra | Metricas nutricionales | Consultar recetas | Comentarios de las recetas | Price|
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| [Nootric](https://www.nootric.com/es) | ❌ | ✅ | ✅ | ❌ | ❌ | 
+| [Mealime](https://www.mealime.com/) | ✅ | ❌ | ✅ | ❌ | ❌ |
+| [LifeSum](https://lifesum.com/es) | ✅ | ✅ | ✅ | ❌ | ❌ |
+| [Dommuss](https://www.dommuss.com/) | ✅ | ❌ | ✅ | ❌ | ❌ |
 
-On the right side we find the translation bits of the instruction and its range (Indicates the positions that will be occupied by that argument/parameter).
-The argument of type range has the following syntax: \<start\>:\<end\> being \<start\> greater than \<end\> and being separated by the ":" character.
+## Desarrollo
+Para comenzar el desarrollo se decidio seguir una estrategía basada en la funcionalidad del usuario es decir, primero se realizarian un mockup de las vistas que estos tendrían para posteriormente diseñar los modelos de datos necesarios para almacenar la informació a servir e implementar las funcionalidades justas para cubrir las necesidades de estos.
 
-Now that we have the configuration, we can proceed to make the assembly code.
-For practical purposes we will simply place the instructions in order to be translated and we will obviate the possible dependencies between the different parameters used in the instructions as this could be different for different ISAs.
-```
-nop;
-beq r1 r2 #5;
-mov #15000 r2;
-add r1 r2 r3;
-ld r1 r2;
-st r2 r1;
-```
+### Diseño
+### Apariencia
+Para el diseño de la UI se decidio seguir un layout simple y eficaz, que le simplificara la vida al usuario, separando así las parte de acceso con las diferentes paginas quedando asi esta plantilla:
 
-As a final note, if you want to perform a jump operation to a specific address of the program to perform some kind of loop, you could use an instruction like the one proposed above so-called beq, specifying its constant as the @ to which you want to jump, as for example, if 
-we want to jump to the initial position of the program we will write something like: beq r1 r1 #0
+![[Pasted image 20220525030759.png]]
 
-## Bugs Detected
-- **v0.1.0** - Bit range error
-	**status:** Fixed
-	**Description:** If the maximum number of bits is 22, the bits should go from 0-21 and they go from 0-22.
-	**Discover by:** [XLXXLXTX](https://github.com/XLXXLXTX)
+Como se puede observar en la figura superior, la estructura de vitop es identica salvando algunos pequeños detalles que se han ido corrigiendo durante el desarrollo.
 
-## Contributing
-If you have any ideas on how the tool could be improved, please contact the project administrator to make an approach/analysis of the idea for a possible future implementation.
+### Diseño de funcionalidad
+Para el diseño de la funcionalidad alojada en el backend se decidio que esta deberia estar organizada en base al sujeto paciente de la acción, por ejemplo una funcionalidad que añade recetas deberia estar separada de la que permite al usuario hacer login, de esta forma tendriamos mas ficheros pero mas pequeños.
+
+
+### Arquitectura de alto nivel
+![[Pasted image 20220525025636.png]]
+Como arquitectura, decidimos utilizar `NEXT JS` para gestionar la interacion del usuario y `Express JS` para la logica de la aplicación, además de utilizar `Mongo DB` como base de datos para la aplicación.
+
+Algunos de los motivos por los que se eligió utilizar `NEXT JS` vs plain `REACT` eran que como la vista de la aplicación iba a ser desplegada sobre Vercel (desarrolladores de NEXT JS) estos tienen alguna que otra mejora al usar su framework y desplegar sobre su paas como por ejemplo su componente imagen que permite cargas adapatadas al dispositivo reduciendo asi el tamaño de los archivos, ademas de que next js te da la posibilidad de utilizar 2 estrategias de precarga de la web SThese include pre-rendering with Server-side Rendering or Static Generation, and updating or creating content at runtime with Incremental Static Regeneration.
+
+¿porque de mongo?
+
+¿porque de express?
+
+### Modelo de datos
+insertar imagen
+
+
+
+### Mapa de Navegación
+
+
+
+#### Resultado
+#### Problemas
+
+
+### Conclusion
+### Valoracion personal
+
+### Anexo

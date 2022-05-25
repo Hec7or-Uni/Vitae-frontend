@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
+import { ScreenProvider } from '../context/ScreenContext'
 
 export default function MyApp ({
   Component,
@@ -13,7 +14,9 @@ export default function MyApp ({
       refetchInterval={5 * 60}
       refetchOnWindowFocus={true}
     >
-      {getLayout(<Component {...pageProps} />)}
+      <ScreenProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </ScreenProvider>
     </SessionProvider>
   )
 }

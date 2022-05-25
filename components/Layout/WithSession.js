@@ -2,7 +2,6 @@ import Meta from '../Meta'
 import Navbar from '../Navegation/Navbar/WithSession'
 import Sidebar from '../Navegation/Sidebar/WithSession'
 import Footer from '../Navegation/Footer/WithSession'
-import { ScreenProvider } from '../../context/ScreenContext'
 import Share from '../Share'
 import { ShareProvider } from '../../context/ShareContext'
 import useKey from '../../hooks/useKey'
@@ -23,7 +22,6 @@ export default function Layout ({ children }) {
         fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
       }}
     >
-      <ScreenProvider>
         <ShareProvider>
           <Meta/>
           <div className='h-screen w-full flex flex-col divide-y-2 divide-gray-700 relative'>
@@ -43,7 +41,6 @@ export default function Layout ({ children }) {
             <Share/>
           </div>
         </ShareProvider>
-      </ScreenProvider>
     </SWRConfig>
   )
 }
