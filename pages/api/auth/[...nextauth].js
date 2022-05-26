@@ -79,17 +79,17 @@ export default NextAuth({
       return session
     },
     async signIn ({ account, profile }) {
-      if (account.provider !== 'credentials') {
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/connect-account`, {
-          method: 'PUT',
-          body: JSON.stringify({ email: profile.email, account }),
-          headers: { 'Content-Type': 'application/json' }
-        }).then(res => res.json())
-          .catch(err => console.error(err))
-      }
-      if (account.provider === 'google') { return profile.email_verified }
-      if (account.provider === 'twitter') { return profile.email_verified }
-      if (account.provider === 'instagram') { return profile.email_verified }
+      // if (account.provider !== 'credentials') {
+      //   await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/connect-account`, {
+      //     method: 'PUT',
+      //     body: JSON.stringify({ email: profile.email, account }),
+      //     headers: { 'Content-Type': 'application/json' }
+      //   }).then(res => res.json())
+      //     .catch(err => console.error(err))
+      // }
+      // if (account.provider === 'google') { return profile.email_verified }
+      // if (account.provider === 'twitter') { return profile.email_verified }
+      // if (account.provider === 'instagram') { return profile.email_verified }
       return true // Do different verification for other providers that don't have `email_verified`
     }
   },

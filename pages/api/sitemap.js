@@ -22,6 +22,7 @@ export default async (req, res) => {
       'privacypolicy',
       'tos',
       'home',
+      'about',
       'discover',
       'storage',
       'planning',
