@@ -35,7 +35,6 @@ export default function Settings ({ user, token }) {
           }
           reject(new Error('error'))
         })
-        .catch(err => console.error(err))
     })
   }
 
@@ -56,7 +55,6 @@ export default function Settings ({ user, token }) {
           }
           reject(new Error('error'))
         })
-        .catch(err => console.error(err))
     })
   }
 
@@ -66,7 +64,7 @@ export default function Settings ({ user, token }) {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: user.email, provider })
-    }).catch(err => console.error(err))
+    })
   }
 
   return (
@@ -228,7 +226,6 @@ export default function Settings ({ user, token }) {
                           success: { duration: 4000 },
                           error: { duration: 4000 }
                         }).then(() => signOut({ redirect: process.env.NEXT_PUBLIC_BASE_PATH_FRONTEND }))
-                          .catch(err => console.error(err))
                       }}
                       className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                     >
@@ -338,7 +335,6 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
 
   return {
     props: {

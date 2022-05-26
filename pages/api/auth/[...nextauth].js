@@ -47,7 +47,8 @@ export default NextAuth({
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' }
-        }).catch(err => console.error(err))
+        })
+        console.log(res)
 
         const { username, email, salt, hash, role } = await res.json()
         if (res.ok && CryptoJS.SHA512(salt + credentials.password).toString() === hash) {

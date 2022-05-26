@@ -20,6 +20,7 @@ export default function Login () {
   const handleSubmit = (e) => {
     e.preventDefault()
     return new Promise((resolve, reject) => {
+      console.log('promise in')
       signIn('credentials', {
         email: e.target.email.value,
         password: e.target.password.value,
