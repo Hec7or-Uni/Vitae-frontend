@@ -33,18 +33,15 @@ export default function Invite () {
     }
 
     return new Promise((resolve, reject) => {
-      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+      const res = fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
         method: 'POST',
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }
       })
-        .then((res) => {
-          if (res.status === 201 && res.ok === true) {
-            resolve('ok')
-          }
-          reject(new Error('error'))
-        })
-        .catch(err => reject(new Error(err)))
+      if (res.status === 201 && res.ok === true) {
+        resolve('ok')
+      }
+      reject(new Error('error'))
     })
   }
 
