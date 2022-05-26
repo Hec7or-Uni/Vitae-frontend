@@ -158,7 +158,7 @@ export async function getServerSideProps (context) {
   }
 
   const token = req.cookies['__Secure-next-auth.session-token']
-  const user = await fetch(`http://localhost:4000/api/user?email=${session.user.email}`, {
+  const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?email=${session.user.email}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`

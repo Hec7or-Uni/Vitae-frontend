@@ -38,7 +38,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
   // const comments = recipe.comments
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
-    await fetch('http://localhost:4000/api/inventory/save-recipe', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}api/inventory/save-recipe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
