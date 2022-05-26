@@ -251,7 +251,7 @@ export async function getServerSideProps ({ req }) {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }).then(res => res.json()).catch(err => console.error(err))
+  }).then(res => res.json())
 
   return {
     props: {

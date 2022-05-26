@@ -9,7 +9,7 @@ import defaultImage from '../../public/defaultImage.png'
 import Tippy from '@tippyjs/react'
 import { useState } from 'react'
 
-const fetchWithToken = async (uri, spoonId, token) => {
+const fetchWithToken = async (uri, spoonId, token, recipes) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })
   const recipe = await fetch(`${uri}?${parametros.toString()}`, {
     method: 'GET',
@@ -28,15 +28,14 @@ const images = [
   'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
 ]
 
-export default function Recipe ({ email, recipe, token }) {
-  console.log(recipe)
+export default function Recipe ({ email, recipe, token, recipes }) {
   const [saved, setSaved] = useState(false)
   const { data: comments, error } = useSWR([`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
 
   if (error) return <div>failed to load</div>
   if (!comments) return <div>loading...</div>
 
-  // const comments = recipe.comments
+  const loTenemos = recipes.some(item => item.spoonId === recipe.spoonId)
   const handleSaveRecipe = async () => {
     recipe.nutrition = nutrition
     await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/save-recipe`, {
@@ -51,7 +50,6 @@ export default function Recipe ({ email, recipe, token }) {
   }
 
   const nutrition = recipe.nutrition.filter(item => ['calories', 'carbs', 'fat', 'protein'].includes(item.name))
-  console.log(nutrition)
 
   return (
     <div className='max-w-5xl'>
@@ -106,7 +104,7 @@ export default function Recipe ({ email, recipe, token }) {
         </div>
         </div>
         <div className={`${saved ? 'hidden' : ''} absolute bottom-0 right-0 mb-2.5 mr-6 flex items-center bg-black bg-opacity-70 p-2 rounded-lg`}>
-          <button onClick={() => handleSaveRecipe()} disabled={saved}>
+          <button onClick={() => handleSaveRecipe()} disabled={saved} className={`${loTenemos ? 'hidden' : ''}`}>
             <FiBookmark className='w-5 h-5 text-white'/>
           </button>
         </div>
@@ -245,11 +243,20 @@ export async function getServerSideProps (context) {
     }
   }).then(res => res.json())
 
+  const parametros2 = new URLSearchParams({ email: session.user.email })
+  const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros2}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(res => res.json())
+
   return {
     props: {
       email: session.user.email,
       recipe,
-      token: token
+      token: token,
+      recipes: user.saved_recipes
     }
   }
 }
