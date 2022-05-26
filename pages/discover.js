@@ -5,6 +5,7 @@ import Search from '../components/Search'
 import { useState } from 'react'
 
 export default function Discover ({ email, recipes, token }) {
+  console.log(email, recipes, token)
   const [localRecipes, setRecipes] = useState(recipes)
 
   const handleSearch = async (e) => {
