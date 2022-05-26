@@ -10,6 +10,7 @@ export default function Settings ({ user, token }) {
   const instagram = user.accounts.some(item => item.provider === 'instagram')
 
   const handleUpdate = async (e) => {
+    console.log(e.target.gender.value)
     e.preventDefault()
     const query = {
       email: user.email,
