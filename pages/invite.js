@@ -62,8 +62,10 @@ export default function Invite () {
       body: JSON.stringify(query),
       headers: { 'Content-Type': 'application/json' }
     }).then(res => {
-      if (res.status === 201 && res.ok === true) { return true } else { return new Error() }
-    }).catch(err => { return new Error(err) })
+      if (res.status === 201 && res.ok === true) {
+        return new Error()
+      }
+    })
   }
 
   return (
