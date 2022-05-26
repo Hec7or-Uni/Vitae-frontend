@@ -95,7 +95,7 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const token = await getToken(req, process.env.NEXTAUTH_SECRET)
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
   // await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
   //   method: 'PUT',
