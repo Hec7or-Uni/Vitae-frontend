@@ -73,6 +73,7 @@ export default function Invite ({ csrfToken }) {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/login'))
+              .catch(() => router.reload())
           }}
 
           className='mt-4'

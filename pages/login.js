@@ -58,6 +58,7 @@ export default function Login ({ csrfToken }) {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/home'))
+              .catch(() => router.reload())
           }}
 
           className='mt-4'
