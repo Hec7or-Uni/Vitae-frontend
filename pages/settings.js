@@ -145,7 +145,7 @@ export default function Settings ({ user, token }) {
                 'Primal',
                 'Low FODMAP',
                 'Whole30'
-              ].map(item => <option key={item} value='vegetarian'>vegetarian</option>)}
+              ].map(item => <option key={item} id='gender' value='vegetarian'>vegetarian</option>)}
             </select>
           </label>
         </div>

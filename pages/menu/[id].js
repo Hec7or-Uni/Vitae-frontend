@@ -157,7 +157,7 @@ export async function getServerSideProps (context) {
     }
   }
 
-  const token = req.cookies['next-auth.session-token']
+  const token = req.cookies['__Secure-next-auth.session-token']
   const user = await fetch(`http://localhost:4000/api/user?email=${session.user.email}`, {
     method: 'GET',
     headers: {

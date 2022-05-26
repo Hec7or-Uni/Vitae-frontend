@@ -230,14 +230,14 @@ export async function getServerSideProps (context) {
     }
   }
 
-  const token = req.cookies['next-auth.session-token']
+  const token = req.cookies['__Secure-next-auth.session-token']
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
   const recipe = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory?${parametros.toString()}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }).then(res => res.json()).catch(err => console.error(err))
+  }).then(res => res.json())
 
   return {
     props: {
