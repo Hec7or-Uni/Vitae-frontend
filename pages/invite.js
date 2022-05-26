@@ -45,7 +45,7 @@ export default function Invite () {
   //   })
   // }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     const salt = crypto.randomBytes(32).toString('hex')
     const query = {
@@ -57,13 +57,16 @@ export default function Invite () {
       hash: CryptoJS.SHA512(salt + e.target.password.value).toString()
     }
 
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
-      method: 'POST',
-      body: JSON.stringify(query),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(res => {
+    return new Promise((resolve, reject) => {
+      const res = fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+        method: 'POST',
+        body: JSON.stringify(query),
+        headers: { 'Content-Type': 'application/json' }
+      })
       if (res.status === 201 && res.ok === true) {
-        return new Error()
+        resolve('ok')
+      } else {
+        reject(new Error('error'))
       }
     })
   }
