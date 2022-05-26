@@ -20,6 +20,31 @@ export default function Invite () {
     setSecureLVL(secureLevel)
   }, [pw, secureLVL])
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   const salt = crypto.randomBytes(32).toString('hex')
+  //   const query = {
+  //     name: e.target.name.value,
+  //     lastname: e.target.lastName.value,
+  //     username: e.target.username.value,
+  //     email: e.target.email.value,
+  //     salt: salt,
+  //     hash: CryptoJS.SHA512(salt + e.target.password.value).toString()
+  //   }
+
+  //   return new Promise((resolve, reject) => {
+  //     const res = fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+  //       method: 'POST',
+  //       body: JSON.stringify(query),
+  //       headers: { 'Content-Type': 'application/json' }
+  //     })
+  //     if (res.status === 201 && res.ok === true) {
+  //       resolve('ok')
+  //     }
+  //     reject(new Error('error'))
+  //   })
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const salt = crypto.randomBytes(32).toString('hex')
@@ -36,7 +61,9 @@ export default function Invite () {
       method: 'POST',
       body: JSON.stringify(query),
       headers: { 'Content-Type': 'application/json' }
-    })
+    }).then(res => {
+      if (res.status === 201 && res.ok === true) { return true } else { return new Error() }
+    }).catch(err => { return new Error(err) })
   }
 
   return (
