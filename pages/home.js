@@ -100,6 +100,8 @@ export async function getServerSideProps ({ req }) {
   //   body: JSON.stringify({ field: 'visitIndex' })
   // }).catch(err => console.error(err))
 
+  console.log(session, session.user.email, process.env.NEXT_PUBLIC_BASE_PATH_BACKEND, req.cookies['next-auth.session-token'])
+
   const parametros = new URLSearchParams({ email: session.user.email })
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
