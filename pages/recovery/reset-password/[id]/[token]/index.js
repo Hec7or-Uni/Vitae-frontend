@@ -18,7 +18,7 @@ export default function Recovery ({ id }) {
       salt: salt,
       passwd: CryptoJS.SHA512(salt + e.target.password.value).toString()
     }
-    await fetch('/api/shop', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/update-account`, {
       method: 'PUT',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ data })
@@ -87,7 +87,7 @@ export async function getServerSideProps (context) {
 
   // check if this id exists in the database
   const params = new URLSearchParams({ id })
-  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`)
+  const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}recovery/validate?${params.toString()}`)
   if (!user) {
     return {
       redirect: {
@@ -97,7 +97,7 @@ export async function getServerSideProps (context) {
     }
   }
 
-  const secret = process.env.SECRET + user.passwd
+  const secret = process.env.NEXTAUTH_SECRET + user.passwd
   try {
     // eslint-disable-next-line no-unused-vars
     const payload = jwt.verify(token, secret)
