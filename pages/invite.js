@@ -63,6 +63,7 @@ export default function Invite () {
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }
       })
+      console.log(res)
       if (res.status === 201 && res.ok === true) {
         resolve('ok')
       } else {
