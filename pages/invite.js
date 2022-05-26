@@ -44,7 +44,7 @@ export default function Invite () {
           }
           reject(new Error('error'))
         })
-        .catch(err => console.error(err))
+        .catch(err => reject(new Error(err)))
     })
   }
 
