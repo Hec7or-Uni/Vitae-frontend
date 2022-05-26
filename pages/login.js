@@ -24,14 +24,15 @@ export default function Login () {
         email: e.target.email.value,
         password: e.target.password.value,
         redirect: false
-      })
-        .then((res) => {
-          if (res.status === 200 && res.ok === true) {
-            resolve('ok')
-          }
+      }).then(res => {
+        if (res.status === 200 && res.ok === true) {
+          resolve('ok')
+        } else {
           reject(new Error('error'))
-        })
-        .catch(err => console.error(err))
+        }
+      }).catch(err => {
+        reject(new Error(err))
+      })
     })
   }
 
@@ -56,7 +57,6 @@ export default function Login () {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/home'))
-              .catch(err => console.error(err))
           }}
 
           className='mt-4'
