@@ -329,17 +329,19 @@ export async function getServerSideProps ({ req }) {
   const params = new URLSearchParams({
     email: session.user.email
   })
+
+  const token = req.cookies['__Secure-next-auth.session-token']
   const uri = `http://localhost:4000/api/user?${params.toString()}`
   const user = await fetch(uri, {
     headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+      Authorization: `Bearer ${token}`
     }
   }).then(res => res.json())
 
   return {
     props: {
       user,
-      token: req.cookies['next-auth.session-token']
+      token: token
     }
   }
 }

@@ -230,11 +230,12 @@ export async function getServerSideProps (context) {
     }
   }
 
+  const token = req.cookies['next-auth.session-token']
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
   const recipe = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory?${parametros.toString()}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+      Authorization: `Bearer ${token}`
     }
   }).then(res => res.json()).catch(err => console.error(err))
 
@@ -242,7 +243,7 @@ export async function getServerSideProps (context) {
     props: {
       email: session.user.email,
       recipe,
-      token: req.cookies['next-auth.session-token']
+      token: token
     }
   }
 }

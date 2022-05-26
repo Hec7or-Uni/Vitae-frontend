@@ -157,10 +157,11 @@ export async function getServerSideProps (context) {
     }
   }
 
+  const token = req.cookies['next-auth.session-token']
   const user = await fetch(`http://localhost:4000/api/user?email=${session.user.email}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+      Authorization: `Bearer ${token}`
     }
   }).then(res => res.json()).catch(err => err)
 
@@ -170,7 +171,7 @@ export async function getServerSideProps (context) {
     props: {
       email: session.user.email,
       menu,
-      token: req.cookies['next-auth.session-token']
+      token: token
     }
   }
 }

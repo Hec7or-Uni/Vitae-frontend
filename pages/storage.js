@@ -34,7 +34,7 @@ export async function getServerSideProps ({ req }) {
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+      Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
     }
   }).then(res => res.json()).catch(err => console.error(err))
 

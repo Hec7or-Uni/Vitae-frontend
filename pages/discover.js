@@ -49,7 +49,7 @@ export async function getServerSideProps ({ req }) {
   const params = new URLSearchParams({ quantity: 25 })
   const recipes = await fetch(`http://localhost:4000/api/inventory/discovery?${params.toString()}`, {
     headers: {
-      Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
+      Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
     }
   }).then(res => res.json())
     .catch(err => console.error(err))
@@ -58,7 +58,7 @@ export async function getServerSideProps ({ req }) {
     props: {
       email: session.user.email,
       recipes: recipes,
-      token: req.cookies['next-auth.session-token']
+      token: req.cookies['__Secure-next-auth.session-token']
     }
   }
 }
