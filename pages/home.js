@@ -94,11 +94,11 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ field: 'visitIndex' })
-  }).catch(err => console.error(err))
+  // await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
+  //   method: 'PUT',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ field: 'visitIndex' })
+  // }).catch(err => console.error(err))
 
   const parametros = new URLSearchParams({ email: session.user.email })
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
