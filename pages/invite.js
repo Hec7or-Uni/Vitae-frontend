@@ -2,13 +2,13 @@ import Link from 'next/link'
 import crypto from 'crypto'
 import CryptoJS from 'crypto-js'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import toast, { Toaster } from 'react-hot-toast'
+// import { useRouter } from 'next/router'
+// import toast, { Toaster } from 'react-hot-toast'
 
 export default function Invite () {
   const [pw, setPw] = useState('')
   const [secureLVL, setSecureLVL] = useState(-1)
-  const router = useRouter()
+  // const router = useRouter()
 
   useEffect(() => {
     let secureLevel = -1
@@ -20,7 +20,35 @@ export default function Invite () {
     setSecureLVL(secureLevel)
   }, [pw, secureLVL])
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault()
+  //   const salt = crypto.randomBytes(32).toString('hex')
+  //   const query = {
+  //     name: e.target.name.value,
+  //     lastname: e.target.lastName.value,
+  //     username: e.target.username.value,
+  //     email: e.target.email.value,
+  //     salt: salt,
+  //     hash: CryptoJS.SHA512(salt + e.target.password.value).toString()
+  //   }
+
+  //   return new Promise((resolve, reject) => {
+  //     fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+  //       method: 'POST',
+  //       body: JSON.stringify(query),
+  //       headers: { 'Content-Type': 'application/json' }
+  //     })
+  //       .then((res) => {
+  //         if (res.status === 201 && res.ok === true) {
+  //           resolve('ok')
+  //         }
+  //         reject(new Error('error'))
+  //       })
+  //       .catch(err => console.error(err))
+  //   })
+  // }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const salt = crypto.randomBytes(32).toString('hex')
     const query = {
@@ -32,25 +60,16 @@ export default function Invite () {
       hash: CryptoJS.SHA512(salt + e.target.password.value).toString()
     }
 
-    return new Promise((resolve, reject) => {
-      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
-        method: 'POST',
-        body: JSON.stringify(query),
-        headers: { 'Content-Type': 'application/json' }
-      })
-        .then((res) => {
-          if (res.status === 201 && res.ok === true) {
-            resolve('ok')
-          }
-          reject(new Error('error'))
-        })
-        .catch(err => console.error(err))
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+      method: 'POST',
+      body: JSON.stringify(query),
+      headers: { 'Content-Type': 'application/json' }
     })
   }
 
   return (
     <div className='flex items-center justify-center h-screen bg-gray-200 sm:px-6 flex-col gap-y-5'>
-      <Toaster position="top-center" reverseOrder={false} />
+      {/* <Toaster position="top-center" reverseOrder={false} /> */}
       <div className='w-full max-w-md p-4 bg-white rounded-md shadow-md sm:p-6'>
         <div className='flex items-center justify-center'>
           <span className='text-xl font-medium text-gray-900'>
@@ -59,20 +78,21 @@ export default function Invite () {
         </div>
         <form
           method='post'
-          onSubmit={(e) => {
-            toast
-              .promise(handleSubmit(e), {
-                loading: 'Saving user in the database',
-                success: 'Successfully registered ',
-                error: 'Error while registering'
-              }, {
-                loading: { duration: 4000 },
-                success: { duration: 4000 },
-                error: { duration: 4000 }
-              })
-              .then(() => router.push('/login'))
-              .catch(err => console.error(err))
-          }}
+          onSubmit={(e) => handleSubmit(e)}
+          // {
+          //   toast
+          //     .promise(handleSubmit(e), {
+          //       loading: 'Saving user in the database',
+          //       success: 'Successfully registered ',
+          //       error: 'Error while registering'
+          //     }, {
+          //       loading: { duration: 4000 },
+          //       success: { duration: 4000 },
+          //       error: { duration: 4000 }
+          //     })
+          //     .then(() => router.push('/login'))
+          //     .catch(err => console.error(err))
+          // }
           className='mt-4'
         >
           <div className='flex gap-x-2 mt-3'>
