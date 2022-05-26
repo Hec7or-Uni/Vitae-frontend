@@ -93,10 +93,10 @@ export default function FAQ () {
           title={'Want some new functionality?'}
           content={
             <p>
-              Si se te ocurre alguna forma de mejorar la aplicacion no dudes en hacer nos lo saber, mediante la creacion de un issue en el repositorio de
+              If you can think of any way to improve the application do not hesitate to let us know, by creating an issue in the repository of
               {' '}
               <a href='https://github.com/Hec7or-Uni/Vitae-frontend/issues' className='text-blue-500 underline underline-offset-1'>GitHub</a>{' '}
-               o mediante un correo a {' '}<a href='mailto:hi@vitop.xyz' className='text-blue-500 underline underline-offset-1'>hi@vitop.xyz</a>
+              or by mail to {' '}<a href='mailto:hi@vitop.xyz' className='text-blue-500 underline underline-offset-1'>hi@vitop.xyz</a>
             </p>
           }
         />
