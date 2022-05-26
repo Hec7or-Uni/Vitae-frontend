@@ -17,7 +17,6 @@ export default function Discover ({ email, recipes, token }) {
         Authorization: token
       }
     }).then(res => res.json())
-      .catch(err => console.error(err))
     setRecipes(recipes)
   }
 

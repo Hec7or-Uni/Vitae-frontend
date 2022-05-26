@@ -33,8 +33,11 @@ export default function Settings ({ user, token }) {
         .then((res) => {
           if (res.status === 204 && res.ok === true) {
             resolve('ok')
+          } else {
+            reject(new Error('error'))
           }
-          reject(new Error('error'))
+        }).catch(err => {
+          reject(new Error(err))
         })
     })
   }
@@ -53,8 +56,11 @@ export default function Settings ({ user, token }) {
         .then((res) => {
           if (res.status === 200 && res.ok === true) {
             resolve('ok')
+          } else {
+            reject(new Error('error'))
           }
-          reject(new Error('error'))
+        }).catch(err => {
+          reject(new Error(err))
         })
     })
   }
