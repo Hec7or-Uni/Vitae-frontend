@@ -21,7 +21,7 @@ export default function Menu ({ menu }) {
   let nutrition
   let calories = 0; let carbs = 0; let fat = 0; let protein = 0
   if (menu.recipes[0] !== []) {
-    nutrition = menu.recipes.map(item => item.nutrition)
+    nutrition = menu.recipes.map(item => item.nutrition).filter(item => ['calories', 'carbs', 'fat', 'protein'].includes(item.name))
     nutrition.forEach(element => {
       calories = calories + Number(element[0].value.substring(0, element[0].value.length - 1)) || calories
       carbs = carbs + Number(element[1].value.substring(0, element[1].value.length - 1)) || carbs

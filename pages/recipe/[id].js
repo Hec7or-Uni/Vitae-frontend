@@ -28,7 +28,7 @@ const images = [
   'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
 ]
 
-export default function Recipe ({ email, recipe, nutrition, token }) {
+export default function Recipe ({ email, recipe, token }) {
   console.log(recipe)
   const [saved, setSaved] = useState(false)
   const { data: comments, error } = useSWR([`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
@@ -49,6 +49,8 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
     }).catch(err => console.error(err))
     setSaved(true)
   }
+
+  const nutrition = recipe.nutrition.filter(item => ['calories', 'carbs', 'fat', 'protein'].includes(item.name))
 
   return (
     <div className='max-w-5xl'>
@@ -111,7 +113,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           {recipe.title}
         </h1>
       </div>
-      {recipe.extendedIngredients !== [] && recipe.nutrition.length !== 4 &&
+      {recipe.extendedIngredients && recipe.extendedIngredients !== [] &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Ingredients
@@ -157,13 +159,13 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           })}
         </ol>
       </div>
-      {recipe.nutrition !== [] && recipe.nutrition.length !== 4 &&
+      {nutrition !== [] && nutrition.length === 4 &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Nutrition
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {zip(images, recipe.nutrition).map(item => {
+          {zip(images, nutrition).map(item => {
             return (
               <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
                   <Image
