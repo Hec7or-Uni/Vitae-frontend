@@ -29,6 +29,7 @@ const images = [
 ]
 
 export default function Recipe ({ email, recipe, nutrition, token }) {
+  console.log(recipe)
   const [saved, setSaved] = useState(false)
   const { data: comments, error } = useSWR([`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
 
@@ -110,12 +111,13 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           {recipe.title}
         </h1>
       </div>
+      {recipe.extendedIngredients !== [] &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Ingredients
         </h2>
         <div className='mt-4 flex flex-wrap gap-4 w-2/3'>
-          {recipe.extendedIngredients !== [] && recipe.extendedIngredients.map(ingredient => {
+          {recipe.extendedIngredients.map(ingredient => {
             return (
               <div key={ingredient.id} className='h-28 w-28 bg-gray-200 relative flex flex-col items-center justify-center rounded-lg'>
                 <span className='select-none w-full h-full z-10 bg-black bg-opacity-0 hover:bg-opacity-20 flex flex-col
@@ -133,7 +135,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
             )
           })}
         </div>
-      </div>
+      </div>}
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
         Instructions
@@ -155,12 +157,13 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           })}
         </ol>
       </div>
+      {recipe.nutrition !== [] &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Nutrition
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {recipe.nutrition !== [] && zip(images, recipe.nutrition).map(item => {
+          {zip(images, recipe.nutrition).map(item => {
             return (
               <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
                   <Image
@@ -175,7 +178,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
             )
           })}
         </div>
-      </div>
+      </div>}
       <div className='w-full flex flex-col gap-4 justify-start items-start pb-28'>
         <Comment recipeId={recipe.spoonId} user={email} token={token}/>
         {comments.reverse().map(item => {
