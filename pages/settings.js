@@ -54,7 +54,7 @@ export default function Settings ({ user, token }) {
         body: JSON.stringify({ email: user.email })
       })
         .then((res) => {
-          if (res.status === 200 && res.ok === true) {
+          if (res.status === 204 && res.ok === true) {
             resolve('ok')
           } else {
             reject(new Error('error'))

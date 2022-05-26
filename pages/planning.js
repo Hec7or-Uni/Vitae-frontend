@@ -39,7 +39,7 @@ export default function Planning ({ menus, email, token, recipes }) {
       }
     }
 
-    await fetch('http://localhost:4000/api/inventory/menu', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/menu`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -245,10 +245,11 @@ export async function getServerSideProps ({ req }) {
   }
 
   const parametros = new URLSearchParams({ email: session.user.email })
+  const token = req.cookies['__Secure-next-auth.session-token']
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
+      Authorization: `Bearer ${token}`
     }
   }).then(res => res.json()).catch(err => console.error(err))
 
@@ -256,7 +257,7 @@ export async function getServerSideProps ({ req }) {
     props: {
       menus: user.menus,
       email: session.user.email,
-      token: req.cookies['__Secure-next-auth.session-token'],
+      token: token,
       recipes: user.saved_recipes
     }
   }

@@ -8,7 +8,6 @@ import Pie from '../components/Charts/Pie'
 import { format, __TODAY, fromTimestamp } from '../lib/dates'
 import { formatData, getUserNut, getUserIMC, getUserPreferences } from '../lib/statistics'
 import { generateShoppingList } from '../lib/shopping'
-import { getToken } from 'next-auth/jwt'
 
 export default function Home ({ user }) {
   let userNut
@@ -95,15 +94,11 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-
   // await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
   //   method: 'PUT',
   //   headers: { 'Content-Type': 'application/json' },
   //   body: JSON.stringify({ field: 'visitIndex' })
   // }).catch(err => console.error(err))
-
-  console.log(session, session.user.email, process.env.NEXT_PUBLIC_BASE_PATH_BACKEND, req.cookies['__Secure-next-auth.session-token'], token)
 
   const parametros = new URLSearchParams({ email: session.user.email })
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
@@ -112,7 +107,6 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
 
   return {
     props: {
