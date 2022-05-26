@@ -47,7 +47,7 @@ export async function getServerSideProps ({ req }) {
   }
 
   const params = new URLSearchParams({ quantity: 25 })
-  const recipes = await fetch(`http://localhost:4000/api/inventory/discovery?${params.toString()}`, {
+  const recipes = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/discovery?${params.toString()}`, {
     headers: {
       Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
     }
