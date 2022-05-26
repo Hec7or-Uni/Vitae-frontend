@@ -80,7 +80,6 @@ export default NextAuth({
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
-        console.log({ email: profile.email, account })
         await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/connect-account`, {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),

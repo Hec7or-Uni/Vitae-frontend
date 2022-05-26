@@ -73,7 +73,7 @@ export default function User () {
             onClick={handleDocs}
             className='py-1.5 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'
           >
-            Memoria
+            Docs
           </button>
           </div>
           <div className='mt-2 py-2 opacity-60 hover:opacity-100 hover:bg-red-300 hover:bg-opacity-30 duration-300 hover:text-red-800 rounded px-3'>

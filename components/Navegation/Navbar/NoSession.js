@@ -26,7 +26,7 @@ export default function Navbar () {
             onClick={handleDocs}
             className='capitalize text-sm  font-bold tracking-normal px-4 py-2.5 rounded-lg text-white duration-300 hover:underline hover:underline-offset-2'
           >
-            Memoria
+            Docs
           </button>
         </div>
         <div className="flex gap-x-3 absolute right-0 mx-4">
