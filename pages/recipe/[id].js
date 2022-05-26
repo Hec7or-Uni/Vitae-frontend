@@ -111,7 +111,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           {recipe.title}
         </h1>
       </div>
-      {recipe.extendedIngredients !== [] &&
+      {recipe.extendedIngredients !== [] && recipe.nutrition.length !== 4 &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Ingredients
@@ -157,7 +157,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           })}
         </ol>
       </div>
-      {recipe.nutrition !== [] &&
+      {recipe.nutrition !== [] && recipe.nutrition.length !== 4 &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Nutrition
