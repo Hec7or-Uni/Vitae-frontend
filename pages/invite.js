@@ -58,17 +58,20 @@ export default function Invite () {
     }
 
     return new Promise((resolve, reject) => {
-      const res = fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signup`, {
         method: 'POST',
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }
+      }).then(res => {
+        console.log(res)
+        if (res.status === 201 && res.ok === true) {
+          resolve('ok')
+        } else {
+          reject(new Error('error'))
+        }
+      }).catch(err => {
+        reject(new Error(err))
       })
-      console.log(res)
-      if (res.status === 201 && res.ok === true) {
-        resolve('ok')
-      } else {
-        reject(new Error('error'))
-      }
     })
   }
 
