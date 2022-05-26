@@ -134,9 +134,13 @@ export async function getServerSideProps ({ req }) {
   const { content, data } = getPost('memoria')
   const mdxSource = await serialize(content, { scope: data })
 
+  const token = req.cookies['__Secure-next-auth.session-token']
   await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
     body: JSON.stringify({ field: 'visitIndex' })
   })
 
