@@ -115,7 +115,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           Ingredients
         </h2>
         <div className='mt-4 flex flex-wrap gap-4 w-2/3'>
-          {recipe.extendedIngredients.map(ingredient => {
+          {recipe.extendedIngredients !== [] && recipe.extendedIngredients.map(ingredient => {
             return (
               <div key={ingredient.id} className='h-28 w-28 bg-gray-200 relative flex flex-col items-center justify-center rounded-lg'>
                 <span className='select-none w-full h-full z-10 bg-black bg-opacity-0 hover:bg-opacity-20 flex flex-col
@@ -139,7 +139,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
         Instructions
         </h2>
         <ol className='mt-4 flex flex-col gap-4 w-2/3 list-decimal'>
-          {recipe.analyzedInstructions.map(instruction => {
+          {recipe.analyzedInstructions !== [] && recipe.analyzedInstructions.map(instruction => {
             return (
               <li key={instruction.id} className='flex flex-col'>
                 <p>{instruction.name.replaceAll(/step.[0-9]+/gmi, ' ')}</p>
@@ -160,7 +160,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
           Nutrition
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {recipe.nutrition && zip(images, recipe.nutrition).map(item => {
+          {recipe.nutrition !== [] && zip(images, recipe.nutrition).map(item => {
             return (
               <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
                   <Image

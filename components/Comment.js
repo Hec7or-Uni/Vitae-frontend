@@ -97,7 +97,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       }
     }
     if (parentId) { body.comment.parentId = parentId }
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}/user/comments`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, {
       method: 'DELETE',
       headers,
       body: JSON.stringify(body)
