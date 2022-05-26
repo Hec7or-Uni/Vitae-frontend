@@ -1,34 +1,66 @@
 ---
 title: "Vitop App"
-description: "Aplicación de dietas con la que mejorar tu calidad de vida"
 date: "24-05-22"
 ---
 
-## Resumen
+# VITOP
+## Como empezar
+---
+### Preparación
+`.env`
+Para que la aplciación funcione correctamente se requirá de las siguiente variables de entorno.
+
+```
+NEXTAUTH_URL=
+NEXTAUTH_SECRET=
+GOOGLE_ID=
+GOOGLE_SECRET=
+TWITTER_CLIENT_ID=
+TWITTER_CLIENT_SECRET=
+INSTAGRAM_CLIENT_ID=
+INSTAGRAM_CLIENT_SECRET=
+MONGODB_URI=
+NEXT_PUBLIC_ANALYTICS_ID=
+NEXT_PUBLIC_BASE_PATH_FRONTEND=
+NEXT_PUBLIC_BASE_PATH_BACKEND=
+```
+
+Para obtener una clave de cifrado de los jwt podemos ejecutar el comando `openssl rand -hex 128` o visitando la siguiente [web](https://generate-secret.vercel.app/128)
+
+### Instalación
+Nota: Para poder observar el correcto funcionamiento de la aplicación necesitaresmos hacer uso de la otra parte del proyecto que encontrarás [aquí](https://github.com/Hec7or-Uni/Vitae-backend)
+
+```
+# 1. Clona el repositorio de github
+git clone https://github.com/Hec7or-Uni/Vitae-frontend.git
+# 2. Instala las dependencias mediante:
+npm install
+# 3. Ejecuta el proyecto:
+npm run build
+npm run start
+```
+
+
+## Memoria
 ---
 
 ### ¿Qué es Vitop?
-Vitop es una aplicación web cuyo principal objetivo es ayudar a las personas a llevar una dieta sana y equilibrada. Para ello, la app ofrece la busqueda y almacenamiento de recetas con las que poder generar menus personalizados. Además, aporta información al usuario mediante distintas métricas de las que hablaremos posteriormente.
-Esta aplicación no busca solo mantener a los usuarios sanos, sino que también tiene como objetivo facilitar y simplificar algunas de las tareas del dia a dia.
+Vitop es la aplicación de comida que ayuda a sus usuarios a llevar una dieta sana y equilibrada, para ellos utiliza datos proporcionados por los usuarios asi como: `peso`, `altura`, `dieta` proporcionado les aquellas recetas que mas les pueda apetecer para cumplir su objetivo, es decir si un usuario tiene definido como parametro `dieta`:=`vegetarian` cuando realice una busqueda le saldrán recetas relacionadas .
 
+### Analisis y diseño
+A comienzos de este proyecto, se realizó un pequeño analisis de cuales podrían ser los princiaples problemas de las personas en la actualidad. Algunos de los que más nos llamaron la atención dueron los siguientes:
+- Subida masiva de los precios de la luz y los combustibles fósiles
+- Falta de transparencia / accesibilidad a los datos de cuentas del pais
+- El continuo incremento de la población con obesidad en Europa
 
-## Analisis y Diseño
----
-### Analisis de requisitos
-En las etapas inciales del proyecto se realizó un pequeño analisis de cuales podrían ser los principales problemas de las personas de entre 20-50 años.
-Algunos de los mas relevantes fueron:
-- Falta de tiempo para planificar un menu familiar
-- Desconocimiento sobre cocina (recetas, ingredientes, etc)
-- Demasiados sitios donde buscar recetas 
-- Llevar un registro del progreso
+Finalmente se decidio realizar la tercera idea puesto que al equipo le parecio que sería esta la que podría tener un resultado/efecto más directo en nuestros usuarios.
 
-### Publico objetivo
-Tras haber realizado un ligero analisis del entorno y alguna que otra entrevista, llegamos a la conclusión de que nuestro público objetivo eran personas de entre 18-25 años que esten estudiando fuera de su hogar, y padres que estan trabajando todo el día y no tienen apenas tiempo para pensar que cocinar.
+Una vez determinada la idea, se realizaron una pequeña batería de análisis entre los que podemos destacar 2, el del publico objetivo y el analisis de la competencia.
+Como **publico objetivo** conseguimos identificar 2 grupos principales ambos 2 con un grupo de gente adulta. El primer grupo estaría caracterizado por peronas de entre 18-25 años aproximadamente, con un perfil de estudiante que se ha tenido que independizar para poder realizar sus estudios.y otro grupo un poco mas adulto cuya actividad laborar les impide tener del tiempo necesario para realizar un buen plan de comidas.
 
-### Analisis de la competencia
-Previo a la validacion de la idea, se realizo una busqueda exaustiva de sitios similares al de la idea inicial, entre ellos estaban los de la siguiente tabla:
+Para el **analisis de la competencia** analizamos varias empresas que tenian productos similares al que queriamos proponer nosotros pero ninguna de ellas llegaba a incluirlos todos.
 
-| Name | Lista de la compra | Metricas nutricionales | Consultar recetas | Comentarios de las recetas | Price|
+| Name | Lista de la compra | Métricas nutricionales | Consultar recetas | Comentarios de las recetas | Price|
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | [Nootric](https://www.nootric.com/es) | ❌ | ✅ | ✅ | ❌ | ❌ | 
 | [Mealime](https://www.mealime.com/) | ✅ | ❌ | ✅ | ❌ | ❌ |
@@ -36,44 +68,15 @@ Previo a la validacion de la idea, se realizo una busqueda exaustiva de sitios s
 | [Dommuss](https://www.dommuss.com/) | ✅ | ❌ | ✅ | ❌ | ❌ |
 
 ## Desarrollo
-Para comenzar el desarrollo se decidio seguir una estrategía basada en la funcionalidad del usuario es decir, primero se realizarian un mockup de las vistas que estos tendrían para posteriormente diseñar los modelos de datos necesarios para almacenar la informació a servir e implementar las funcionalidades justas para cubrir las necesidades de estos.
+---
+Para el desarrollo del proyecto se decidió seguir la siguiente arquitectura sustentada en 2 backends.
 
-### Diseño
-### Apariencia
-Para el diseño de la UI se decidio seguir un layout simple y eficaz, que le simplificara la vida al usuario, separando así las parte de acceso con las diferentes paginas quedando asi esta plantilla:
-
-![[Pasted image 20220525030759.png]]
-
-Como se puede observar en la figura superior, la estructura de vitop es identica salvando algunos pequeños detalles que se han ido corrigiendo durante el desarrollo.
-
-### Diseño de funcionalidad
-Para el diseño de la funcionalidad alojada en el backend se decidio que esta deberia estar organizada en base al sujeto paciente de la acción, por ejemplo una funcionalidad que añade recetas deberia estar separada de la que permite al usuario hacer login, de esta forma tendriamos mas ficheros pero mas pequeños.
-
-
-### Arquitectura de alto nivel
 ![[Pasted image 20220525025636.png]]
-Como arquitectura, decidimos utilizar `NEXT JS` para gestionar la interacion del usuario y `Express JS` para la logica de la aplicación, además de utilizar `Mongo DB` como base de datos para la aplicación.
 
-Algunos de los motivos por los que se eligió utilizar `NEXT JS` vs plain `REACT` eran que como la vista de la aplicación iba a ser desplegada sobre Vercel (desarrolladores de NEXT JS) estos tienen alguna que otra mejora al usar su framework y desplegar sobre su paas como por ejemplo su componente imagen que permite cargas adapatadas al dispositivo reduciendo asi el tamaño de los archivos, ademas de que next js te da la posibilidad de utilizar 2 estrategias de precarga de la web SThese include pre-rendering with Server-side Rendering or Static Generation, and updating or creating content at runtime with Incremental Static Regeneration.
+Por un lado, el primer backend esta creado utilizando [next js](https://nextjs.org/) un framework que agiliza bastante el desarrollo de aplicaciones con [react](https://reactjs.org/). La razón de utilizar un backend extra era poder separar la parte de la gestión de sesiones, además de poder utilizar estrategias de [SSG](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) y [SSR](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props), la opcion de utilizar [CSR](https://nextjs.org/docs/basic-features/data-fetching/client-side) se descarto por los requisitos del sistema, ya que se pretendia evitar que el usuarios viera de primeras una página en blanco cargando. Como exception a esta regla, esta la pagina `/recipes/:id` que si que utiliza Client Side con [SWR](https://github.com/vercel/swr) para simular un chat en tiempo real.
 
-¿porque de mongo?
+- `SSG` -> Static Side Generation
+- `SSR` -> Server Side Rendering
+- `CSR` -> Client Side Rendering
 
-¿porque de express?
-
-### Modelo de datos
-insertar imagen
-
-
-
-### Mapa de Navegación
-
-
-
-#### Resultado
-#### Problemas
-
-
-### Conclusion
-### Valoracion personal
-
-### Anexo
+`Next JS` fue desplegado en la plataforma de sus creadores puesto que al ser de los mismos aporta una serie de ventajas que otras tecnologias no tendrán como el aprovechamiento de la arquitectura 
