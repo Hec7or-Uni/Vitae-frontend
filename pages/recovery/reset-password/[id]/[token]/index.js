@@ -3,7 +3,7 @@ import crypto from 'crypto'
 import CryptoJS from 'crypto-js'
 const jwt = require('jsonwebtoken')
 
-export default function Recovery ({ csrfToken, id }) {
+export default function Recovery ({ id }) {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -48,7 +48,6 @@ export default function Recovery ({ csrfToken, id }) {
           }
           className="mt-4"
         >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <label className="block mt-1.5">
             <span className="text-sm text-gray-700">Contraseña</span>
             <input

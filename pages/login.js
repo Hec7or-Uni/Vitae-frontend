@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { signIn, getCsrfToken } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import toast, { Toaster } from 'react-hot-toast'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useRef, useState } from 'react'
 
-export default function Login ({ csrfToken }) {
+export default function Login () {
   const router = useRouter()
   const captcha = useRef(null)
   const [usuarioValido, cambiarusuarioValido] = useState(null)
@@ -58,12 +58,10 @@ export default function Login ({ csrfToken }) {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/home'))
-              .catch(() => router.reload())
           }}
 
           className='mt-4'
         >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <label type='email' id='email' name='email' className='block'>
             <span className='text-sm text-gray-700'>Email</span>
             <input
@@ -165,12 +163,4 @@ export default function Login ({ csrfToken }) {
       </div>
     </div>
   )
-}
-
-export async function getServerSideProps (context) {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context)
-    }
-  }
 }

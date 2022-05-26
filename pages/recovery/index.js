@@ -1,7 +1,6 @@
-import { getCsrfToken } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
-export default function Recovery ({ csrfToken }) {
+export default function Recovery () {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
@@ -30,7 +29,6 @@ export default function Recovery ({ csrfToken }) {
           }}
           className="mt-4"
         >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <label className="block mt-1.5">
             <span className="text-sm text-gray-700">Email</span>
             <input
@@ -53,12 +51,4 @@ export default function Recovery ({ csrfToken }) {
       </div>
     </div>
   )
-}
-
-export async function getServerSideProps (context) {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context)
-    }
-  }
 }

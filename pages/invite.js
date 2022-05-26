@@ -4,9 +4,8 @@ import CryptoJS from 'crypto-js'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import toast, { Toaster } from 'react-hot-toast'
-import { getCsrfToken } from 'next-auth/react'
 
-export default function Invite ({ csrfToken }) {
+export default function Invite () {
   const [pw, setPw] = useState('')
   const [secureLVL, setSecureLVL] = useState(-1)
   const router = useRouter()
@@ -60,7 +59,7 @@ export default function Invite ({ csrfToken }) {
           </span>
         </div>
         <form
-          method='post'
+          method='POST'
           onSubmit={(e) => {
             toast
               .promise(handleSubmit(e), {
@@ -73,12 +72,10 @@ export default function Invite ({ csrfToken }) {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/login'))
-              .catch(() => router.reload())
           }}
 
           className='mt-4'
         >
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div className='flex gap-x-2 mt-3'>
             <label type='name' className='block'>
               <span className='text-sm text-gray-700'>Name</span>
@@ -205,12 +202,4 @@ export default function Invite ({ csrfToken }) {
       </div>
     </div>
   )
-}
-
-export async function getServerSideProps (context) {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context)
-    }
-  }
 }
