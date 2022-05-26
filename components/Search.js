@@ -5,7 +5,7 @@ export default function Search ({ funct }) {
     <form
       method='GET'
       onSubmit={(e) => funct(e)}
-      className='w-2/3 flex items-center gap-4 border rounded-xl px-3 opacity-70 hover:opacity-80 bg-white'>
+      className='w-full sm:w-2/3 flex items-center gap-4 border rounded-xl px-3 opacity-70 hover:opacity-80 bg-white'>
       <button
         type='submit'
       >

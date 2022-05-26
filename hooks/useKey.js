@@ -10,7 +10,6 @@ export default function useKey (key, cb) {
   useEffect(() => {
     function handler (event) {
       if (event.ctrlKey && event.code === key) {
-        console.log('lol')
         callbackRef.current(event)
       }
     }

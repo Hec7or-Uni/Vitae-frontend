@@ -2,11 +2,12 @@ import Question from '../components/Question'
 import Layout from '../components/Layout/NoSession'
 import { serialize } from 'next-mdx-remote/serialize'
 import { getPost } from '../lib/mdxUtils'
+import Link from 'next/link'
 
 export default function FAQ () {
   return (
-    <div className="container px-16 py-8 min-h-screen -mt-16 mx-auto">
-      <div className="mx-auto flex flex-wrap items-center justify-center w-1/2 pb-10 mt-24">
+    <div className="container py-8 min-h-screen -mt-16 mx-auto">
+      <div className="mx-auto flex flex-wrap items-center justify-center w-full pb-10 mt-24 md:w-3/5 lg:w-1/2">
         <h2 className="px-2 py-2 font-bold text-2xl capitalize mb-8">
           frequently asked questions
         </h2>
@@ -14,9 +15,7 @@ export default function FAQ () {
           title={'What is Vitop?'}
           content={
             <p>
-              BIdeas is a platform where people from all over the world can come
-              together to create and develop their projects. In short, we are a
-              platform that puts people in contact with each other.
+              Vitop is a platform where anyone can carry out the dietary plan they want, being able to see their progress as they use the app. In addition, Vitop offers
             </p>
           }
         />
@@ -24,90 +23,99 @@ export default function FAQ () {
           title={'Why Vitop?'}
           content={
             <p>
-              Ideas arises from the need of one of our colleagues who once
-              wanted to develop an idea and in the process saw how difficult it
-              was to find people as passionate as him to develop it from 0,
-              that&apos;s why BIdeas tries to attract different profiles of
-              people to facilitate the problem that we once had and make it
-              easier for users.
+              Unlike other web applications, vitop has focused on the user by providing tools to help you achieve your goals in the simplest way. Some of these are: Statistics on your progress, recipes and menus.
             </p>
           }
         />
         <Question
           title={'How can I save a recipe?'}
           content={
-            <>
-              <ol>1 Log in to your account.</ol>
-              <ol>2 Navigate to /my-team.</ol>
-              <ol>3 Click on create team.</ol>
-              <ol>4 Fill in the requested information.</ol>
-              <ol>5 Save the changes.</ol>
-            </>
+            <ol>
+              <li>1 Log in to your account.</li>
+              <li>2 Navigate to /discover.</li>
+              <li>3 Click on a recipe of your choice.</li>
+              <li>4 Fill in the requested information.</li>
+              <li>5 Once in the recipe screen, click on the save button located at the bottom right of the recipe banner.</li>
+            </ol>
           }
         />
         <Question
           title={'How can I create a menu?'}
           content={
-            <p>
-              Finding the ideal project is often one of the hardest tasks, some
-              people may think that points are everything, but, if you really
-              want to find a team to be comfortable in, we recommend you to look
-              at the people involved in each team and google them. You can tell
-              a lot about a person just by what they post on their social
-              networks.
-            </p>
+            <ol>
+              <li>1 Log in to your account.</li>
+              <li>2 Navigate to /planning.</li>
+              <li>3 click on the Create or Generate button depending on your preferences..</li>
+              <li>4 Fill in the requested information.</li>
+              <li>5 Once finished, click on the green button that says save.</li>
+            </ol>
           }
         />
         <Question
           title={'Can I link other accounts with the vitop account?'}
           content={
             <p>
-              Finding the ideal project is often one of the hardest tasks, some
-              people may think that points are everything, but, if you really
-              want to find a team to be comfortable in, we recommend you to look
-              at the people involved in each team and google them. You can tell
-              a lot about a person just by what they post on their social
-              networks.
+              You can currently link your google account, however, we do not recommend you to do so as it is not recommended due to it being considered an unsafe practice.
             </p>
           }
         />
         <Question
           title={'I forgot my password'}
           content={
-            <p>
-              Finding the ideal project is often one of the hardest tasks, some
-              people may think that points are everything, but, if you really
-              want to find a team to be comfortable in, we recommend you to look
-              at the people involved in each team and google them. You can tell
-              a lot about a person just by what they post on their social
-              networks.
-            </p>
+            <>
+              <p>
+                Don&apos;t worry, it has happened to all of us once, visit this{' '}
+                <Link href='/recovery'>
+                  <a className='text-blue-600 underline underline-offset-1'>
+                    link
+                  </a>
+                </Link>
+                {' '}and follow the steps:
+              </p>
+              <>
+              <ol>1 Navigate to{' '}
+                <Link href='/recovery'>
+                  <a className='text-blue-600 underline underline-offset-1'>
+                    /recovery
+                  </a>
+                </Link>
+              </ol>
+              <ol>2 Fill the form with your account information.</ol>
+              <ol>3 Check your email</ol>
+              <ol>4 Visit the link we send to you.</ol>
+              <ol>5 Go to the link we have sent you, note that this link will expire in 15 minutes.</ol>
+              <ol>6 save your request and enjoy again.</ol>
+            </>
+            </>
           }
         />
         <Question
           title={'Want some new functionality?'}
           content={
             <p>
-              Finding the ideal project is often one of the hardest tasks, some
-              people may think that points are everything, but, if you really
-              want to find a team to be comfortable in, we recommend you to look
-              at the people involved in each team and google them. You can tell
-              a lot about a person just by what they post on their social
-              networks.
+              Si se te ocurre alguna forma de mejorar la aplicacion no dudes en hacer nos lo saber, mediante la creacion de un issue en el repositorio de
+              {' '}
+              <a href='https://github.com/Hec7or-Uni/Vitae-frontend/issues' className='text-blue-500 underline underline-offset-1'>GitHub</a>{' '}
+               o mediante un correo a {' '}<a href='mailto:hi@vitop.xyz' className='text-blue-500 underline underline-offset-1'>hi@vitop.xyz</a>
             </p>
           }
         />
         <Question
           title={'How to report a bug?'}
           content={
-            <p>
-              Finding the ideal project is often one of the hardest tasks, some
-              people may think that points are everything, but, if you really
-              want to find a team to be comfortable in, we recommend you to look
-              at the people involved in each team and google them. You can tell
-              a lot about a person just by what they post on their social
-              networks.
-            </p>
+              <>
+              <p>
+                To report any bugs or errors, visit the repository and there will be an issue, we will fix it as soon as possible.
+              </p>
+              <p>
+                If we haven&apos;t answered you, you can send us an e-mail to the following address{' '}
+                <a href='mailto:hi@vitop.xyz' className='text-blue-500 underline underline-offset-1'>hi@vitop.xyz</a>
+              </p>
+              <p>
+                If you experiment any bug, please try to reload the page before
+                contacting, thank you.
+              </p>
+            </>
           }
         />
       </div>

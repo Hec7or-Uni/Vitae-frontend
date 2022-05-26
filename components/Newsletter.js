@@ -6,7 +6,7 @@ export default function Newsletter () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = { email: String(e.target.email.value) }
-    const endpoint = 'http://localhost:4000/api/newsletter'
+    const endpoint = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}newsletter`
     const options = {
       method: 'POST',
       headers: {
@@ -14,7 +14,7 @@ export default function Newsletter () {
       },
       body: JSON.stringify(data)
     }
-    const response = await fetch(endpoint, options)
+    const response = await fetch(endpoint, options).catch(err => err)
     if (response.status === 201) setActive(false)
   }
 

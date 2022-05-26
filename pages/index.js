@@ -26,13 +26,13 @@ export default function Index () {
           className='w-full h-full object-cover z-0'
         />
         <div className='container w-full flex items-center justify-between z-10 px-20 py-10'>
-          <div className='max-w-prose z-10 flex flex-col gap-8 items-center'>
-            <h1 className='text-white text-center text-4xl font-bold capitalize'>
-              Rutrum vitae morbi quam nulla vel massa eu id massa.
+          <div className='max-w-prose z-10 flex flex-col  gap-20 md:gap-8 items-center'>
+            <h1 className='text-white text-center text-3xl font-bold capitalize'>
+              welcome to the place where you can achieve your nutritional goals.
             </h1>
             <Newsletter/>
           </div>
-          <div className='w-1/4 z-10 flex flex-col gap-6 items-center'>
+          <div className='w-1/4 z-10 hidden lg:flex flex-col gap-6 items-center'>
             {[
               { id: 12345, image: recipe1 },
               { id: 123456, image: recipe2 },
@@ -55,22 +55,22 @@ export default function Index () {
           </div>
         </div>
       </div>
-      <div className='py-20 my-28 h-full container flex justify-center gap-16 mx-auto'>
-        <div className='basis-1/4 flex relative rounded-lg'>
+      <div className='md:py-20 md:my-28 h-full container flex flex-wrap justify-center gap-16 mx-auto'>
+        <div className='basis-1/2 hidden md:flex md:relative rounded-lg'>
           <Image
             src='https://images.unsplash.com/photo-1591504771094-a1ca4de142d7?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
             alt='Picture of the author'
             layout='fill'
-            className='w-full h-full object-cover z-0 rounded-lg'
+            className='w-full h-full object-cover z-50 rounded-lg'
           />
         </div>
         <div className='py-24'>
           <ul className='flex flex-col gap-y-8'>
             {[
-              'Pretium neque sit semper quam consequat. Facilisi tortor, platea vitae eu, odio lacus, sed nisl.',
-              'Tincidunt lectus semper viverra diam sodales. Phasellus augue et gravida bibendum tincidunt.',
-              'Dui arcu velit augue quisque ipsum at vitae lacinia. Orci morbi eget sed ultricies euismod suspendisse volutpat.',
-              'Placerat euismod ut mauris vitae fames. Orci, varius elit id aliquet vitae.'
+              '24/7 connected to give you exceptional service.',
+              'Availability of a multitude of recipes with which you can quickly create a plan to follow with or without the help of a specialist.',
+              'Generation of metrics with which to see your progress and thus serve as feedback for further improvement.',
+              'Technical service with high availability in case of any problem'
             ].map(text => {
               return (
                 <li key={text} className='flex items-start gap-2 max-w-prose'>
@@ -84,7 +84,7 @@ export default function Index () {
           </ul>
         </div>
       </div>
-      <div className='py-20 my-28 container mx-auto flex justify-center gap-20'>
+      <div className='md:py-20 md:my-28 container mx-auto flex flex-wrap justify-center gap-x-20 gap-y-5'>
         <Testimonial
           text={'This app would have come in handy when I was in college. Now I will use it for my work :D'}
           picture={'https://images.unsplash.com/photo-1544717305-2782549b5136?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974'}
@@ -105,17 +105,17 @@ export default function Index () {
         />
       </div>
       <section className='py-20 my-28 flex items-center justify-center bg-[#3a5a40]'>
-        <div className='container flex items-center justify-around text-white'>
+        <div className='container flex flex-wrap flex-col gap-y-14 md:flex-row items-center justify-around text-white'>
           <Observer label={'Recipes'} number={'5000'} duration={1.5} reset={reset}/>
           <Observer label={'Menus'} number={'15000'} duration={2} reset={reset}/>
           <Observer label={'Users'} number={'874'} duration={0.5} reset={reset}/>
           <Observer label={'Constitution'} number={'2022'} duration={1.25} reset={reset}/>
         </div>
       </section>
-      <div className='py-10 my-28 container mx-auto flex justify-center'>
-        <div className='w-2/3 text-center'>
+      <div className='py-10 md:my-28 container mx-auto flex justify-center'>
+        <div className='w-full px-4 md:w-1/2 md:px-0 text-center'>
           <p>
-          Massa justo sit massa ac sed sit. Duis tristique semper elit urna, ullamcorper nec ultrices nulla. Id vel enim diam tortor purus egestas nulla. Nullam ornare nibh nulla fames ultrices urna massa nunc. Dui, vestibulum adipiscing eget dictumst. Iaculis placerat vitae, blandit ac.
+          Project done during the academic period while taking the subject of systems and web technologies taught by Javier Fabra at the University of Zaragoza.
           <br/>
           Id viverra vel, nunc, tristique ante varius amet, nibh elementum. Justo, amet, amet, augue tincidunt. Vitae, at pulvinar scelerisque libero. Sodales ac lectus at netus molestie ullamcorper viverra. Faucibus vulputate nisl, nunc, sed viverra odio sem quis. Pharetra egestas sit congue venenatis vulputate ut tellus.
           </p>
@@ -134,7 +134,7 @@ export async function getServerSideProps ({ req }) {
   const { content, data } = getPost('memoria')
   const mdxSource = await serialize(content, { scope: data })
 
-  await fetch('http://localhost:4000/api/user/statistics', {
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ field: 'visitIndex' })

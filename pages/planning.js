@@ -8,7 +8,7 @@ import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
 export default function Planning ({ menus, email, token, recipes }) {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '' }])
   const [header, setHeader] = useState({ name: '', date: '' })
-  const [menuOp, setOp] = useState(true) // true = create | false = generate
+  const [menuOp, setOp] = useState(true)
 
   const addRecipe = () => {
     setMenu([...menu, { id: cuid(), recipe: '' }])
@@ -39,14 +39,14 @@ export default function Planning ({ menus, email, token, recipes }) {
       }
     }
 
-    await fetch('http://localhost:4000/api/inventory/save-menu', {
+    await fetch('http://localhost:4000/api/inventory/menu', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data)
-    })
+    }).catch(err => console.error(err))
   }
 
   const delMenu = () => {
@@ -69,11 +69,9 @@ export default function Planning ({ menus, email, token, recipes }) {
           }
         })
 
-      console.log(newMenu)
       setMenu(newMenu)
       setOp(false)
     } else {
-      // cambiamos a create
       delMenu()
       setOp(true)
     }
@@ -84,10 +82,10 @@ export default function Planning ({ menus, email, token, recipes }) {
       <form
         method='post'
         onSubmit={(e) => saveMenu(e)}
-        className='w-2/3 bg-white rounded-md px-6 py-4'
+        className='w-full md:w-2/3 bg-white rounded-md px-6 py-4'
       >
         <div className='flex gap-4 justify-between'>
-          <div className='flex gap-4'>
+          <div className='flex gap-4 flex-col sm:flex-row'>
             <button
               type='button'
               onClick={() => handleChangeOp()}
@@ -103,7 +101,7 @@ export default function Planning ({ menus, email, token, recipes }) {
               Generate Menu
             </button>
           </div>
-          <div className='flex gap-4'>
+          <div className='flex gap-x-4 gap-y-2 flex-col sm:flex-row'>
             <button
               type='button'
               onClick={() => addRecipe()}
@@ -128,7 +126,7 @@ export default function Planning ({ menus, email, token, recipes }) {
           </div>
         </div>
         <div className='w-full flex flex-col gap-4 pt-6 pb-10'>
-            <div className='flex gap-4'>
+            <div className='flex gap-4 flex-col sm:flex-row'>
               <label htmlFor='name' className='flex-1 flex flex-col gap-1'>
                 <span>Name</span>
                 <input
@@ -192,7 +190,6 @@ export default function Planning ({ menus, email, token, recipes }) {
               </>
                 : <>
                 {menu.map(r => {
-                  console.log(r)
                   return (
                     <div key={r.id} className='flex gap-4 rounded-md'>
                       <label htmlFor='recipe' className='flex-auto flex flex-col gap-1'>
@@ -248,12 +245,12 @@ export async function getServerSideProps ({ req }) {
   }
 
   const parametros = new URLSearchParams({ email: session.user.email })
-  const user = await fetch(`http://localhost:4000/api/user?${parametros}`, {
+  const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: {

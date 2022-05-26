@@ -21,6 +21,7 @@ User-agent: YandexWebmaster
 User-agent: YandexSitelinks
 User-agent: SeznamBot
 Allow: /
+Allow: /about
 Allow: /faq
 Allow: /privacypolicy
 Allow: /tos

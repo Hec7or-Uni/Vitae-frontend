@@ -43,11 +43,11 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
         content: text
       }
     }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   const handlePublishRep = async (e) => {
@@ -59,11 +59,11 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
         content: text
       }
     }
-    await fetch('http://localhost:4000/api/user/comment-reply', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comment-reply`, {
       method: 'POST',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
     setReply(false)
   }
 
@@ -78,11 +78,11 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
     }
 
     if (parentId) { body.comment.parentId = parentId }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   const handleDelete = async (e) => {
@@ -97,11 +97,11 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
       }
     }
     if (parentId) { body.comment.parentId = parentId }
-    await fetch('http://localhost:4000/api/user/comments', {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}/user/comments`, {
       method: 'DELETE',
       headers,
       body: JSON.stringify(body)
-    })
+    }).catch(err => err)
   }
 
   return (
@@ -121,7 +121,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
             </a>
             <div className='flex flex-col gap-0 w-96'>
               <span className='text-base font-medium'>{exception ? user : creatorEmail}</span>
-              <span className='text-xs font-medium'>{timeago}</span>
+              <span className='text-xs font-medium'>{timeago !== 'NaNs' ? timeago : 'Created at...' }</span>
             </div>
             <div className='flex items-center gap-2.5 absolute right-0 mr-1'>
               <>
@@ -168,7 +168,7 @@ export default function Comment ({ recipeId, comment, user, token, child }) {
               </>
               {!exception && !child && <Tippy
                 arrow={false}
-                content={ <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
+                content={<span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none'>
                     reply
                   </span>}
               >

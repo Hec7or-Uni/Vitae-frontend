@@ -8,7 +8,6 @@ export default function Sidebar () {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(router.asPath)
     let lista
     if (router.asPath !== '/admin') {
       lista = [{
@@ -42,7 +41,7 @@ export default function Sidebar () {
         id: 1,
         link: '/admin',
         icon: <FiActivity className='text-xl stroke-2' />,
-        text: 'home'
+        text: 'admin'
       }]
     }
     setLinks(lista)

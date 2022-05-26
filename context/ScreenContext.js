@@ -7,7 +7,7 @@ export function useScreen () {
 }
 
 export function ScreenProvider ({ children }) {
-  const [docsActive, toggleDocs] = useState(true)
+  const [docsActive, toggleDocs] = useState(false)
   const [mzLayout, toggleMZ] = useState(false)
   const [leftSidebar, toggleLS] = useState(false)
 
@@ -20,7 +20,9 @@ export function ScreenProvider ({ children }) {
       else toggleMZ(true)
     }
   }
-  const handleSl = () => toggleLS(!leftSidebar)
+  const handleSl = () => {
+    toggleLS(!leftSidebar)
+  }
   const handleDocs = () => toggleDocs(!docsActive)
 
   return (

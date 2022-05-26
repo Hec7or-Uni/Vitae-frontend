@@ -62,37 +62,39 @@ export default function Admin ({ allData }) {
   })
 
   return (
-    <div className='max-w-5xl grid grid-cols-3 gap-4 min-h-fit'>
-      <div className='col-span-3 min-h-80 flex items-center justify-center px-1 py-4 bg-white shadow-md rounded-lg'>
+    <div className='max-w-5xl flex flex-col gap-4 min-h-fit'>
+      <div className='w-full min-h-80 flex items-center justify-center px-1 py-4 bg-white shadow-md rounded-lg'>
         <MapChart />
       </div>
-      <div className='flex flex-col gap-4'>
-        {[{
-          icon: <FiUsers className='text-2xl'/>,
-          text: 'Registered users',
-          value: registerUsers
-        }, {
-          icon: <FiUserCheck className='text-2xl'/>,
-          text: 'Visits by registered users',
-          value: allData.DailyVisits[allData.DailyVisits.length - 1].visitHome
-        }, {
-          icon: <FiTrendingUp className='text-2xl'/>,
-          text: 'Visits by unregistered users',
-          value: allData.DailyVisits[allData.DailyVisits.length - 1].visitIndex
-        }].map((item) => {
-          return (
-            <div key={1} className='h-20 flex items-center justify-between px-8 py-1 bg-white rounded-lg select-none'>
-              <div className='flex gap-4'>
-              {item.icon}
-                <h3 className='text-base font-medium'>{item.text}</h3>
+      <div className='w-full h-64 flex min-h-fit items-center gap-4'>
+        <div className='flex flex-col gap-4'>
+          {[{
+            icon: <FiUsers className='w-6 h-6'/>,
+            text: 'Registered users',
+            value: registerUsers
+          }, {
+            icon: <FiUserCheck className='w-6 h-6'/>,
+            text: 'Visits by registered users',
+            value: allData.DailyVisits[allData.DailyVisits.length - 1].visitHome
+          }, {
+            icon: <FiTrendingUp className='w-6 h-6'/>,
+            text: 'Visits by unregistered users',
+            value: allData.DailyVisits[allData.DailyVisits.length - 1].visitIndex
+          }].map((item) => {
+            return (
+              <div key={1} className='h-20 w-80 gap-2 flex items-center justify-between px-8 py-1 bg-white rounded-lg select-none'>
+                <div className='flex gap-4 items-center'>
+                  {item.icon}
+                  <h3 className='text-sm sm:text-base font-medium'>{item.text}</h3>
+                </div>
+                <span className='text-2xl font-medium ml-4'>{item.value}</span>
               </div>
-              <span className='text-2xl font-medium'>{item.value}</span>
-            </div>
-          )
-        })}
-      </div>
-      <div className='col-span-2 h-full flex-1 px-1 py-4 bg-white shadow-md rounded-lg'>
-        <VariousLines labels={labelLine} data={data}/>
+            )
+          })}
+        </div>
+        <div className='w-full h-full flex-auto px-1 py-4 bg-white shadow-md rounded-lg'>
+          <VariousLines labels={labelLine} data={data}/>
+        </div>
       </div>
     </div>
   )
@@ -114,11 +116,11 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const { email, role } = await fetch('http://localhost:4000/api/user/signin', {
+  const { email, role } = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signin`, {
     method: 'POST',
     body: JSON.stringify({ email: session.user.email }),
     headers: { 'Content-Type': 'application/json' }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => console.error(err))
 
   const allowedEmails = ['hector@vitop.xyz', 'bolu@vitop.xyz', 'alvaro@vitop.xyz']
   if (!allowedEmails.includes(email) || role !== 1) {
@@ -130,13 +132,13 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const data = await fetch('http://localhost:4000/api/user/statistics', {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: {

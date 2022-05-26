@@ -2,9 +2,9 @@ import Layout from '../components/Layout/WithSession'
 import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import Tippy from '@tippyjs/react'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Settings ({ user, token }) {
-  console.log(user.weight)
   const google = user.accounts.some(item => item.provider === 'google')
   const twitter = user.accounts.some(item => item.provider === 'twitter')
   const instagram = user.accounts.some(item => item.provider === 'instagram')
@@ -19,34 +19,49 @@ export default function Settings ({ user, token }) {
       height: Number(e.target.height.value) || user.height,
       weight: Number(e.target.weight.value) || user.weight[user.weight.length - 1]
     }
-    const uri = 'http://localhost:4000/api/user/update-account'
-    await fetch(uri, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify(query)
-    }).then(res => console.log(res))
-      .catch(err => console.error(err))
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/update-account`
+    return new Promise((resolve, reject) => {
+      fetch(uri, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(query)
+      })
+        .then((res) => {
+          if (res.status === 204 && res.ok === true) {
+            resolve('ok')
+          }
+          reject(new Error('error'))
+        })
+        .catch(err => console.error(err))
+    })
   }
 
-  const handleDelete = async () => {
-    const uri = 'http://localhost:4000/api/user/delete-account'
-
-    await fetch(uri, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ email: user.email })
-    }).then(() => signOut({ redirect: 'http://localhost:3000' }))
-      .catch(err => console.error(err))
+  const handleDelete = () => {
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/delete-account`
+    return new Promise((resolve, reject) => {
+      fetch(uri, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ email: user.email })
+      })
+        .then((res) => {
+          if (res.status === 200 && res.ok === true) {
+            resolve('ok')
+          }
+          reject(new Error('error'))
+        })
+        .catch(err => console.error(err))
+    })
   }
 
   const disconnect = async (provider) => {
-    const uri = 'http://localhost:4000/api/user/disconnect-account'
+    const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/disconnect-account`
     await fetch(uri, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -56,12 +71,24 @@ export default function Settings ({ user, token }) {
 
   return (
     <div className='max-w-5xl flex flex-col gap-4 h-full'>
+      <Toaster position="top-center" reverseOrder={false} />
       <form
         method='PUT'
-        onSubmit={(e) => handleUpdate(e)}
-        className='w-2/3 flex flex-col gap-4'
+        onSubmit={(e) => {
+          toast
+            .promise(handleUpdate(e), {
+              loading: 'Updating data',
+              success: 'Data updated successfully',
+              error: 'Error while updating data'
+            }, {
+              loading: { duration: 4000 },
+              success: { duration: 4000 },
+              error: { duration: 4000 }
+            })
+        }}
+        className='w-full sm:w-2/3 flex flex-col gap-4'
       >
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='name' className='flex-1 flex flex-col gap-2'>
             <span>Name</span>
             <input
@@ -85,7 +112,7 @@ export default function Settings ({ user, token }) {
             />
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='username' className='flex-1 flex flex-col gap-2'>
             <span>Username</span>
             <input
@@ -117,7 +144,7 @@ export default function Settings ({ user, token }) {
             </select>
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='birth' className='flex-1 flex flex-col gap-1'>
             <span>Birth</span>
             <input
@@ -137,7 +164,7 @@ export default function Settings ({ user, token }) {
             </select>
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <label htmlFor='height' className='flex-1 flex flex-col gap-1'>
             <span>Size <span className='text-xs'>in cm</span></span>
             <input
@@ -165,7 +192,7 @@ export default function Settings ({ user, token }) {
             />
           </label>
         </div>
-        <div className='flex gap-4'>
+        <div className='flex gap-4 flex-wrap flex-col sm:flex-row'>
           <button
             type='submit'
             className='flex-1 px-2.5 py-2.5 rounded-md bg-green-700 bg-opacity-70 text-white font-bold'
@@ -174,15 +201,51 @@ export default function Settings ({ user, token }) {
           </button>
           <button
             type='button'
-            onClick={() => { handleDelete() }}
-            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold'
+            onClick={() =>
+              toast((t) => (
+                <div className="flex flex-col items-center gap-2">
+                  <p className="font-medium">Delete account?</p>
+                  <p className="text-xs text-center">
+                  You will lose access to the site and your data will be erased from the
+                  registered users section.
+                  </p>
+                  <div className="flex gap-4 mt-2">
+                    <button
+                      onClick={() => toast.dismiss(t.id)}
+                      className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-white hover:bg-gray-100 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-indigo-500 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    >
+                      Dismiss
+                    </button>
+                    <button
+                      onClick={() => {
+                        toast.dismiss(t.id)
+                        toast.promise(handleDelete(), {
+                          loading: 'Deleting account',
+                          success: 'Account successfully deleted',
+                          error: 'Error on successful account deletion'
+                        }, {
+                          loading: { duration: 4000 },
+                          success: { duration: 4000 },
+                          error: { duration: 4000 }
+                        }).then(() => signOut({ redirect: process.env.NEXT_PUBLIC_BASE_PATH_FRONTEND }))
+                          .catch(err => console.error(err))
+                      }}
+                      className="w-20 justify-center rounded-md border border-transparent shadow px-2.5 py-1.5 bg-red-600 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
+            }
+            className='flex-1 px-2.5 py-2.5 rounded-md bg-red-700 bg-opacity-70 text-white font-bold break-words'
           >
             delete account
           </button>
         </div>
       </form>
       <hr className='bg-gray-300 border-0 h-0.5 my-4'/>
-      <div className='max-w-sm flex gap-4'>
+      <div className='max-w-sm flex gap-4 flex-wrap sm:flex-nowrap'>
         <button
           onClick={async () => {
             if (google) {
@@ -276,8 +339,6 @@ export async function getServerSideProps ({ req }) {
     }
   }).then(res => res.json())
     .catch(err => console.error(err))
-
-  console.log(user)
 
   return {
     props: {

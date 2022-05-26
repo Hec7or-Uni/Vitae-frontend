@@ -10,13 +10,13 @@ export default function Discover ({ email, recipes, token }) {
   const handleSearch = async (e) => {
     e.preventDefault()
     const params = new URLSearchParams({ email, search: e.target.target.value })
-    const recipes = await fetch(`http://localhost:4000/api/inventory/search-recipes?${params.toString()}`, {
+    const recipes = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/search-recipes?${params.toString()}`, {
       method: 'GET',
       headers: {
         Authorization: token
       }
     }).then(res => res.json())
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
     setRecipes(recipes)
   }
 
@@ -24,7 +24,7 @@ export default function Discover ({ email, recipes, token }) {
     <div className='max-w-5xl flex flex-col gap-5'>
       <Search funct={handleSearch} />
       <div className='flex flex-wrap gap-4 overflow-y-auto'>
-        {localRecipes.map(item => <Card key={item.spoonId} id={item.spoonId} img={item.image} />)}
+        {localRecipes.map(item => <Card key={item.spoonId} url={'/recipe/' + item.spoonId} img={item.image} />)}
       </div>
     </div>
   )
@@ -46,15 +46,14 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const params = new URLSearchParams({ email: session.user.email })
-  const recipes = await fetch(`http://localhost:4000/api/inventory/random-recipes?${params}`, {
+  const params = new URLSearchParams({ quantity: 25 })
+  const recipes = await fetch(`http://localhost:4000/api/inventory/discovery?${params.toString()}`, {
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
   }).then(res => res.json())
     .catch(err => console.error(err))
 
-  console.log(recipes)
   return {
     props: {
       email: session.user.email,

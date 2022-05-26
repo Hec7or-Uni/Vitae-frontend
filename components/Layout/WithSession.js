@@ -19,7 +19,7 @@ export default function Layout ({ children }) {
     <SWRConfig
       value={{
         refreshInterval: 20,
-        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+        fetcher: (resource, init) => fetch(resource, init).then(res => res.json()).catch(err => err)
       }}
     >
         <ShareProvider>
@@ -31,8 +31,8 @@ export default function Layout ({ children }) {
               style={{ height: 'calc(100vh - 6.5rem)' }}
             >
               <Sidebar />
-              <main className='flex-1 overflow-y-auto bg-gradient-to-t '>
-                <div className='h-full container mx-auto py-4'>
+              <main className='flex-1 overflow-y-auto bg-gradient-to-t px-6 py-6'>
+                <div className='h-full container mx-auto'>
                   { children }
                 </div>
               </main>

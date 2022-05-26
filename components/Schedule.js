@@ -23,7 +23,7 @@ export default function Schedule ({ data }) {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <div className='w-full h-72 grid grid-cols-10 divide-x divide-black divide-opacity-40 border-l border-r border-black border-opacity-40'>
+      <div className='h-72 grid grid-cols-10 divide-x divide-black divide-opacity-40 border-l border-r border-black border-opacity-40'>
         {zip(timestamps, days).map(element => {
           return (
             <div key={element[0]} className='col-span-2 flex flex-col items-center'>

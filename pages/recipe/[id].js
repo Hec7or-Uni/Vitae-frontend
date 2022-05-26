@@ -2,10 +2,12 @@ import Layout from '../../components/Layout/WithSession'
 import Image from 'next/image'
 import { getSession } from 'next-auth/react'
 import { FiPlus, FiClock, FiHeart, FiBookmark, FiCornerDownRight } from 'react-icons/fi'
-import { data2 } from '../../lib/temp'
 import Comment from '../../components/Comment'
 import { zip } from '../../lib/functions'
 import useSWR from 'swr'
+import defaultImage from '../../public/defaultImage.png'
+import Tippy from '@tippyjs/react'
+import { useState } from 'react'
 
 const fetchWithToken = async (uri, spoonId, token) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })
@@ -19,18 +21,19 @@ const fetchWithToken = async (uri, spoonId, token) => {
   return recipe.comments
 }
 
+const images = [
+  'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
+  'https://images.unsplash.com/photo-1608842850202-06e70ead4c10?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687',
+  'https://images.unsplash.com/photo-1638439430466-b2bb7fdc1d67?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
+  'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
+]
+
 export default function Recipe ({ email, recipe, nutrition, token }) {
-  const { data: comments, error } = useSWR(['http://localhost:4000/api/user/comments', recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
+  const [saved, setSaved] = useState(false)
+  const { data: comments, error } = useSWR([`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/comments`, recipe.spoonId, token], fetchWithToken, { refreshInterval: 1000 })
 
   if (error) return <div>failed to load</div>
   if (!comments) return <div>loading...</div>
-
-  const images = [
-    'https://images.unsplash.com/photo-1491273289208-9340cb42e5d9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
-    'https://images.unsplash.com/photo-1608842850202-06e70ead4c10?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687',
-    'https://images.unsplash.com/photo-1638439430466-b2bb7fdc1d67?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765',
-    'https://images.unsplash.com/photo-1587996597484-04743eeb56b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
-  ]
 
   // const comments = recipe.comments
   const handleSaveRecipe = async () => {
@@ -42,35 +45,74 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({ email, recipe })
-    })
+    }).catch(err => console.error(err))
+    setSaved(true)
   }
 
   return (
     <div className='max-w-5xl'>
       <div className='w-full h-80 relative'>
         <Image
-          src= {recipe.image}
+          src= {recipe.image || defaultImage}
           alt='Picture of the author'
           layout='fill'
           className='object-cover z-0'
         />
         <div className='flex gap-x-4 absolute top-0 right-0 mt-2.5 mr-4'>
-          <FiPlus className='w-5 h-5 text-black'/>
-          <FiClock className='w-5 h-5 text-black'/>
-          <FiHeart className='w-5 h-5 text-black'/>
+        <div className='flex gap-x-4 absolute top-0 right-0 mt-2.5 mr-4 bg-black bg-opacity-70 p-2 rounded-lg'>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              Healthy {recipe.healthScore || 0}%
+            </span>
+            }
+          >
+            <button>
+            <FiPlus className='w-5 h-5 text-white'/>
+            </button>
+          </Tippy>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              Preparation time: {recipe.readyInMinutes}m
+            </span>
+            }
+          >
+            <button>
+            <FiClock className='w-5 h-5 text-white cursor-pointer'/>
+            </button>
+          </Tippy>
+          <Tippy
+            arrow={false}
+            placement= 'bottom'
+            content={
+              <span className='tracking-tight font-medium text-xs py-0.5 px-1.5 rounded-md select-none bg-white'>
+              score: unknown
+            </span>
+            }
+          >
+            <button>
+              <FiHeart className='w-5 h-5 text-white cursor-pointer'/>
+            </button>
+          </Tippy>
         </div>
-        <div className='absolute bottom-0 right-0 mb-2.5 mr-4'>
-          <button onClick={() => handleSaveRecipe()}>
-            <FiBookmark className='w-5 h-5 text-black'/>
+        </div>
+        <div className={`${saved ? 'hidden' : ''} absolute bottom-0 right-0 mb-2.5 mr-6 flex items-center bg-black bg-opacity-70 p-2 rounded-lg`}>
+          <button onClick={() => handleSaveRecipe()} disabled={saved}>
+            <FiBookmark className='w-5 h-5 text-white'/>
           </button>
         </div>
         <h1 className='text-2xl font-medium text-white absolute bottom-0 left-0 mb-2.5 ml-4'>
-          Quis sed amet lectus rhoncus
+          {recipe.title}
         </h1>
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-          Sapien rutrum amet, ac
+          Ingredients
         </h2>
         <div className='mt-4 flex flex-wrap gap-4 w-2/3'>
           {recipe.extendedIngredients.map(ingredient => {
@@ -94,7 +136,7 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-        Sollicitudin convallis placerat id
+        Instructions
         </h2>
         <ol className='mt-4 flex flex-col gap-4 w-2/3 list-decimal'>
           {recipe.analyzedInstructions.map(instruction => {
@@ -115,10 +157,10 @@ export default function Recipe ({ email, recipe, nutrition, token }) {
       </div>
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
-          Dignissim et nisl
+          Nutrition
         </h2>
         <div className='flex flex-row gap-x-4'>
-          {zip(images, recipe.nutrition).map(item => {
+          {recipe.nutrition && zip(images, recipe.nutrition).map(item => {
             return (
               <div key={item.name} className='w-full basis-1/4 h-28 bg-black relative mt-4 flex flex-col items-center justify-center p-4'>
                   <Image
@@ -188,27 +230,18 @@ export async function getServerSideProps (context) {
     }
   }
 
-  // const recipes = data.recipes
-  const nutrition = [
-    { name: 'calories', value: data2.calories },
-    { name: 'carbs', value: data2.carbs },
-    { name: 'fats', value: data2.fat },
-    { name: 'proteins', value: data2.protein }]
-  // const recipe = recipes[0]
-
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
-  const recipe = await fetch(`http://localhost:4000/api/inventory?${parametros.toString()}`, {
+  const recipe = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory?${parametros.toString()}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${req.cookies['next-auth.session-token']}`
     }
-  }).then(res => res.json())
+  }).then(res => res.json()).catch(err => console.error(err))
 
   return {
     props: {
       email: session.user.email,
       recipe,
-      nutrition,
       token: req.cookies['next-auth.session-token']
     }
   }

@@ -43,11 +43,11 @@ export default NextAuth({
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch('http://localhost:4000/api/user/signin', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/signin`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' }
-        })
+        }).catch(err => console.error(err))
 
         const { username, email, salt, hash, role } = await res.json()
         if (res.ok && CryptoJS.SHA512(salt + credentials.password).toString() === hash) {
@@ -80,16 +80,16 @@ export default NextAuth({
     },
     async signIn ({ account, profile }) {
       if (account.provider !== 'credentials') {
-        await fetch('http://localhost:4000/api/user/connect-account', {
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/connect-account`, {
           method: 'PUT',
           body: JSON.stringify({ email: profile.email, account }),
           headers: { 'Content-Type': 'application/json' }
         }).then(res => res.json())
           .catch(err => console.error(err))
       }
-      if (account.provider === 'google') { return profile.email_verified && profile.email.endsWith('@gmail.com') }
-      if (account.provider === 'twitter') { return profile.email_verified && profile.email.endsWith('@gmail.com') }
-      if (account.provider === 'instagram') { return profile.email_verified && profile.email.endsWith('@gmail.com') }
+      if (account.provider === 'google') { return profile.email_verified }
+      if (account.provider === 'twitter') { return profile.email_verified }
+      if (account.provider === 'instagram') { return profile.email_verified }
       return true // Do different verification for other providers that don't have `email_verified`
     }
   },
