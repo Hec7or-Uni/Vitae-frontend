@@ -51,6 +51,7 @@ export default function Recipe ({ email, recipe, token }) {
   }
 
   const nutrition = recipe.nutrition.filter(item => ['calories', 'carbs', 'fat', 'protein'].includes(item.name))
+  console.log(nutrition)
 
   return (
     <div className='max-w-5xl'>
@@ -113,7 +114,7 @@ export default function Recipe ({ email, recipe, token }) {
           {recipe.title}
         </h1>
       </div>
-      {recipe.extendedIngredients && recipe.extendedIngredients !== [] &&
+      {(!recipe.extendedIngredients || recipe.extendedIngredients === []) &&
       <div className='my-16'>
         <h2 className='text-xl font-medium'>
           Ingredients
