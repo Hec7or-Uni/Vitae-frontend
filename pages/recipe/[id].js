@@ -8,7 +8,7 @@ import useSWR from 'swr'
 import defaultImage from '../../public/defaultImage.png'
 import Tippy from '@tippyjs/react'
 import { useState } from 'react'
-import cookie from '../lib/cookie'
+import cookie from '../../lib/cookie'
 
 const fetchWithToken = async (uri, spoonId, token, recipes) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })

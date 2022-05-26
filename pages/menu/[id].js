@@ -6,7 +6,7 @@ import { FiPlus, FiClock, FiHeart } from 'react-icons/fi'
 import defaultImage from '../../public/defaultImage.png'
 import { zip } from '../../lib/functions'
 import Tippy from '@tippyjs/react'
-import cookie from '../lib/cookie'
+import cookie from '../../lib/cookie'
 
 export default function Menu ({ menu }) {
   // para los estimados
