@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react'
 import Card from '../components/Card'
 import Search from '../components/Search'
 import { useState } from 'react'
+import cookie from '../lib/cookie'
 
 export default function Discover ({ email, recipes, token }) {
   const [localRecipes, setRecipes] = useState(recipes)
@@ -45,10 +46,11 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
+  const token = req.cookies[cookie]
   const params = new URLSearchParams({ quantity: 25 })
   const recipes = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/discovery?${params.toString()}`, {
     headers: {
-      Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
+      Authorization: `Bearer ${token}`
     }
   }).then(res => res.json())
 
@@ -56,7 +58,7 @@ export async function getServerSideProps ({ req }) {
     props: {
       email: session.user.email,
       recipes: recipes,
-      token: req.cookies['__Secure-next-auth.session-token']
+      token: token
     }
   }
 }

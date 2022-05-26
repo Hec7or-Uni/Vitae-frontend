@@ -11,6 +11,7 @@ import {
   Geography,
   Marker
 } from 'react-simple-maps'
+import cookie from '../lib/cookie'
 
 const geoUrl =
   'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json'
@@ -136,7 +137,7 @@ export async function getServerSideProps ({ req }) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
+      Authorization: `Bearer ${req.cookies[cookie]}`
     }
   }).then(res => res.json())
 

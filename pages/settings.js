@@ -3,6 +3,7 @@ import { getSession, signIn, signOut } from 'next-auth/react'
 import { RiGoogleFill, RiTwitterLine, RiInstagramLine } from 'react-icons/ri'
 import Tippy from '@tippyjs/react'
 import toast, { Toaster } from 'react-hot-toast'
+import cookie from '../lib/cookie'
 
 export default function Settings ({ user, token }) {
   const google = user.accounts.some(item => item.provider === 'google')
@@ -336,7 +337,7 @@ export async function getServerSideProps ({ req }) {
     email: session.user.email
   })
 
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${params.toString()}`
   const user = await fetch(uri, {
     headers: {

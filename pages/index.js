@@ -7,6 +7,7 @@ import { Counter, Observer } from '../components/Counter'
 import Newsletter from '../components/Newsletter'
 import { serialize } from 'next-mdx-remote/serialize'
 import { getPost } from '../lib/mdxUtils'
+import cookie from '../lib/cookie'
 
 export default function Index () {
   const reset = entry => <Counter number={'15000'} duration={2} />
@@ -134,7 +135,7 @@ export async function getServerSideProps ({ req }) {
   const { content, data } = getPost('memoria')
   const mdxSource = await serialize(content, { scope: data })
 
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
     headers: {

@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import defaultImage from '../../public/defaultImage.png'
 import Tippy from '@tippyjs/react'
 import { useState } from 'react'
+import cookie from '../lib/cookie'
 
 const fetchWithToken = async (uri, spoonId, token, recipes) => {
   const parametros = new URLSearchParams({ spoonId: spoonId })
@@ -233,7 +234,7 @@ export async function getServerSideProps (context) {
     }
   }
 
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   const parametros = new URLSearchParams({ spoonId: Number(params.id) })
   const recipe = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory?${parametros.toString()}`, {
     method: 'GET',

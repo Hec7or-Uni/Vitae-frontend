@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react'
 import Schedule from '../components/Schedule'
 import cuid from 'cuid'
 import { FiSave, FiTrash, FiX, FiPlusSquare } from 'react-icons/fi'
+import cookie from '../lib/cookie'
 
 export default function Planning ({ menus, email, token, recipes }) {
   const [menu, setMenu] = useState([{ id: cuid(), recipe: '' }])
@@ -245,7 +246,7 @@ export async function getServerSideProps ({ req }) {
   }
 
   const parametros = new URLSearchParams({ email: session.user.email })
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${parametros}`, {
     method: 'GET',
     headers: {

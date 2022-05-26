@@ -6,6 +6,7 @@ import { FiPlus, FiClock, FiHeart } from 'react-icons/fi'
 import defaultImage from '../../public/defaultImage.png'
 import { zip } from '../../lib/functions'
 import Tippy from '@tippyjs/react'
+import cookie from '../lib/cookie'
 
 export default function Menu ({ menu }) {
   // para los estimados
@@ -157,7 +158,7 @@ export async function getServerSideProps (context) {
     }
   }
 
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   const user = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?email=${session.user.email}`, {
     method: 'GET',
     headers: {

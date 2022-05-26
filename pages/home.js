@@ -8,6 +8,7 @@ import Pie from '../components/Charts/Pie'
 import { format, __TODAY, fromTimestamp } from '../lib/dates'
 import { formatData, getUserNut, getUserIMC, getUserPreferences } from '../lib/statistics'
 import { generateShoppingList } from '../lib/shopping'
+import cookie from '../lib/cookie'
 
 export default function Home ({ user }) {
   let userNut
@@ -94,7 +95,7 @@ export async function getServerSideProps ({ req }) {
     }
   }
 
-  const token = req.cookies['__Secure-next-auth.session-token']
+  const token = req.cookies[cookie]
   await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user/statistics`, {
     method: 'PUT',
     headers: {
