@@ -331,7 +331,7 @@ export async function getServerSideProps ({ req }) {
   })
 
   const token = req.cookies['__Secure-next-auth.session-token']
-  const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}/user?${params.toString()}`
+  const uri = `${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}user?${params.toString()}`
   const user = await fetch(uri, {
     headers: {
       Authorization: `Bearer ${token}`
