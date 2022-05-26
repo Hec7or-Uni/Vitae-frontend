@@ -6,7 +6,7 @@ export default function Recovery () {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}recovery?email=${e.target.email.value}`)
-      .then((res) => res.json()).catch(err => console.error(err))
+      .then((res) => res.json())
   }
 
   return (

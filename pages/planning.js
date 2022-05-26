@@ -46,7 +46,7 @@ export default function Planning ({ menus, email, token, recipes }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(data)
-    }).catch(err => console.error(err))
+    })
   }
 
   const delMenu = () => {

@@ -24,7 +24,7 @@ export default function Recovery ({ id }) {
       body: JSON.stringify({ data })
     }).then((res) => {
       res.json()
-    }).catch(err => console.error(err))
+    })
   }
 
   return (
@@ -87,7 +87,7 @@ export async function getServerSideProps (context) {
 
   // check if this id exists in the database
   const params = new URLSearchParams({ id })
-  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`).catch(err => console.error(err))
+  const user = await fetch(`http://localhost:4000/recovery/validate?${params.toString()}`)
   if (!user) {
     return {
       redirect: {

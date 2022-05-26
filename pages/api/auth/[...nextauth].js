@@ -48,7 +48,6 @@ export default NextAuth({
           body: JSON.stringify(credentials),
           headers: { 'Content-Type': 'application/json' }
         })
-        console.log(res)
 
         const { username, email, salt, hash, role } = await res.json()
         if (res.ok && CryptoJS.SHA512(salt + credentials.password).toString() === hash) {
@@ -86,7 +85,6 @@ export default NextAuth({
           body: JSON.stringify({ email: profile.email, account }),
           headers: { 'Content-Type': 'application/json' }
         }).then(res => res.json())
-          .catch(err => console.error(err))
       }
       if (account.provider === 'google') { return profile.email_verified }
       if (account.provider === 'twitter') { return profile.email_verified }

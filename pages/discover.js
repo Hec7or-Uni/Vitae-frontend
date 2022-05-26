@@ -5,7 +5,6 @@ import Search from '../components/Search'
 import { useState } from 'react'
 
 export default function Discover ({ email, recipes, token }) {
-  console.log(email, recipes, token)
   const [localRecipes, setRecipes] = useState(recipes)
 
   const handleSearch = async (e) => {
@@ -52,7 +51,6 @@ export async function getServerSideProps ({ req }) {
       Authorization: `Bearer ${req.cookies['__Secure-next-auth.session-token']}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
 
   return {
     props: {

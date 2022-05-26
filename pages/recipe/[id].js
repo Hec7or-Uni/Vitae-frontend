@@ -17,7 +17,6 @@ const fetchWithToken = async (uri, spoonId, token, recipes) => {
       Authorization: `Bearer ${token}`
     }
   }).then(res => res.json())
-    .catch(err => console.error(err))
   return recipe.comments
 }
 
@@ -45,7 +44,7 @@ export default function Recipe ({ email, recipe, token, recipes }) {
         Authorization: `Bearer ${token}`
       },
       body: JSON.stringify({ email, recipe })
-    }).catch(err => console.error(err))
+    })
     setSaved(true)
   }
 
