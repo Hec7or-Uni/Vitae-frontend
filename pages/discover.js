@@ -14,7 +14,7 @@ export default function Discover ({ email, recipes, token }) {
     const recipes = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH_BACKEND}inventory/search-recipes?${params.toString()}`, {
       method: 'GET',
       headers: {
-        Authorization: token
+        Authorization: `Bearer ${token}`
       }
     }).then(res => res.json())
     setRecipes(recipes)
