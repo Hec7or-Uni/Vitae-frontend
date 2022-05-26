@@ -128,7 +128,8 @@ export default function Login () {
             <button
               onClick={async () => await signIn('twitter')}
               type='button'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300'
+              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300 cursor-not-allowed hover:text-red-500'
+              disabled
             >
               <RiTwitterLine className='text-xl' />
               <span>Twitter</span>
@@ -136,7 +137,8 @@ export default function Login () {
             <button
               onClick={async () => await signIn('instagram')}
               type='button'
-              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 flex items-center gap-1 hover:scale-95 duration-300'
+              className='capitalize w-full tracking-normal px-4 py-3 text-xs font-bold text-center text-black bg-white-600 shadow-md rounded-md hover:bg-gray-100 cursor-not-allowed hover:text-red-500 flex items-center gap-1 hover:scale-95 duration-300'
+              disabled
             >
               <RiInstagramLine className='text-xl' />
               <span>Instagram</span>
