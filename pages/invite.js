@@ -63,7 +63,6 @@ export default function Invite () {
         body: JSON.stringify(query),
         headers: { 'Content-Type': 'application/json' }
       }).then(res => {
-        console.log(res)
         if (res.status === 201 && res.ok === true) {
           resolve('ok')
         } else {
@@ -98,7 +97,6 @@ export default function Invite () {
                 error: { duration: 4000 }
               })
               .then(() => router.push('/login'))
-              .catch(err => console.error(err))
           }}
 
           className='mt-4'
