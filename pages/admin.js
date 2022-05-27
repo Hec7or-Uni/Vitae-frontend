@@ -123,7 +123,7 @@ export async function getServerSideProps ({ req }) {
     headers: { 'Content-Type': 'application/json' }
   }).then(res => res.json())
 
-  const allowedEmails = ['hector@vitop.xyz', 'bolu@vitop.xyz', 'alvaro@vitop.xyz']
+  const allowedEmails = ['hector@vitop.xyz', 'bolu@vitop.xyz', 'alvaro@vitop.xyz', 'hi@vitop.xyz']
   if (!allowedEmails.includes(email) || role !== 1) {
     return {
       redirect: {
